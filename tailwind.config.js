@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'colorDePrueba': '#6c6c6c'
+        'colorDePrueba': '#6c6c6c',
+        'colorGrisFondo': '#242424'
       }
     },
   },

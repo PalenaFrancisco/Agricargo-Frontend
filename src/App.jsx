@@ -101,7 +101,9 @@ function App() {
         data={testReservationsData.elements}
       />
       <br />
-      <TripCardsList trips={trips} />
+      <div className='p-4'>
+        <TripCardsList trips={trips} />
+      </div>
     </>
   );
 }

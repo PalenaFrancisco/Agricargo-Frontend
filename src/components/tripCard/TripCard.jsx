@@ -10,7 +10,7 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
     };
 
     return (
-        <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md">
+        <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md mb-2.5">
             <div className="flex justify-between flex-grow space-x-8">
                 {/* Origin and destination */}
                 <div className="">

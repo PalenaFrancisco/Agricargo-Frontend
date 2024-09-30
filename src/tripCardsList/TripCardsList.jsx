@@ -15,7 +15,7 @@ const TripCardsList = ({ trips }) => {
     ));
 
     return (
-        <div className="overflow-y-scroll">
+        <div className="overflow-y-scroll h-84 w-full p-2" style={{ maxHeight: '500px' }}>
             {cardsMapped}
         </div>
     )

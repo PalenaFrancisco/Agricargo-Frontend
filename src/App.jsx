@@ -4,6 +4,8 @@ import Button from "./components/button/Button";
 import Input from "./components/input/Input";
 import TripCardsList from "./components/tripCardsList/TripCardsList";
 import ReservationTable from "./components/tables/ReservationTable";
+import Sidebar from "./components/sidebar/Sidebar";
+import { BrowserRouter as Router } from "react-router-dom";
 import "@fontsource/poppins/100.css";
 import "@fontsource/poppins/200.css";
 import "@fontsource/poppins/300.css";
@@ -104,17 +106,21 @@ function App() {
 
   return (
     <>
+    <Router>
+
+      <Sidebar userType={"empresa"}/>
       <h1 className="text-red-500">Holaaaaa</h1>
       <Input inputclass="mb-4">Email</Input>
       <Input inputclass="mb-4">Password</Input>
       <Button>Enviar</Button>
       <ReservationTable
         data={testReservationsData.elements}
-      />
+        />
       <br />
       <div className='p-4'>
         <TripCardsList trips={trips} />
       </div>
+        </Router>
     </>
   );
 }

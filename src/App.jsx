@@ -1,10 +1,6 @@
-
 import "./App.css";
-import Button from "./components/button/Button";
-import Input from "./components/input/Input";
-import TripCardsList from "./components/tripCardsList/TripCardsList";
-import ReservationTable from "./components/tables/ReservationTable";
-import Sidebar from "./components/sidebar/Sidebar";
+// import TripCardsList from "./components/tripCardsList/TripCardsList";
+// import ReservationTable from "./components/tables/ReservationTable";
 import { BrowserRouter as Router } from "react-router-dom";
 import "@fontsource/poppins/100.css";
 import "@fontsource/poppins/200.css";
@@ -15,112 +11,104 @@ import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
+import Home from "./pages/client/Home";
 
 
 function App() {
-
-  const testReservationsData = {
-    cols: ["Viaje", "Fecha", "Precio", "Estado"],
-    elements: [
-      {
-        id: "1",
-        origin: "Buenos Aires",
-        destination: "Montevideo",
-        date: "2024-10-01",
-        price: "10000",
-        status: "Confirmado",
-      },
-      {
-        id: "2",
-        origin: "Rosario",
-        destination: "Córdoba",
-        date: "2024-10-03",
-        price: "30000",
-        status: "Pendiente",
-      },
-      {
-        id: "3",
-        origin: "Mendoza",
-        destination: "San Juan",
-        date: "2024-10-05",
-        price: "140000",
-        status: "Cancelado",
-      },
-    ],
-  };
-  const trips = [
-    {
-      price: 100,
-      destination: "Rosario",
-      origin: "United States",
-      shippingTime: 4,
-      nextShipping: "24/10/2024",
-      businessName: "Massonnat Ships",
-    },
-    {
-      price: 150,
-      destination: "Buenos Aires",
-      origin: "Brazil",
-      shippingTime: 5,
-      nextShipping: "30/10/2024",
-      businessName: "Atlantic Carriers",
-    },
-    {
-      price: 200,
-      destination: "Montevideo",
-      origin: "Canada",
-      shippingTime: 6,
-      nextShipping: "05/11/2024",
-      businessName: "Oceanic Lines",
-    }, {
-      price: 200,
-      destination: "Montevideo",
-      origin: "Canada",
-      shippingTime: 6,
-      nextShipping: "05/11/2024",
-      businessName: "Oceanic Lines",
-    }, {
-      price: 200,
-      destination: "Montevideo",
-      origin: "Canada",
-      shippingTime: 6,
-      nextShipping: "05/11/2024",
-      businessName: "Oceanic Lines",
-    }, {
-      price: 200,
-      destination: "Montevideo",
-      origin: "Canada",
-      shippingTime: 6,
-      nextShipping: "05/11/2024",
-      businessName: "Oceanic Lines",
-    }, {
-      price: 200,
-      destination: "Montevideo",
-      origin: "Canada",
-      shippingTime: 6,
-      nextShipping: "05/11/2024",
-      businessName: "Oceanic Lines",
-    },
-  ];
-
+  // const testReservationsData = {
+  //   cols: ["Viaje", "Fecha", "Precio", "Estado"],
+  //   elements: [
+  //     {
+  //       id: "1",
+  //       origin: "Buenos Aires",
+  //       destination: "Montevideo",
+  //       date: "2024-10-01",
+  //       price: "10000",
+  //       status: "Confirmado",
+  //     },
+  //     {
+  //       id: "2",
+  //       origin: "Rosario",
+  //       destination: "Córdoba",
+  //       date: "2024-10-03",
+  //       price: "30000",
+  //       status: "Pendiente",
+  //     },
+  //     {
+  //       id: "3",
+  //       origin: "Mendoza",
+  //       destination: "San Juan",
+  //       date: "2024-10-05",
+  //       price: "140000",
+  //       status: "Cancelado",
+  //     },
+  //   ],
+  // };
+  // const trips = [
+  //   {
+  //     price: 100,
+  //     destination: "Rosario",
+  //     origin: "United States",
+  //     shippingTime: 4,
+  //     nextShipping: "24/10/2024",
+  //     businessName: "Massonnat Ships",
+  //   },
+  //   {
+  //     price: 150,
+  //     destination: "Buenos Aires",
+  //     origin: "Brazil",
+  //     shippingTime: 5,
+  //     nextShipping: "30/10/2024",
+  //     businessName: "Atlantic Carriers",
+  //   },
+  //   {
+  //     price: 200,
+  //     destination: "Montevideo",
+  //     origin: "Canada",
+  //     shippingTime: 6,
+  //     nextShipping: "05/11/2024",
+  //     businessName: "Oceanic Lines",
+  //   },
+  //   {
+  //     price: 200,
+  //     destination: "Montevideo",
+  //     origin: "Canada",
+  //     shippingTime: 6,
+  //     nextShipping: "05/11/2024",
+  //     businessName: "Oceanic Lines",
+  //   },
+  //   {
+  //     price: 200,
+  //     destination: "Montevideo",
+  //     origin: "Canada",
+  //     shippingTime: 6,
+  //     nextShipping: "05/11/2024",
+  //     businessName: "Oceanic Lines",
+  //   },
+  //   {
+  //     price: 200,
+  //     destination: "Montevideo",
+  //     origin: "Canada",
+  //     shippingTime: 6,
+  //     nextShipping: "05/11/2024",
+  //     businessName: "Oceanic Lines",
+  //   },
+  //   {
+  //     price: 200,
+  //     destination: "Montevideo",
+  //     origin: "Canada",
+  //     shippingTime: 6,
+  //     nextShipping: "05/11/2024",
+  //     businessName: "Oceanic Lines",
+  //   },
+  // ];
 
   return (
     <>
-    <Router>
+      <Router>
+        <Home />
 
-      <Sidebar userType={"empresa"}/>
-      <h1 className="text-red-500">Holaaaaa</h1>
-      <Input inputclass="mb-4">Email</Input>
-      <Input inputclass="mb-4">Password</Input>
-      <Button>Enviar</Button>
-      <ReservationTable
-        data={testReservationsData.elements}
-        />
-      <br />
-      <div className='p-4'>
-        <TripCardsList trips={trips} />
-      </div>
-        </Router>
+      </Router>
     </>
   );
 }

@@ -78,7 +78,7 @@ const menuOptions = {
 
   return (
     <>
-      <nav className="w-full h-24 fixed top-0 left-0 z-30 flex justify-end items-center pr-20 bg-white border-b border-gray-200">
+      <nav className="w-full h-28 fixed top-0 left-0 z-30 flex justify-end items-center pr-20 bg-white border-b border-gray-200">
         <div>
           <ul className="flex items-center gap-8">
             <li>

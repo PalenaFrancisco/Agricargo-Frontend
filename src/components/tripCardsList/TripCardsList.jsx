@@ -1,4 +1,4 @@
-import TripCard from "../components/tripCard/TripCard";
+import TripCard from "../tripCard/TripCard";
 import React from 'react'
 
 const TripCardsList = ({ trips }) => {

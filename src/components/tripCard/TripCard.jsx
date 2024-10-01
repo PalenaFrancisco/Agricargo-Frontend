@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { BsArrowDown } from "react-icons/bs";
+import Button from '../button/Button';
 
 
 const TripCard = ({ price , bussinesName, shipingTime, origin, destination, nextShiping}) => {
@@ -15,7 +16,7 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
                 {/* Origin and destination */}
                 <div className="">
                     <p className="text-gray-900 font-bold">{origin}</p>
-                    <span className="block text-gray-400 flex justify-center text-3xl py-2">
+                    <span className="text-gray-400 flex justify-center text-3xl py-2">
                         <BsArrowDown />
                     </span>
                     <p className="text-gray-900 font-bold">{destination}</p>
@@ -70,7 +71,8 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
                                 </g>
                             </svg>
                         </button>
-                        <button className="bg-blue-500 text-white py-1.5 px-4 rounded-lg ml-0.5">Ver más</button>
+                        {/* <button className="bg-blue-500 text-white py-1.5 px-4 rounded-lg ml-0.5">Ver más</button> */}
+                        <Button>Ver más</Button>
                     </section>
 
                 </section>

@@ -4,7 +4,7 @@ const ClientLayout = ({ children }) => {
   return (
     <div className="">
       <Sidebar userType={"cliente"} />
-      <main className="pl-40 pt-32 w-full h-dvh flex flex-col justify-start items-center">{children}</main>
+      <main className="pl-60 pt-32 w-full h-dvh flex flex-col justify-start items-center">{children}</main>
     </div>
   );
 };

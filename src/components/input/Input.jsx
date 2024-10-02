@@ -1,8 +1,8 @@
-const Input = ({children, inputclass}) => {
+const Input = ({children, inputclass, type}) => {
     return (
         <div className={`relative ${inputclass} `}>
             <input
-                type="text"
+                type={type || "text"}
                 id={`floating_${children}`}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-black bg-transparent rounded-lg border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 dark:focus:border-blue-600 peer"
                 placeholder=" "

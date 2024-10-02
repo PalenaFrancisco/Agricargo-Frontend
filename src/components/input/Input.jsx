@@ -1,11 +1,21 @@
-const Input = ({children, inputclass, type}) => {
+import { useState } from "react";
+
+
+const Input = ({children, inputclass, type = "text"}) => {
+    const [value, setValue] = useState(type === "number" ? 0 : "");
+
+    const handleInputChange = (e) =>{
+        setValue(e.target.value);
+    }
+
     return (
         <div className={`relative ${inputclass} `}>
             <input
-                type={type || "text"}
+                type={type}
                 id={`floating_${children}`}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-black bg-transparent rounded-lg border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 dark:focus:border-blue-600 peer"
                 placeholder=" "
+                onChange={handleInputChange}
             />
             <label
                 htmlFor={`floating_${children}`}

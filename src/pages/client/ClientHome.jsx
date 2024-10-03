@@ -3,7 +3,7 @@ import ClientLayout from "../../layout/ClientLayout";
 // import Button from "../../components/button/Button";
 import SearchForm from "../../components/searchForm/SearchForm";
 
-const Home = () => {
+const ClientHome = () => {
   return (
     <>
       <ClientLayout>
@@ -16,4 +16,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ClientHome;

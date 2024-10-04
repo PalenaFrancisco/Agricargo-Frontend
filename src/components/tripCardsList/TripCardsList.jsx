@@ -15,7 +15,7 @@ const TripCardsList = ({ trips }) => {
     ));
 
     return (
-        <div className="overflow-y-scroll h-84 w-full p-2" style={{ maxHeight: '500px' }}>
+        <div className="flex flex-col gap-4 w-full p-10">
             {cardsMapped}
         </div>
     )

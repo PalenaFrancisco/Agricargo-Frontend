@@ -11,10 +11,10 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
     };
 
     return (
-        <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md mb-2.5">
+        <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md">
             <div className="flex justify-between flex-grow space-x-8">
                 {/* Origin and destination */}
-                <div className="">
+                <div className="flex flex-col items-center ">
                     <p className="text-gray-900 font-bold">{origin}</p>
                     <span className="text-gray-400 flex justify-center text-3xl py-2">
                         <BsArrowDown />
@@ -25,7 +25,7 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
                 {/* Bussines Details */}
                 <div className='flex flex-col justify-around items-center w-full p-1'>
                     <h3 className="text-lg font-semibold text-gray-900">{bussinesName}</h3>
-                    <p className="text-ls text-gray-400">{shipingTime} days</p>
+                    <p className="text-ls text-gray-400">{shipingTime} dias</p>
                     <p className="text-ls text-gray-400">Siguiente salida: {nextShiping}</p>
                 </div>
             </div>
@@ -36,7 +36,7 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
                     <div className="text-center pb-3 pl-6">
                         <h2 className="text-2xl font-bold text-gray-500">${price}</h2>
                     </div>
-                    <section className='flex items-center '>
+                    <section className='flex items-center gap-x-2'>
                         <button
                             type="button"
                             onClick={handleLikeClick}
@@ -44,8 +44,8 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
                         >
                             <svg
                                 fill={isLiked ? "red" : "none"} // Cambia el color de relleno cuando se hace clic
-                                height="18px"
-                                width="18px"
+                                height="30px"
+                                width="30px"
                                 version="1.1"
                                 id="Layer_1"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
                             </svg>
                         </button>
                         {/* <button className="bg-blue-500 text-white py-1.5 px-4 rounded-lg ml-0.5">Ver más</button> */}
-                        <Button>Ver más</Button>
+                        <Button className={"p-2 rounded-lg"}>Ver más</Button>
                     </section>
 
                 </section>

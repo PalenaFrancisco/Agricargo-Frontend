@@ -11,7 +11,9 @@ import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
-import ClientHome from "./pages/client/ClientHome";
+
+import ClientSearchResult from "./pages/client/ClientSearchResult";
+
 
 function App() {
   // const testReservationsData = {
@@ -21,7 +23,7 @@ function App() {
   //       id: "1",
   //       origin: "Buenos Aires",
   //       destination: "Montevideo",
-  //       date: "2024-10-01",
+  //       nextShipping: "2024-10-01",
   //       price: "10000",
   //       status: "Confirmado",
   //     },
@@ -29,7 +31,7 @@ function App() {
   //       id: "2",
   //       origin: "Rosario",
   //       destination: "Córdoba",
-  //       date: "2024-10-03",
+  //       nextShipping: "2024-10-03",
   //       price: "30000",
   //       status: "Pendiente",
   //     },
@@ -37,75 +39,79 @@ function App() {
   //       id: "3",
   //       origin: "Mendoza",
   //       destination: "San Juan",
-  //       date: "2024-10-05",
+  //       nextShipping: "2024-10-05",
   //       price: "140000",
   //       status: "Cancelado",
   //     },
   //   ],
   // };
-  // const trips = [
-  //   {
-  //     price: 100,
-  //     destination: "Rosario",
-  //     origin: "United States",
-  //     shippingTime: 4,
-  //     nextShipping: "24/10/2024",
-  //     businessName: "Massonnat Ships",
-  //   },
-  //   {
-  //     price: 150,
-  //     destination: "Buenos Aires",
-  //     origin: "Brazil",
-  //     shippingTime: 5,
-  //     nextShipping: "30/10/2024",
-  //     businessName: "Atlantic Carriers",
-  //   },
-  //   {
-  //     price: 200,
-  //     destination: "Montevideo",
-  //     origin: "Canada",
-  //     shippingTime: 6,
-  //     nextShipping: "05/11/2024",
-  //     businessName: "Oceanic Lines",
-  //   },
-  //   {
-  //     price: 200,
-  //     destination: "Montevideo",
-  //     origin: "Canada",
-  //     shippingTime: 6,
-  //     nextShipping: "05/11/2024",
-  //     businessName: "Oceanic Lines",
-  //   },
-  //   {
-  //     price: 200,
-  //     destination: "Montevideo",
-  //     origin: "Canada",
-  //     shippingTime: 6,
-  //     nextShipping: "05/11/2024",
-  //     businessName: "Oceanic Lines",
-  //   },
-  //   {
-  //     price: 200,
-  //     destination: "Montevideo",
-  //     origin: "Canada",
-  //     shippingTime: 6,
-  //     nextShipping: "05/11/2024",
-  //     businessName: "Oceanic Lines",
-  //   },
-  //   {
-  //     price: 200,
-  //     destination: "Montevideo",
-  //     origin: "Canada",
-  //     shippingTime: 6,
-  //     nextShipping: "05/11/2024",
-  //     businessName: "Oceanic Lines",
-  //   },
-  // ];
+  const trips = [
+    {
+      price: 100,
+      destination: "Rosario",
+      origin: "United States",
+      shippingTime: 4,
+      nextShipping: "2024-10-24", // Cambiado a yyyy-mm-dd
+      businessName: "Massonnat Ships",
+    },
+    {
+      price: 150,
+      destination: "Buenos Aires",
+      origin: "Brazil",
+      shippingTime: 5,
+      nextShipping: "2024-10-30", // Cambiado a yyyy-mm-dd
+      businessName: "Atlantic Carriers",
+    },
+    {
+      price: 200,
+      destination: "Montevideo",
+      origin: "Canada",
+      shippingTime: 6,
+      nextShipping: "2024-11-05", // Cambiado a yyyy-mm-dd
+      businessName: "Oceanic Lines",
+    },
+    {
+      price: 300,
+      destination: "Montevideo",
+      origin: "Canada",
+      shippingTime: 6,
+      nextShipping: "2024-11-05", // Cambiado a yyyy-mm-dd
+      businessName: "Oceanic Lines",
+    },
+    {
+      price: 800,
+      destination: "Montevideo",
+      origin: "Canada",
+      shippingTime: 6,
+      nextShipping: "2024-11-05", // Cambiado a yyyy-mm-dd
+      businessName: "Oceanic Lines",
+    },
+    {
+      price: 200,
+      destination: "Montevideo",
+      origin: "Canada",
+      shippingTime: 6,
+      nextShipping: "2024-11-05", // Cambiado a yyyy-mm-dd
+      businessName: "Oceanic Lines",
+    },
+    {
+      price: 600,
+      destination: "Montevideo",
+      origin: "Canada",
+      shippingTime: 6,
+      nextShipping: "2024-11-05", // Cambiado a yyyy-mm-dd
+      businessName: "Oceanic Lines",
+    },
+  ];
+
 
   return (
     <>
       <Router>
-        <ClientHome />
+        {/* <ClientHome /> */}
+        <ClientSearchResult data={trips}/>
+        {/* <Login /> */}
+        {/* <Register /> */}
       </Router>
     </>
   );

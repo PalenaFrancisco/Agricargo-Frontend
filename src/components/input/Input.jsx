@@ -1,21 +1,27 @@
 import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
-const Input = ({children, inputclass, type = "text"}) => {
+const Input = ({ children, inputclass, type = "text" }) => {
     const [value, setValue] = useState(type === "number" ? 0 : "");
+    const [showPassword, setShowPassword] = useState(false);
 
-    const handleInputChange = (e) =>{
+    const handleInputChange = (e) => {
         setValue(e.target.value);
-    }
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <div className={`relative ${inputclass} `}>
             <input
-                type={type}
+                type={type === "password" && showPassword ? "text" : type}
                 id={`floating_${children}`}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-black bg-transparent rounded-lg border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 dark:focus:border-blue-600 peer"
                 placeholder=" "
                 onChange={handleInputChange}
+                value={value}
             />
             <label
                 htmlFor={`floating_${children}`}
@@ -23,8 +29,19 @@ const Input = ({children, inputclass, type = "text"}) => {
             >
                 {children}
             </label>
+
+            {/* Mostrar ícono solo si el tipo es "password" */}
+            {type === "password" && (
+                <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600"
+                >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+            )}
         </div>
     );
-}
+};
 
 export default Input;

@@ -13,6 +13,8 @@ import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
 import ClientHome from "./pages/client/ClientHome";
 import ClientSearchResult from "./pages/client/ClientSearchResult";
+import Login from "./pages/Login Register/Login";
+import Register from "./pages/Login Register/Register"
 
 function App() {
   // const testReservationsData = {
@@ -107,7 +109,9 @@ function App() {
     <>
       <Router>
         {/* <ClientHome /> */}
-        <ClientSearchResult data={trips}/>
+        {/* <ClientSearchResult data={trips}/> */}
+        {/* <Login /> */}
+        <Register />
       </Router>
     </>
   );

@@ -11,8 +11,7 @@ import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
-import Home from "./pages/client/Home";
-
+import ClientHome from "./pages/client/ClientHome";
 
 function App() {
   // const testReservationsData = {
@@ -106,8 +105,7 @@ function App() {
   return (
     <>
       <Router>
-        <Home />
-
+        <ClientHome />
       </Router>
     </>
   );

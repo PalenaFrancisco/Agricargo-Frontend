@@ -109,9 +109,9 @@ function App() {
     <>
       <Router>
         {/* <ClientHome /> */}
-        {/* <ClientSearchResult data={trips}/> */}
+        <ClientSearchResult data={trips}/>
         {/* <Login /> */}
-        <Register />
+        {/* <Register /> */}
       </Router>
     </>
   );

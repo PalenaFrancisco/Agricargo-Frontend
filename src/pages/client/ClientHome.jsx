@@ -7,7 +7,7 @@ import SortPill from "../../components/sortPill/SortPill";
 const ClientHome = () => {
   return (
     <>
-      <ClientLayout>
+      <ClientLayout className={"h-dvh"}>
         <section className="flex flex-col gap-6">
           <h1 className="text-black text-3xl font-semibold">Buscar viajes</h1>
           <SortPill>Precio</SortPill>

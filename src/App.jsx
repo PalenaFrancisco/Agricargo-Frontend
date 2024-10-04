@@ -72,7 +72,15 @@ function App() {
       businessName: "Oceanic Lines",
     },
     {
-      price: 200,
+      price: 300,
+      destination: "Montevideo",
+      origin: "Canada",
+      shippingTime: 6,
+      nextShipping: "05/11/2024",
+      businessName: "Oceanic Lines",
+    },
+    {
+      price: 800,
       destination: "Montevideo",
       origin: "Canada",
       shippingTime: 6,
@@ -88,15 +96,7 @@ function App() {
       businessName: "Oceanic Lines",
     },
     {
-      price: 200,
-      destination: "Montevideo",
-      origin: "Canada",
-      shippingTime: 6,
-      nextShipping: "05/11/2024",
-      businessName: "Oceanic Lines",
-    },
-    {
-      price: 200,
+      price: 600,
       destination: "Montevideo",
       origin: "Canada",
       shippingTime: 6,

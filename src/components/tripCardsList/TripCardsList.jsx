@@ -15,7 +15,8 @@ const TripCardsList = ({ trips }) => {
     ));
 
     return (
-        <div className="flex flex-col gap-4 w-full p-10">
+        <div className="flex flex-col gap-4 w-full p-20">
+            <h2 className="text-black underline">Resultados Econtrados:</h2>
             {cardsMapped}
         </div>
     )

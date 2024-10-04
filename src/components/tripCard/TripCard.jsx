@@ -14,7 +14,7 @@ const TripCard = ({ price , bussinesName, shipingTime, origin, destination, next
         <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md">
             <div className="flex justify-between flex-grow space-x-8">
                 {/* Origin and destination */}
-                <div className="flex flex-col items-center ">
+                <div className="flex flex-col items-center whitespace-nowrap">
                     <p className="text-gray-900 font-bold">{origin}</p>
                     <span className="text-gray-400 flex justify-center text-3xl py-2">
                         <BsArrowDown />

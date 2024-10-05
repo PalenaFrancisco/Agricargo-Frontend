@@ -1,7 +1,7 @@
 import "./App.css";
 // import TripCardsList from "./components/tripCardsList/TripCardsList";
 // import ReservationTable from "./components/tables/ReservationTable";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "@fontsource/poppins/100.css";
 import "@fontsource/poppins/200.css";
 import "@fontsource/poppins/300.css";
@@ -11,9 +11,11 @@ import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
-
+import ClientReservations from "./pages/client/ClientReservations";
+import ClientHome from "./pages/client/ClientHome";
 import ClientSearchResult from "./pages/client/ClientSearchResult";
-
+import Login from "./pages/Login Register/Login";
+import Register from "./pages/Login Register/Register";
 
 function App() {
   // const testReservationsData = {
@@ -104,12 +106,23 @@ function App() {
     },
   ];
 
-
   return (
     <>
       <Router>
         {/* <ClientHome /> */}
-        <ClientSearchResult data={trips}/>
+        <Routes>
+          <Route path="/" element={<ClientHome />}></Route>
+          <Route
+            path="/cliente/mis-reservas"
+            element={<ClientReservations />}
+          ></Route>
+          <Route
+            path="/cliente/mis-favoritos"
+            element={<ClientSearchResult data={trips} />}
+          ></Route>
+        </Routes>
+
+        {/* <ClientReservations /> */}
         {/* <Login /> */}
         {/* <Register /> */}
       </Router>

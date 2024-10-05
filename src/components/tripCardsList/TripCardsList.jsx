@@ -28,7 +28,7 @@ const TripCardsList = ({ trips }) => {
                 <Button className={"rounded-lg flex items-center p-2 gap-1 mb-4"} actionClick={sortTripsByPrice}><HiMiniArrowsUpDown /> Ordenar por Precio {isAscending ? "Ascendente" : "Descendente"}</Button>
                 {filterActivate && <Button className={"rounded-lg flex items-center p-2 gap-1 mb-4"} actionClick={resetFilters}><RxCross2 /> Eliminar Filtro</Button>}
             </div> */}
-            <div className="flex flex-col gap-4 w-full p-20 pt-6 overflow-y-scroll custom-scrollbar" style={{ maxHeight: '700px' }}>
+            <div className="flex flex-col gap-4 w-full overflow-y-scroll custom-scrollbar" >
 
                 {cardsMapped}
             </div>

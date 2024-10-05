@@ -9,12 +9,12 @@ const SearchForm = ({ isSearchMode = true }) => {
         : "rounded-full size-12 flex justify-center item-center";
 
     return (
-        <div className="flex items-center gap-4">
+        <form className="flex items-center gap-4">
             <Input>Origen</Input>
             <Input>Destino</Input>
             <Input type="number">Cantidad</Input>
             <Button className={buttonClasses}>{buttonText}</Button>
-        </div>
+        </form>
     );
 };
 

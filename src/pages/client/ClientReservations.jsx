@@ -4,6 +4,7 @@ import SortPill from "../../components/sortPill/SortPill";
 import ClientLayout from "../../layout/ClientLayout";
 import ReusableTable from "../../components/tables/ReusableTable";
 import { useState } from "react";
+import SortSection from "../../components/sortSection/SortSection";
 
 const ClientReservations = () => {
   const tripsArray = [
@@ -57,6 +58,7 @@ const ClientReservations = () => {
     },
   ];
   const statusOrder = ["En viaje", "En preparación", "Finalizado"];
+
   const [trips, setTrips] = useState(tripsArray);
   const [filteredTrips, setFilteredTrips] = useState(tripsArray);
   const [isAscending, setIsAscending] = useState(true);
@@ -88,7 +90,7 @@ const ClientReservations = () => {
     const sorted = [...trips].sort((a, b) => {
       const statusA = statusOrder.indexOf(a.status);
       const statusB = statusOrder.indexOf(b.status);
-      return isAscending ? statusA - statusB : statusB - statusA;
+      return isAscending ? statusA - sBstatu : statusB - statusA;
     });
     setFilteredTrips(sorted);
     setIsAscending(!isAscending);
@@ -100,33 +102,27 @@ const ClientReservations = () => {
     setFilterActivate(!filterActivate);
   };
 
+  const sortOptions = [
+    { label: "Precio", actionSort: sortTripsByPrice },
+    { label: "Fecha", actionSort: sortTripsByDate },
+    { label: "Estado", actionSort: sortTripsByStatus },
+  ];
+
   return (
     <ClientLayout>
-        <div className="flex justify-start border-b-2 w-full pl-20 pt-10 items-center gap-2">
-          <section className="mb-8 flex items-center gap-x-6">
-            <h2 className="text-black text-lg font-semibold uppercase">
-              Resultados:
-            </h2>
-            <SortPill actionSort={sortTripsByPrice}>Precio</SortPill>
-            <SortPill actionSort={sortTripsByDate}>Fecha</SortPill>
-            <SortPill actionSort={sortTripsByStatus}>Estado</SortPill>
-            {filterActivate && (
-              <Button
-                className={"rounded-lg flex items-center p-2 gap-1 m-0 text-sm"}
-                actionClick={resetFilters}
-              >
-                <RxCross2 /> Eliminar Filtro
-              </Button>
-            )}
-          </section>
-        </div>
-        <div className="px-20 w-full py-6">
-          <ReusableTable
-            columns={["Viaje", "Fecha", "Precio", "Estado"]}
-            data={filteredTrips}
-            statusColumn={"status"}
-          />
-        </div>
+      <SortSection
+        title={"Reservas:"}
+        sortOptions={sortOptions}
+        filterActivate={filterActivate}
+        resetFilters={resetFilters}
+      />
+      <div className="px-20 w-full py-6">
+        <ReusableTable
+          columns={["Viaje", "Fecha", "Precio", "Estado"]}
+          data={filteredTrips}
+          statusColumn={"status"}
+        />
+      </div>
     </ClientLayout>
   );
 };

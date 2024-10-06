@@ -5,7 +5,7 @@ import Input from "../input/Input";
 
 const RegisterForm = () => {
     return (
-        <div className="flex justify-center items-center pt-36">
+        <div className="flex justify-center items-center pt-24">
             <div className="bg-white p-8 rounded-lg shadow-md max-w-sm w-full">
                 <h2 className="text-2xl font-bold text-center text-gray-900">Registrarse</h2>
                 <p className="text-center text-gray-400 mb-6">Estamos para ayudarte</p>
@@ -48,8 +48,8 @@ const RegisterForm = () => {
 
                     <p className="text-center text-gray-500 mt-6">
                         ¿Ya tienes una cuenta?{" "}
-                        <a href="#" className="text-blue-500 font-semibold">
-                            Log In
+                        <a href="/login" className="text-blue-500 font-semibold">
+                            Iniciar Sesion
                         </a>
                     </p>
                 </form>

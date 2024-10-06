@@ -3,7 +3,6 @@ import TripCard from "../tripCard/TripCard";
 // import { HiMiniArrowsUpDown } from "react-icons/hi2";
 // import { RxCross2 } from "react-icons/rx";
 // import { useState } from "react";
-import './tripCardsList.css';
 
 const TripCardsList = ({ trips }) => {
    
@@ -28,7 +27,7 @@ const TripCardsList = ({ trips }) => {
                 <Button className={"rounded-lg flex items-center p-2 gap-1 mb-4"} actionClick={sortTripsByPrice}><HiMiniArrowsUpDown /> Ordenar por Precio {isAscending ? "Ascendente" : "Descendente"}</Button>
                 {filterActivate && <Button className={"rounded-lg flex items-center p-2 gap-1 mb-4"} actionClick={resetFilters}><RxCross2 /> Eliminar Filtro</Button>}
             </div> */}
-            <div className="flex flex-col gap-4 w-full overflow-y-scroll custom-scrollbar" >
+            <div className="flex flex-col gap-4 w-full" >
 
                 {cardsMapped}
             </div>

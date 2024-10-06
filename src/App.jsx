@@ -13,7 +13,7 @@ import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
 import ClientReservations from "./pages/client/ClientReservations";
 import ClientHome from "./pages/client/ClientHome";
-import ClientSearchResult from "./pages/client/ClientSearchResult";
+import ClientResult from "./pages/client/ClientResult";
 import Login from "./pages/Login Register/Login";
 import Register from "./pages/Login Register/Register";
 
@@ -118,13 +118,18 @@ function App() {
           ></Route>
           <Route
             path="/cliente/mis-favoritos"
-            element={<ClientSearchResult data={trips} />}
+            element={<ClientResult data={trips}/>}
+            // element={<ClientResult data={trips} isFavorites={false}/>}
           ></Route>
+          <Route
+            path="/login"
+            element={<Login/>}></Route>
+          <Route
+            path="/register"
+            element={<Register/>}></Route>
         </Routes>
 
         {/* <ClientReservations /> */}
-        {/* <Login /> */}
-        {/* <Register /> */}
       </Router>
     </>
   );

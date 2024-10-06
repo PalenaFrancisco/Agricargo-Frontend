@@ -1,6 +1,8 @@
 import SearchForm from "../searchForm/SearchForm";
+import Button from "../button/Button";
+import { Link } from "react-router-dom";
 
-const Navbar = ({searchInNav}) => {
+const Navbar = ({searchInNav, islogged}) => {
 
   const searchingCLass = searchInNav ? "w-4/5 flex justify-between" : "";
   
@@ -22,20 +24,26 @@ const Navbar = ({searchInNav}) => {
             </svg>
           </li>
           <li>
-            <div className="relative size-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-              <svg
-                className="absolute size-10 text-gray-400 -left-1"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </div>
+              {islogged ? 
+                <div className="relative size-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                  <svg
+                    className="absolute size-10 text-gray-400 -left-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg> 
+                </div>
+                :
+                <Link to={"/login"}>
+                  <Button className={"rounded-lg py-2 px-4"}>Login</Button>
+                </Link>
+              }
           </li>
         </ul>
       </div>

@@ -1,12 +1,9 @@
 import ClientLayout from "../../layout/ClientLayout";
 import TripCardsList from "../../components/tripCardsList/TripCardsList";
-import SortPill from "../../components/sortPill/SortPill";
 import { useState } from "react";
-import { RxCross2 } from "react-icons/rx";
-import Button from "../../components/button/Button";
 import SortSection from "../../components/sortSection/SortSection";
 
-const ClientSearchResult = ({ data }) => {
+const ClientResult = ({ data, isFavorites = true }) => {
   const [trips, setTrips] = useState(data);
   const [filteredTrips, setFilteredTrips] = useState(trips);
   const [isAscending, setIsAscending] = useState(true);
@@ -42,9 +39,9 @@ const ClientSearchResult = ({ data }) => {
   ];
 
   return (
-    <ClientLayout search={true}>
+    <ClientLayout search={!isFavorites}>
       <SortSection
-        title={"Resultados:"}
+        title={isFavorites ? "Favoritos:" : "Resultados:"}
         sortOptions={sortOptions}
         filterActivate={filterActivate}
         resetFilters={resetFilters}
@@ -56,4 +53,4 @@ const ClientSearchResult = ({ data }) => {
   );
 };
 
-export default ClientSearchResult;
+export default ClientResult;

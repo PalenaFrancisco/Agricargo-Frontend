@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Input = ({ children, inputclass, type = "text" }) => {
-    const [value, setValue] = useState(type === "number" ? 0 : "");
+    const [value, setValue] = useState(type === "number" ? null : "");
     const [showPassword, setShowPassword] = useState(false);
 
     const handleInputChange = (e) => {
@@ -22,6 +22,7 @@ const Input = ({ children, inputclass, type = "text" }) => {
                 placeholder=" "
                 onChange={handleInputChange}
                 value={value}
+                min={1}
             />
             <label
                 htmlFor={`floating_${children}`}

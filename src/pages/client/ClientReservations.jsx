@@ -1,68 +1,29 @@
-import { RxCross2 } from "react-icons/rx";
-import Button from "../../components/button/Button";
-import SortPill from "../../components/sortPill/SortPill";
+// import { RxCross2 } from "react-icons/rx";
+// import Button from "../../components/button/Button";
+// import SortPill from "../../components/sortPill/SortPill";
 import ClientLayout from "../../layout/ClientLayout";
 import ReusableTable from "../../components/tables/ReusableTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SortSection from "../../components/sortSection/SortSection";
+import { fetchData } from "../../utils/fetchData";
 
 const ClientReservations = () => {
-  const tripsArray = [
-    {
-      trip: "Córdoba - Santa Fe",
-      date: "2024-5-2",
-      price: "1200000",
-      status: "Finalizado",
-    },
-    {
-      trip: "Córdoba - Santa Fe",
-      date: "2024-1-13",
-      price: "1100000",
-      status: "En viaje",
-    },
-    {
-      trip: "Córdoba - Santa Fe",
-      date: "2024-10-12",
-      price: "1200000",
-      status: "En viaje",
-    },
-    {
-      trip: "Córdoba - Santa Fe",
-      date: "2024-10-19",
-      price: "2300000",
-      status: "En preparación",
-    },
-    {
-      trip: "Córdoba - Santa Fe",
-      date: "2024-5-12",
-      price: "1250000",
-      status: "Finalizado",
-    },
-    {
-      trip: "Córdoba - Santa Fe",
-      date: "2024-10-12",
-      price: "1200000",
-      status: "En viaje",
-    },
-    {
-      trip: "Córdoba - Santa Fe",
-      date: "2024-9-8",
-      price: "3200000",
-      status: "En preparación",
-    },
-    {
-      trip: "Córdoba - Santa Fe",
-      date: "2024-6-12",
-      price: "1000000",
-      status: "Finalizado",
-    },
-  ];
+
   const statusOrder = ["En viaje", "En preparación", "Finalizado"];
 
-  const [trips, setTrips] = useState(tripsArray);
-  const [filteredTrips, setFilteredTrips] = useState(tripsArray);
+  const [trips, setTrips] = useState([]);
+  const [filteredTrips, setFilteredTrips] = useState(trips);
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
+
+  useEffect(() => {
+    fetchData("/reservations.json")
+      .then((response) => {
+        setTrips(response);
+        setFilteredTrips(response);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   const sortTripsByPrice = () => {
     const sorted = [...trips].sort((a, b) => {
@@ -90,7 +51,7 @@ const ClientReservations = () => {
     const sorted = [...trips].sort((a, b) => {
       const statusA = statusOrder.indexOf(a.status);
       const statusB = statusOrder.indexOf(b.status);
-      return isAscending ? statusA - sBstatu : statusB - statusA;
+      return isAscending ? statusA - statusB : statusB - statusA;
     });
     setFilteredTrips(sorted);
     setIsAscending(!isAscending);
@@ -120,7 +81,7 @@ const ClientReservations = () => {
         <ReusableTable
           columns={["Viaje", "Fecha", "Precio", "Estado"]}
           data={filteredTrips}
-          statusColumn={"status"}
+          statusColumn={"Estado"}
         />
       </div>
     </ClientLayout>

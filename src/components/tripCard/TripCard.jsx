@@ -3,8 +3,8 @@ import { BsArrowDown } from "react-icons/bs";
 import Button from '../button/Button';
 
 
-const TripCard = ({ price , bussinesName, shipingTime, origin, destination, nextShiping}) => {
-    const [isLiked, setIsLiked] = useState(false);
+const TripCard = ({ price , bussinesName, shipingTime, origin, destination, nextShiping, isFav = false}) => {
+    const [isLiked, setIsLiked] = useState(isFav);
 
     const handleLikeClick = () => {
         setIsLiked(!isLiked);

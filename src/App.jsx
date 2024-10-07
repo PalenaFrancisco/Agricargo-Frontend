@@ -17,6 +17,7 @@ import ClientResult from "./pages/client/ClientResult";
 import Login from "./pages/Login Register/Login";
 import Register from "./pages/Login Register/Register";
 
+
 function App() {
   return (
     <>
@@ -25,13 +26,17 @@ function App() {
         <Routes>
           <Route path="/" element={<ClientHome />}></Route>
           <Route
+            path="/cliente/resultados"
+            element={<ClientResult isFavorites={false}/>}
+          ></Route>
+          <Route
             path="/cliente/mis-reservas"
             element={<ClientReservations />}
           ></Route>
           <Route
             path="/cliente/mis-favoritos"
             // element={<ClientResult />}
-            element={<ClientResult isFavorites={false}/>}
+            element={<ClientResult isFavorites={true}/>}
           ></Route>
           <Route
             path="/login"

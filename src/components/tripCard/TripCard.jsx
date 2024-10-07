@@ -1,12 +1,27 @@
 import { useState } from 'react'
 import { BsArrowDown } from "react-icons/bs";
 import Button from '../button/Button';
+import { useDataContext } from '../context/DataProvider';
 
 
-const TripCard = ({ price , bussinesName, shipingTime, origin, destination, nextShiping, isFav = false}) => {
+const TripCard = ({ id, price, bussinesName, shipingTime, origin, destination, nextShiping, isFav = false}) => {
     const [isLiked, setIsLiked] = useState(isFav);
+    const { addFavorite, removeFavorite } = useDataContext();  
 
     const handleLikeClick = () => {
+         if (isLiked) {
+           removeFavorite(id); 
+         } else {
+           addFavorite({
+             id,
+             price,
+             bussinesName,
+             shipingTime,
+             origin,
+             destination,
+             nextShiping,
+           }); 
+         }
         setIsLiked(!isLiked);
     };
 

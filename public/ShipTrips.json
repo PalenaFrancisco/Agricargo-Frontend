@@ -1,0 +1,12 @@
+ [
+    { "id": 1, "origin": "New York", "destination": "Los Angeles", "price": 1000.50, "status": "Scheduled", "departureDate": "2024-10-10", "arrivalDate": "2024-10-15", "grainQuantity": 500.0, "reserved": true },
+    { "id": 2, "origin": "Miami", "destination": "Houston", "price": 750.00, "status": "In Progress", "departureDate": "2024-10-05", "arrivalDate": "2024-10-07", "grainQuantity": 300.0, "reserved": false },
+    { "id": 3, "origin": "Chicago", "destination": "San Francisco", "price": 1200.00, "status": "Scheduled", "departureDate": "2024-10-12", "arrivalDate": "2024-10-18", "grainQuantity": 600.0, "reserved": true },
+    { "id": 4, "origin": "Boston", "destination": "Seattle", "price": 1500.75, "status": "Completed", "departureDate": "2024-09-20", "arrivalDate": "2024-09-26", "grainQuantity": 800.0, "reserved": true },
+    { "id": 5, "origin": "Denver", "destination": "Phoenix", "price": 900.25, "status": "Cancelled", "departureDate": "2024-10-03", "arrivalDate": "2024-10-08", "grainQuantity": 200.0, "reserved": false },
+    { "id": 6, "origin": "Dallas", "destination": "San Diego", "price": 1050.00, "status": "Scheduled", "departureDate": "2024-10-09", "arrivalDate": "2024-10-14", "grainQuantity": 400.0, "reserved": true },
+    { "id": 7, "origin": "Atlanta", "destination": "Portland", "price": 1350.00, "status": "Scheduled", "departureDate": "2024-10-15", "arrivalDate": "2024-10-20", "grainQuantity": 700.0, "reserved": false },
+    { "id": 8, "origin": "Orlando", "destination": "Las Vegas", "price": 980.00, "status": "In Progress", "departureDate": "2024-10-02", "arrivalDate": "2024-10-06", "grainQuantity": 350.0, "reserved": true },
+    { "id": 9, "origin": "Philadelphia", "destination": "Salt Lake City", "price": 1100.00, "status": "Scheduled", "departureDate": "2024-10-13", "arrivalDate": "2024-10-17", "grainQuantity": 450.0, "reserved": false },
+    { "id": 10, "origin": "San Antonio", "destination": "San Jose", "price": 1600.50, "status": "Completed", "departureDate": "2024-09-25", "arrivalDate": "2024-09-30", "grainQuantity": 750.0, "reserved": true }
+  ]

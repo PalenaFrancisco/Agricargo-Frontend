@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const Input = ({ children, inputclass, type = "text" }) => {
-    const [value, setValue] = useState(type === "number" ? null : "");
+const Input = ({ children, inputclass, type = "text", getValue}) => {
+    const [value, setValue] = useState(type === "number" ? 1 : "");
     const [showPassword, setShowPassword] = useState(false);
 
     const handleInputChange = (e) => {
         setValue(e.target.value);
+        getValue(e.target.value);
     };
 
     const togglePasswordVisibility = () => {

@@ -1,65 +1,111 @@
 [
   {
+    "id": 21312,
     "price": 120,
     "destination": "Rosario",
     "origin": "United States",
     "shippingTime": 4,
+    "quantity": "500",
     "nextShipping": "2024-10-24",
     "businessName": "Massonnat Ships"
   },
   {
+    "id": 21313,
     "price": 180,
     "destination": "Buenos Aires",
     "origin": "Brazil",
     "shippingTime": 5,
+    "quantity": "500",
+    "nextShipping": "2024-7-30",
+    "businessName": "Atlantic Carriers"
+  },
+  {
+    "id": 2113,
+    "price": 180,
+    "destination": "Buenos Aires",
+    "origin": "Brazil",
+    "shippingTime": 5,
+    "quantity": "500",
     "nextShipping": "2024-10-30",
     "businessName": "Atlantic Carriers"
   },
   {
+    "id": 2131,
+    "price": 180,
+    "destination": "Buenos Aires",
+    "origin": "Brazil",
+    "shippingTime": 5,
+    "quantity": "550",
+    "nextShipping": "2024-8-30",
+    "businessName": "Atlantic Carriers"
+  },
+  {
+    "id": 2313,
+    "price": 180,
+    "destination": "Buenos Aires",
+    "origin": "Brazil",
+    "shippingTime": 5,
+    "quantity":"500",
+    "nextShipping": "2024-9-30",
+    "businessName": "Atlantic Carriers"
+  },
+  {
+    "id": 21314,
     "price": 250,
     "destination": "Montevideo",
     "origin": "Canada",
     "shippingTime": 6,
+    "quantity": "600",
     "nextShipping": "2024-11-05",
     "businessName": "Oceanic Lines"
   },
   {
+    "id": 21412,
     "price": 320,
     "destination": "Santiago",
     "origin": "Chile",
     "shippingTime": 7,
+    "quantity": "550",
     "nextShipping": "2024-11-10",
     "businessName": "Andean Freight"
   },
   {
+    "id": 41312,
     "price": 150,
     "destination": "Asunción",
     "origin": "Paraguay",
     "shippingTime": 3,
+    "quantity": 600,
     "nextShipping": "2024-10-20",
     "businessName": "Southern Logistics"
   },
   {
+    "id": 28312,
     "price": 400,
     "destination": "Montevideo",
     "origin": "Uruguay",
     "shippingTime": 5,
+    "quantity": 100,
     "nextShipping": "2024-11-15",
     "businessName": "Uruguayan Shipping Co."
   },
   {
+    "id": 21302,
     "price": 600,
     "destination": "Buenos Aires",
     "origin": "Colombia",
     "shippingTime": 8,
+    "quantity": 800,
     "nextShipping": "2024-11-22",
     "businessName": "Caribbean Logistics"
   },
   {
+    "id": 38312,
     "price": 350,
     "destination": "Lima",
     "origin": "Peru",
     "shippingTime": 6,
+    "quantity": 200,
     "nextShipping": "2024-11-05",
     "businessName": "Pacific Traders"
   }

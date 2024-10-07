@@ -5,9 +5,9 @@ import TripCard from "../tripCard/TripCard";
 // import { useState } from "react";
 
 const TripCardsList = ({ trips, fav }) => {
-  const cardsMapped = trips.map((trip, index) => (
+  const cardsMapped = trips.map((trip) => (
     <TripCard
-      key={index}
+      key={trip.id}
       price={trip.price}
       destination={trip.destination}
       origin={trip.origin}

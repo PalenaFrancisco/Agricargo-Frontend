@@ -20,21 +20,21 @@ const ReusableTable = ({ columns, data, actions, statusColumn }) => {
   };
 
   const renderRows = () => {
-    return data.map((item, rowIndex) => (
+    return data.map((item) => (
       <tr
-        key={rowIndex}
+        key={item.id}
         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
       >
-        {Object.keys(item).map((key, colIndex) => (
-          <td key={colIndex} className="px-6 py-4">
-            {statusColumn && key === statusColumn ? (
+        {columns.map((column) => (
+          <td key={column} className="px-6 py-4">
+            {statusColumn && column === statusColumn ? (
               <span
-                className={`py-2 px-3 rounded-xl ${statusStyles[item[key]]}`}
+                className={`py-2 px-3 rounded-xl ${statusStyles[item[column]]}`}
               >
-                {item[key]}
+                {item[column]}
               </span>
             ) : (
-              item[key]
+              item[column]
             )}
           </td>
         ))}

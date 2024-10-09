@@ -16,6 +16,7 @@ import ClientHome from "./pages/client/ClientHome";
 import ClientResult from "./pages/client/ClientResult";
 import Login from "./pages/Login Register/Login";
 import Register from "./pages/Login Register/Register";
+import { DataProvider } from "./components/context/DataProvider";
 
 function App() {
   return (
@@ -23,11 +24,13 @@ function App() {
       <Router>
         {/* <ClientHome /> */}
         <Routes>
-          <Route path="/" element={<ClientHome />}></Route>
           <Route
             path="/cliente/mis-reservas"
             element={<ClientReservations />}
           ></Route>
+          <Route path="/" element={
+            <ClientHome />
+            }></Route>
           <Route
             path="/cliente/mis-favoritos"
             // element={<ClientResult />}

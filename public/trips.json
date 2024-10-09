@@ -5,7 +5,8 @@
     "origin": "United States",
     "shippingTime": 4,
     "nextShipping": "2024-10-24",
-    "businessName": "Massonnat Ships"
+    "businessName": "Massonnat Ships",
+    "quantity": 10
   },
   {
     "price": 180,
@@ -13,7 +14,8 @@
     "origin": "Brazil",
     "shippingTime": 5,
     "nextShipping": "2024-10-30",
-    "businessName": "Atlantic Carriers"
+    "businessName": "Atlantic Carriers",
+    "quantity": 14
   },
   {
     "price": 250,
@@ -21,7 +23,8 @@
     "origin": "Canada",
     "shippingTime": 6,
     "nextShipping": "2024-11-05",
-    "businessName": "Oceanic Lines"
+    "businessName": "Oceanic Lines",
+    "quantity": 8
   },
   {
     "price": 320,
@@ -29,7 +32,8 @@
     "origin": "Chile",
     "shippingTime": 7,
     "nextShipping": "2024-11-10",
-    "businessName": "Andean Freight"
+    "businessName": "Andean Freight",
+    "quantity": 10
   },
   {
     "price": 150,
@@ -37,7 +41,8 @@
     "origin": "Paraguay",
     "shippingTime": 3,
     "nextShipping": "2024-10-20",
-    "businessName": "Southern Logistics"
+    "businessName": "Southern Logistics",
+    "quantity": 9
   },
   {
     "price": 400,
@@ -45,7 +50,8 @@
     "origin": "Uruguay",
     "shippingTime": 5,
     "nextShipping": "2024-11-15",
-    "businessName": "Uruguayan Shipping Co."
+    "businessName": "Uruguayan Shipping Co.",
+    "quantity": 10
   },
   {
     "price": 600,
@@ -53,7 +59,8 @@
     "origin": "Colombia",
     "shippingTime": 8,
     "nextShipping": "2024-11-22",
-    "businessName": "Caribbean Logistics"
+    "businessName": "Caribbean Logistics",
+    "quantity": 10
   },
   {
     "price": 350,
@@ -61,6 +68,7 @@
     "origin": "Peru",
     "shippingTime": 6,
     "nextShipping": "2024-11-05",
-    "businessName": "Pacific Traders"
+    "businessName": "Pacific Traders",
+    "quantity": 10
   }
 ]

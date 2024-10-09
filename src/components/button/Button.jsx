@@ -1,10 +1,8 @@
-
-
-const Button = ( {children, className, actionClick} ) => {
+const Button = ({ children, className, actionClick, bgColor = "bg-blue-700", hoverColor = "hover:bg-blue-800", typeButton = "button"}) => {
   return (
     <button
-      type="button"
-      className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ${className}`} 
+      type= {typeButton}
+      className={`text-white ${bgColor} ${hoverColor} focus:ring-4 focus:ring-blue-300 font-medium py-2.5 me-2 focus:outline-none ${className}`}
       onClick={actionClick}
     >
       {children}

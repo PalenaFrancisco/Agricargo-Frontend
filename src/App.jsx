@@ -17,6 +17,7 @@ import ClientResult from "./pages/client/ClientResult";
 import Login from "./pages/Login Register/Login";
 import Register from "./pages/Login Register/Register";
 import AdminCreateShip from "./pages/admin/AdminCreateShip";
+import AdminCreateTrip from "./pages/admin/AdminCreateTrip";
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
           ></Route>
           <Route path="/" element={
             // <ClientHome />
-            <AdminCreateShip />
+            <AdminCreateTrip />
             }></Route>
           <Route
             path="/cliente/mis-favoritos"

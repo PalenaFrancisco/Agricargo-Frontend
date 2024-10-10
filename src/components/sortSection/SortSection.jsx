@@ -10,7 +10,7 @@ const SortSection = ({ title, sortOptions = [], filterActivate, resetFilters }) 
   ));
 
   return (
-    <section className="sticky top-28 bg-white flex justify-start border-b-2 w-full pl-20 pt-10 items-center gap-2">
+    <section className="sticky top-28 z-40 bg-white flex justify-start border-b-2 w-full pl-20 pt-10 items-center gap-2">
       <div className="mb-8 flex items-center gap-x-6 z-40">
         <h2 className="text-black text-lg font-semibold uppercase">
           {title}

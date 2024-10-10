@@ -31,6 +31,7 @@ const ClientReservations = () => {
       const priceB = parseFloat(b.price);
       return isAscending ? priceA - priceB : priceB - priceA;
     });
+    console.log(sorted)
     setFilteredTrips(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);

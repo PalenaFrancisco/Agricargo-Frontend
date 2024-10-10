@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Input = ({ children, inputclass, type = "text", setInputValue }) => {
-    const [value, setValue] = useState(type === "number" ? 0 : "");
+    const [value, setValue] = useState(type === "number" ? undefined : "");
     const [showPassword, setShowPassword] = useState(false);
 
     const handleInputChange = (e) => {
@@ -27,7 +27,7 @@ const Input = ({ children, inputclass, type = "text", setInputValue }) => {
             />
             <label
                 htmlFor={`floating_${children}`}
-                className="absolute text-sm text-black bg-white duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:font-bold peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                className="absolute text-sm text-gray-500 bg-white duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:font-bold peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
             >
                 {children}
             </label>

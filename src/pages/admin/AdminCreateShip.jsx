@@ -14,13 +14,13 @@ const AdminCreateShip = () => {
           <Input type="number">Tipo de barco</Input>
           <div className="mt-4">
             <Button
-              className={"px-4 py-2 rounded"}
-              bgColor={"bg-red-700"}
-              hoverColor={"hover:bg-red-800"}
+              className={"px-4 py-2 rounded-lg"}
+              bgColor={"bg-red-500"}
+              hoverColor={"hover:bg-red-700"}
             >
               Cancelar
             </Button>
-            <Button className={"px-4 py-2 rounded"}>Aplicar cambios</Button>
+            <Button className={"px-4 py-2 rounded-lg"}>Aplicar cambios</Button>
           </div>
         </form>
       </section>

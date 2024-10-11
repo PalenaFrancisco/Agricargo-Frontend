@@ -17,7 +17,7 @@ const menuOptions = {
   empresa: {
     paths: [
       { name: "Viajes", path: "/empresa/viajes" },
-      { name: "Barcos", path: "/cliente/logout" },
+      { name: "Barcos", path: "/empresa/barcos" },
     ],
     other: [
       { name: "Ajustes", path: "/empresa/ajustes" },

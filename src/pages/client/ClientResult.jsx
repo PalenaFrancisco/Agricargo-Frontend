@@ -20,7 +20,7 @@ const ClientResult = ({ isFavorites = true }) => {
       })
       .catch((error) => console.error(error));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isFavorites]);
 
   const sortTripsByPrice = () => {
     const sorted = [...trips].sort((a, b) => {

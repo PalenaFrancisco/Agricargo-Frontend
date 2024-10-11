@@ -19,30 +19,33 @@ import Register from "./pages/Login Register/Register";
 import AdminCreateShip from "./pages/admin/AdminCreateShip";
 import AdminCreateTrip from "./pages/admin/AdminCreateTrip";
 
-
 function App() {
   return (
     <>
       <Router>
         <Routes>
+          <Route path="/" element={<ClientHome />}></Route>
+          <Route path="/cliente/resultados" element={<ClientResult isFavorites={false}/>}></Route>
           <Route
             path="/cliente/mis-reservas"
             element={<ClientReservations />}
           ></Route>
-          <Route path="/" element={
-            // <ClientHome />
-            <AdminCreateTrip />
-            }></Route>
           <Route
             path="/cliente/mis-favoritos"
-            element={<ClientResult isFavorites={false}/>}
+            element={<ClientResult />}
+          ></Route>
+
+          <Route
+            path="/empresa/crear-viaje"
+            element={<AdminCreateTrip />}
           ></Route>
           <Route
-            path="/login"
-            element={<Login/>}></Route>
-          <Route
-            path="/register"
-            element={<Register/>}></Route>
+            path="/empresa/crear-barco"
+            element={<AdminCreateShip />}
+          ></Route>
+
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </Router>
     </>

@@ -4,7 +4,7 @@ import TripCard from "../tripCard/TripCard";
 // import { RxCross2 } from "react-icons/rx";
 // import { useState } from "react";
 
-const TripCardsList = ({ trips, fav }) => {
+const TripCardsList = ({ trips = [], fav }) => {
   const cardsMapped = trips.map((trip, index) => (
     <TripCard
       key={index}

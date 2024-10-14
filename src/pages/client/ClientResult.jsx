@@ -1,48 +1,48 @@
 import ClientLayout from "../../layout/ClientLayout";
 import TripCardsList from "../../components/tripCardsList/TripCardsList";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SortSection from "../../components/sortSection/SortSection";
-import { fetchData } from "../../utils/fetchData";
+// import { fetchData } from "../../utils/fetchData";
 
-const ClientResult = ({ isFavorites = true }) => {
-  const [trips, setTrips] = useState([]);
-  const [filteredTrips, setFilteredTrips] = useState([]);
+const ClientResult = ({ data, resetData, setter, isFavorites = true }) => {
+  // const [trips, setTrips] = useState(data);
+  // const [filteredTrips, setFilteredTrips] = useState(data);
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
 
-  const endpoint = isFavorites ? "/favTrips.json" : "/trips.json";
+  // const endpoint = isFavorites ? "/favTrips.json" : "/trips.json";
 
-  useEffect(() => {
-    fetchData(endpoint)
-      .then((response) => {
-        setTrips(response);
-        setFilteredTrips(response);
-      })
-      .catch((error) => console.error(error));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFavorites]);
+  // useEffect(() => {
+  //   fetchData(endpoint)
+  //     .then((response) => {
+  //       setTrips(response);
+  //       setFilteredTrips(response);
+  //     })
+  //     .catch((error) => console.error(error));
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isFavorites]);
 
   const sortTripsByPrice = () => {
-    const sorted = [...trips].sort((a, b) => {
+    const sorted = [...data].sort((a, b) => {
       return isAscending ? a.price - b.price : b.price - a.price;
     });
-    setFilteredTrips(sorted);
+    setter(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
   };
   const sortTripsByDate = () => {
-    const sorted = [...trips].sort((a, b) => {
+    const sorted = [...data].sort((a, b) => {
       return isAscending
         ? new Date(a.nextShipping) - new Date(b.nextShipping)
         : new Date(b.nextShipping) - new Date(a.nextShipping);
     });
-    setFilteredTrips(sorted);
+    setter(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
   };
 
   const resetFilters = () => {
-    setFilteredTrips(trips);
+    setter(resetData);
     setFilterActivate(!filterActivate);
   };
 
@@ -60,7 +60,7 @@ const ClientResult = ({ isFavorites = true }) => {
         resetFilters={resetFilters}
       />
       <div className="px-20 w-full py-6">
-        <TripCardsList trips={filteredTrips} fav={isFavorites ? true : false}/>
+        <TripCardsList trips={data} fav={isFavorites ? true : false}/>
       </div>
     </ClientLayout>
   );

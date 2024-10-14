@@ -10,10 +10,15 @@ export const DataProvider = ({ children }) => {
         quantity: "",
     });
 
+    const [userProfile, setUserProfile] = useState({
+      username: "",
+      password: ""
+    });
+
     const [results, setResults] = useState([]);
     
     return (
-        <DataContext.Provider value={{inputValues, setInputValues, results, setResults}}>
+        <DataContext.Provider value={{inputValues, setInputValues, results, setResults, userProfile, setUserProfile}}>
             {children}
         </DataContext.Provider>
     );

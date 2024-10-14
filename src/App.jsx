@@ -1,7 +1,10 @@
 import "./App.css";
-// import TripCardsList from "./components/tripCardsList/TripCardsList";
-// import ReservationTable from "./components/tables/ReservationTable";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import "@fontsource/poppins/100.css";
 import "@fontsource/poppins/200.css";
 import "@fontsource/poppins/300.css";
@@ -13,39 +16,85 @@ import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
 import ClientReservations from "./pages/client/ClientReservations";
 import ClientHome from "./pages/client/ClientHome";
-import ClientResult from "./pages/client/ClientResult";
 import Login from "./pages/Login Register/Login";
 import Register from "./pages/Login Register/Register";
 import AdminCreateShip from "./pages/admin/AdminCreateShip";
 import AdminCreateTrip from "./pages/admin/AdminCreateTrip";
+import ClientFavorites from "./pages/client/ClientFavorites";
+import ClientSearchs from "./pages/client/ClientSearchs";
+import { useDataContext } from "./components/context/DataProvider";
+
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const { userProfile } = useDataContext();
+
+  if (!userProfile) {
+    return <Navigate to="/login" />;
+  }
+
+  if (!allowedRoles.includes(userProfile.role)) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
+};
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<ClientHome />}></Route>
-          <Route path="/cliente/resultados" element={<ClientResult isFavorites={false}/>}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+
+          <Route
+            path="/cliente"
+            element={
+              <ProtectedRoute allowedRoles={["Cliente"]}>
+                <ClientHome />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/cliente/resultados"
+            element={
+              <ProtectedRoute allowedRoles={["Cliente"]}>
+                <ClientSearchs />
+              </ProtectedRoute>
+            }
+          ></Route>
           <Route
             path="/cliente/mis-reservas"
-            element={<ClientReservations />}
+            element={
+              <ProtectedRoute allowedRoles={["Cliente"]}>
+                <ClientReservations isFavorites={false} />
+              </ProtectedRoute>
+            }
           ></Route>
           <Route
             path="/cliente/mis-favoritos"
-            element={<ClientResult />}
+            element={
+              <ProtectedRoute allowedRoles={["Cliente"]}>
+                <ClientFavorites />
+              </ProtectedRoute>
+            }
           ></Route>
 
           <Route
             path="/empresa/crear-viaje"
-            element={<AdminCreateTrip />}
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+                <AdminCreateTrip />
+              </ProtectedRoute>
+            }
           ></Route>
           <Route
             path="/empresa/crear-barco"
-            element={<AdminCreateShip />}
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+                <AdminCreateShip />
+              </ProtectedRoute>
+            }
           ></Route>
-
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </Router>
     </>

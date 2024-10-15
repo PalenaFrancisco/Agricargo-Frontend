@@ -1,58 +1,58 @@
 [
   {
     "id": 1,
-    "Viaje": "Buenos Aires - Rosario",
-    "Fecha": "2024-5-2",
-    "Precio": "1200000",
-    "Estado": "Finalizado"
+    "trip": "Buenos Aires - Rosario",
+    "date": "2024-5-2",
+    "price": "1200000",
+    "status": "Finalizado"
   },
   {
     "id": 2,
-    "Viaje": "Mendoza - San Juan",
-    "Fecha": "2024-1-13",
-    "Precio": "1100000",
-    "Estado": "En viaje"
+    "trip": "Mendoza - San Juan",
+    "date": "2024-1-13",
+    "price": "1100000",
+    "status": "En viaje"
   },
   {
     "id": 3,
-    "Viaje": "Salta - Jujuy",
-    "Fecha": "2024-10-12",
-    "Precio": "1200000",
-    "Estado": "En viaje"
+    "trip": "Salta - Jujuy",
+    "date": "2024-10-12",
+    "price": "1200000",
+    "status": "En viaje"
   },
   {
     "id": 4,
-    "Viaje": "Córdoba - La Rioja",
-    "Fecha": "2024-10-19",
-    "Precio": "2300000",
-    "Estado": "En preparación"
+    "trip": "Córdoba - La Rioja",
+    "date": "2024-10-19",
+    "price": "2300000",
+    "status": "En preparación"
   },
   {
     "id": 5,
-    "Viaje": "Tucumán - Catamarca",
-    "Fecha": "2024-5-12",
-    "Precio": "1250000",
-    "Estado": "Finalizado"
+    "trip": "Tucumán - Catamarca",
+    "date": "2024-5-12",
+    "price": "1250000",
+    "status": "Finalizado"
   },
   {
     "id": 6,
-    "Viaje": "Neuquén - Bariloche",
-    "Fecha": "2024-10-12",
-    "Precio": "1200000",
-    "Estado": "En viaje"
+    "trip": "Neuquén - Bariloche",
+    "date": "2024-10-12",
+    "price": "1200000",
+    "status": "En viaje"
   },
   {
     "id": 7,
-    "Viaje": "Santa Fe - Paraná",
-    "Fecha": "2024-9-8",
-    "Precio": "3200000",
-    "Estado": "En preparación"
+    "trip": "Santa Fe - Paraná",
+    "date": "2024-9-8",
+    "price": "3200000",
+    "status": "En preparación"
   },
   {
     "id": 8,
-    "Viaje": "Posadas - Corrientes",
-    "Fecha": "2024-6-12",
-    "Precio": "1000000",
-    "Estado": "Finalizado"
+    "trip": "Posadas - Corrientes",
+    "date": "2024-6-12",
+    "price": "1000000",
+    "status": "Finalizado"
   }
 ]

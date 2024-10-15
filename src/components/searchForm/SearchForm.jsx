@@ -3,10 +3,12 @@ import Button from "../button/Button"
 import { IoSearch } from "react-icons/io5";
 import { useDataContext } from "../context/DataProvider";
 import { fetchData } from "../../utils/fetchData";
+import { useNavigate } from "react-router-dom";
 
 const SearchForm = ({ isSearchMode = true }) => {
     
     const {inputValues, setInputValues, setResults, results} = useDataContext();
+    const navigate = useNavigate();
 
     const buttonText = isSearchMode ? "Buscar" : <IoSearch className="text-white text-2xl mr-0.5 mt-0.5"/>;
     const buttonClasses = isSearchMode
@@ -20,6 +22,7 @@ const SearchForm = ({ isSearchMode = true }) => {
         .then(result =>{ 
             setResults(result)
             console.log(results)
+            navigate("/cliente/resultados")
         })
         .catch(error => console.log(error));
     };

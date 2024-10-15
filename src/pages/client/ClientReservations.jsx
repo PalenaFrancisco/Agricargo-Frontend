@@ -31,6 +31,7 @@ const ClientReservations = () => {
       const priceB = parseFloat(b.price);
       return isAscending ? priceA - priceB : priceB - priceA;
     });
+    console.log(sorted)
     setFilteredTrips(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
@@ -69,6 +70,13 @@ const ClientReservations = () => {
     { label: "Estado", actionSort: sortTripsByStatus },
   ];
 
+    const columns = [
+      { key: "trip", value: "Viaje" },
+      { key: "date", value: "Fecha" },
+      { key: "price", value: "Precio" },
+      { key: "status", value: "Estado" },
+    ];
+
   return (
     <ClientLayout>
       <SortSection
@@ -79,9 +87,9 @@ const ClientReservations = () => {
       />
       <div className="px-20 w-full py-6">
         <ReusableTable
-          columns={["Viaje", "Fecha", "Precio", "Estado"]}
+          columns={columns}
           data={filteredTrips}
-          statusColumn={"Estado"}
+          statusColumn={"status"}
         />
       </div>
     </ClientLayout>

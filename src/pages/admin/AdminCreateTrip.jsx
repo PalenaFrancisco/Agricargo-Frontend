@@ -12,6 +12,7 @@ const AdminCreateTrip = () => {
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [arrivalDate, setArrivalDate] = useState("");
+  const [price, setPrice] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [currentTripId, setCurrentTripId] = useState(null);
 
@@ -29,6 +30,7 @@ const AdminCreateTrip = () => {
       destination,
       departureDate,
       arrivalDate,
+      price
     };
 
     if (editMode) {
@@ -48,6 +50,7 @@ const AdminCreateTrip = () => {
     setDepartureDate("");
     setArrivalDate("");
     setTypeShip("");
+    setPrice("");
     setCurrentTripId(null);
     setEditMode(false);
   };
@@ -64,6 +67,7 @@ const AdminCreateTrip = () => {
     setArrivalDate(item.arrivalDate);
     setTypeShip(item.typeShip);
     setCurrentTripId(item.id);
+    setPrice(item.price);
     setEditMode(true);
   };
 
@@ -137,6 +141,13 @@ const AdminCreateTrip = () => {
                 setInputValue={setArrivalDate}
               >
                 Fecha de llegada
+              </Input>
+              <Input
+                value={price}
+                type="number"
+                setInputValue={setPrice}
+              >
+                Precio del viaje
               </Input>
               {editMode && (
                 <Button

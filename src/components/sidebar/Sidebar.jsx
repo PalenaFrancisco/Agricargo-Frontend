@@ -1,19 +1,19 @@
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/logo.svg";
-import { useDataContext } from "../context/DataProvider";
+import { useAuthContext } from "../context/AuthProvider";
 
 const Sidebar = ({ userType }) => {
-  const { setUserProfile } = useDataContext();
+  const { setUserProfile } = useAuthContext();
 
   const menuOptions = {
     cliente: {
       paths: [
-        { name: "Inicio", path: "/cliente" },
-        { name: "Mis Reservas", path: "/cliente/mis-reservas" },
-        { name: "Mis Favoritos", path: "/cliente/mis-favoritos" },
+        { name: "Inicio", path: "/" },
+        { name: "Mis Reservas", path: "/mis-reservas" },
+        { name: "Mis Favoritos", path: "/mis-favoritos" },
       ],
       other: [
-        { name: "Ajustes", path: "/cliente/soporte" },
+        { name: "Ajustes", path: "/ajustes" },
         { name: "Logout", path: "/login" },
       ],
     },
@@ -34,7 +34,7 @@ const Sidebar = ({ userType }) => {
       username: "",
       password: "",
     });
-  }
+  };
 
   const mappedMenuOptions = menuOptions[userType].paths.map(
     (menuOption, index) => (

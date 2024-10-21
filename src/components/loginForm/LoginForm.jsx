@@ -2,55 +2,60 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Button from "../button/Button";
 import Input from "../input/Input";
-import { useDataContext } from "../context/DataProvider";
+import { useAuthContext } from "../context/AuthProvider";
 import { useState } from "react";
-import usersData from "../../../public/user.json";
+// import usersData from "../../../public/user.json";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const { setUserProfile } = useDataContext();
+  const { handleLogin } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const authenticatedUser = usersData.find(
-      (user) => user.username === email && user.password === password
-    );
+    try {
+      const res = await fetch("https://localhost:7183/api/Auth/login",
+          {
+              method: "POST",
+              headers: {
+                  "content-type": "application/json"
+              },
+              body: JSON.stringify({ email, password })
+          });
 
-    console.log("Email:", email);
-    console.log("Password:", password);
+      if (!res.ok) {
+          throw res;
+      }
 
-    console.log(usersData);
-
-    if (authenticatedUser) {
-      setUserProfile({
-        username: authenticatedUser.username,
-        role: authenticatedUser.role,
-      });
-      navigate(getRedirectPath(authenticatedUser.role));
-      setEmail("");
-      setPassword("");
-    } else {
-      console.log("Credenciales inválidas");
+      const data = await res.text();
+      handleLogin(email, data);
+      navigate("/");
+      console.log("login")
+      // setEmail("");
+      // setPassword("");
     }
+    catch (error) {
+      console.error(error);
+    }
+    console.log(email)
   };
 
 
-  const getRedirectPath = (role) => {
-    switch (role) {
-      case "Admin":
-        return "/empresa/crear-viaje";
-      case "Cliente":
-        return "/cliente";
-      case "Sys_Admin":
-        return "/sysadmin/dashboard";
-      default:
-        return "/";
-    }
-  };
+  // const getRedirectPath = (role) => {
+  //   switch (role) {
+  //     case "Admin":
+  //       return "/empresa/crear-viaje";
+  //     case "Cliente":
+  //       return "/";
+  //     case "Sys_Admin":
+  //       return "/sysadmin/dashboard";
+  //     default:
+  //       return "/";
+  //   }
+  
   return (
     <div className="flex justify-center items-center pt-32">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-sm w-full">

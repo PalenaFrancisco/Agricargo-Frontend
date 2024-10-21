@@ -55,7 +55,7 @@
     "shippingTime": 3,
     "nextShipping": "2024-10-20",
     "businessName": "Southern Logistics",
-    "quantity":"9",
+    "quantity": "9",
     "departureDate": "2024-10-20",
     "arrivalDate": "2024-10-21"
   },
@@ -94,5 +94,17 @@
     "quantity": "10",
     "departureDate": "2024-10-20",
     "arrivalDate": "2024-10-21"
+  },
+  {
+    "id": 20,
+    "price": 380,
+    "destination": "Buenos Aires",
+    "origin": "Brazil",
+    "shippingTime": 5,
+    "nextShipping": "2024-11-02",
+    "businessName": "Atlantic Ships",
+    "quantity": "19",
+    "departureDate": "2024-10-25",
+    "arrivalDate": "2024-10-29"
   }
 ]

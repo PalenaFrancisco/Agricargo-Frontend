@@ -1,9 +1,9 @@
 import { useState } from "react";
 import ClientResult from "./ClientResult";
-import { useDataContext } from "../../components/context/DataProvider";
+import { useAuthContext } from "../../components/context/AuthProvider";
 
 const ClientSearchs = () => {
-  const { results } = useDataContext();
+  const { results } = useAuthContext();
   const [filteredTrips, setFilteredTrips] = useState(results);
 
   return (

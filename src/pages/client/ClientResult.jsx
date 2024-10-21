@@ -1,26 +1,11 @@
-import ClientLayout from "../../layout/ClientLayout";
 import TripCardsList from "../../components/tripCardsList/TripCardsList";
 import { useState } from "react";
 import SortSection from "../../components/sortSection/SortSection";
-// import { fetchData } from "../../utils/fetchData";
+
 
 const ClientResult = ({ data, resetData, setter, isFavorites = true }) => {
-  // const [trips, setTrips] = useState(data);
-  // const [filteredTrips, setFilteredTrips] = useState(data);
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
-
-  // const endpoint = isFavorites ? "/favTrips.json" : "/trips.json";
-
-  // useEffect(() => {
-  //   fetchData(endpoint)
-  //     .then((response) => {
-  //       setTrips(response);
-  //       setFilteredTrips(response);
-  //     })
-  //     .catch((error) => console.error(error));
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isFavorites]);
 
   const sortTripsByPrice = () => {
     const sorted = [...data].sort((a, b) => {
@@ -52,7 +37,7 @@ const ClientResult = ({ data, resetData, setter, isFavorites = true }) => {
   ];
 
   return (
-    <ClientLayout search={!isFavorites}>
+    <>
       <SortSection
         title={isFavorites ? "Favoritos:" : "Resultados:"}
         sortOptions={sortOptions}
@@ -62,7 +47,7 @@ const ClientResult = ({ data, resetData, setter, isFavorites = true }) => {
       <div className="px-20 w-full py-6">
         <TripCardsList trips={data} fav={isFavorites ? true : false}/>
       </div>
-    </ClientLayout>
+    </>
   );
 };
 

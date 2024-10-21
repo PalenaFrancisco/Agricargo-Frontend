@@ -1,4 +1,4 @@
-import SearchForm from "../searchForm/SearchForm";
+// import SearchForm from "../searchForm/SearchForm";
 import Button from "../button/Button";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const Navbar = ({searchInNav, islogged}) => {
   return (
     <nav className="w-full h-28 fixed top-0 left-0 z-30 flex justify-end items-center pr-20 bg-white border-b border-gray-200">
       <div className={searchingCLass}>
-        {searchInNav && <SearchForm isSearchMode={false} />}
+        {/* {searchInNav && <SearchForm isSearchMode={false} />} */}
         <ul className="flex items-center gap-8">
           <li>
             <svg

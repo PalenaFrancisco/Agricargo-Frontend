@@ -1,7 +1,8 @@
 import "./App.css";
-// import TripCardsList from "./components/tripCardsList/TripCardsList";
-// import ReservationTable from "./components/tables/ReservationTable";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import "@fontsource/poppins/100.css";
 import "@fontsource/poppins/200.css";
 import "@fontsource/poppins/300.css";
@@ -13,41 +14,75 @@ import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
 import ClientReservations from "./pages/client/ClientReservations";
 import ClientHome from "./pages/client/ClientHome";
-import ClientResult from "./pages/client/ClientResult";
 import Login from "./pages/Login Register/Login";
 import Register from "./pages/Login Register/Register";
 import AdminCreateShip from "./pages/admin/AdminCreateShip";
 import AdminCreateTrip from "./pages/admin/AdminCreateTrip";
+import ClientFavorites from "./pages/client/ClientFavorites";
+import ClientSearchs from "./pages/client/ClientSearchs";
+
+import { AuthProvider } from "./components/context/AuthProvider";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+
+
+
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/",
+    element: <ClientHome />,
+  },
+  {
+    path: "/resultados",
+    element: <ClientSearchs />,
+  },
+  {
+    path: "/mis-reservas",
+    element: (
+      <ProtectedRoute allowedRoles={["Client"]}>
+        <ClientReservations isFavorites={false} />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/mis-favoritos",
+    element: (
+      <ProtectedRoute allowedRoles={["Client"]}>
+        <ClientFavorites />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/empresa/crear-viaje",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+        <AdminCreateTrip />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/empresa/crear-barco",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+        <AdminCreateShip />
+      </ProtectedRoute>
+    ),
+  },
+]);
 
 function App() {
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<ClientHome />}></Route>
-          <Route path="/cliente/resultados" element={<ClientResult isFavorites={false}/>}></Route>
-          <Route
-            path="/cliente/mis-reservas"
-            element={<ClientReservations />}
-          ></Route>
-          <Route
-            path="/cliente/mis-favoritos"
-            element={<ClientResult />}
-          ></Route>
-
-          <Route
-            path="/empresa/crear-viaje"
-            element={<AdminCreateTrip />}
-          ></Route>
-          <Route
-            path="/empresa/crear-barco"
-            element={<AdminCreateShip />}
-          ></Route>
-
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
   );
 }

@@ -1,6 +1,3 @@
-// import { RxCross2 } from "react-icons/rx";
-// import Button from "../../components/button/Button";
-// import SortPill from "../../components/sortPill/SortPill";
 import ClientLayout from "../../layout/ClientLayout";
 import ReusableTable from "../../components/tables/ReusableTable";
 import { useEffect, useState } from "react";
@@ -31,7 +28,6 @@ const ClientReservations = () => {
       const priceB = parseFloat(b.price);
       return isAscending ? priceA - priceB : priceB - priceA;
     });
-    console.log(sorted)
     setFilteredTrips(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);

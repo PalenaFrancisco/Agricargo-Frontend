@@ -23,6 +23,7 @@ import ClientSearchs from "./pages/client/ClientSearchs";
 
 import { AuthProvider } from "./components/context/AuthProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import AdminListShips from "./pages/admin/AdminListShips";
 
 
 
@@ -75,6 +76,22 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+  {
+    path: "/empresa/modificar-barco/:id",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+        <AdminCreateShip editmode={true}/>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/empresa/lista-barcos",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin, Sys_Admin"]}>
+        <AdminListShips/>
+      </ProtectedRoute>
+    )
+  }
 ]);
 
 function App() {

@@ -11,7 +11,7 @@ const AdminLayout = ({ children }) => {
   return (
     <>
       <div className="w-full">
-        <Sidebar userType={"company"} />
+        <Sidebar userType={'company'} />
         <Navbar islogged={isLogged} />
         <Main>{children}</Main>
       </div>

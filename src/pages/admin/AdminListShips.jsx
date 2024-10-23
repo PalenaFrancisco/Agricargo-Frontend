@@ -8,15 +8,15 @@ import { useAuthContext } from '../../components/context/AuthProvider';
 
 const AdminListShips = () => {
     const [ships, setShips] = useState([]);
-    const [filteredTrips, setFilteredTrips] = useState(ships);
+    const [filteredShips, setFilteredShips] = useState(ships);
     const [filterActivate, setFilterActivate] = useState(false);
     const {userProfile} = useAuthContext();
     const navigate = useNavigate();
 
-    const statusOrder = ["En viaje", "En preparación", "Finalizado"];
+    const statusOrder = ["Disponible", "Mantenimiento", "Ocupado"];
 
     useEffect(() => {
-        fetch("https://localhost:7183/Ship/addShip", {
+        fetch("https://localhost:7183/Ship/getShips", {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -30,26 +30,26 @@ const AdminListShips = () => {
                 return response.json();
             })
             .then((data) => {
-                setTrips(data);
-                setFilteredTrips(data);
+                setShips(data);
+                setFilteredShips(data);
                 console.log(data);
             })
             .catch((error) => console.error("Error:", error));
     }, []);
 
-    const sortTripsByStatus = () => {
-        const sorted = [...trips].sort((a, b) => {
+    const sortShipsByStatus = () => {
+        const sorted = [...Ships].sort((a, b) => {
             const statusA = statusOrder.indexOf(a.status);
             const statusB = statusOrder.indexOf(b.status);
             return isAscending ? statusA - statusB : statusB - statusA;
         });
-        setFilteredTrips(sorted);
+        setFilteredShips(sorted);
         setIsAscending(!isAscending);
         setFilterActivate(true);
     };
 
     const resetFilters = () => {
-        setFilteredTrips(trips);
+        setFilteredShips(Ships);
         setFilterActivate(!filterActivate);
     };
 
@@ -71,8 +71,8 @@ const AdminListShips = () => {
                     return response.json();
                 })
                 .then((data) => {
-                    setTrips(data);
-                    setFilteredTrips(data);
+                    setShips(data);
+                    setFilteredShips(data);
                     console.log(data);
                 })
                 .catch((error) => console.error("Error:", error));
@@ -82,7 +82,7 @@ const AdminListShips = () => {
         }
     };
 
-    const editShip = (item) => { //Tengo que enviar el usuario al AdminCreateShip con la info del barco que se quiere modificar y autocompletar los inputs y en el boton de aplicar cambios llamar este endpoint y le paso los datos
+    const editShip = (item) => { 
         navigate(`/empresa/modificar-barco/${item.id}`, {
             state: {
                 ship: {
@@ -110,13 +110,13 @@ const AdminListShips = () => {
     ];
 
     const columns = [
-        { key: 'ship', value: 'Barco' },
-        { key: 'maxTons', value: 'Toneladas Maximas' },
-        { key: 'state', value: 'Estado' },
+        { key: 'typeShip', value: 'Barco' },
+        { key: 'capacity', value: 'Toneladas Maximas' },
+        { key: 'available', value: 'Estado' },
     ];
 
     const sortOptions = [
-        { label: "Estado", actionSort: sortTripsByStatus }
+        { label: "Estado", actionSort: sortShipsByStatus }
     ]
 
     return (
@@ -127,7 +127,7 @@ const AdminListShips = () => {
                 resetFilters={resetFilters} />
             <div className="px-20 w-full py-6">
                 <ReusableTable columns={columns}
-                    data={filteredTrips}
+                    data={filteredShips}
                     actions={actions}
                     statusColumn={"status"} />
             </div>

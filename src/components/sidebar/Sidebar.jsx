@@ -1,9 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.svg";
 import { useAuthContext } from "../context/AuthProvider";
 
+
 const Sidebar = ({ userType, islogged}) => {
   const { handleLogout } = useAuthContext();
+  const navigate = useNavigate();
 
   const menuOptions = {
     client: {
@@ -19,6 +21,7 @@ const Sidebar = ({ userType, islogged}) => {
     },
     company: {
       paths: [
+        { name: "Inicio", path: "/empresa/home" },
         { name: "Viajes", path: "/empresa/viajes" },
         { name: "Barcos", path: "/empresa/barcos" },
       ],
@@ -35,6 +38,11 @@ const Sidebar = ({ userType, islogged}) => {
   //     password: "",
   //   });
   // };
+
+  const logout = () =>{
+    handleLogout();
+    navigate("/", { replace: true });
+  }
 
   const mappedMenuOptions = menuOptions[userType].paths.map(
     (menuOption, index) => (
@@ -98,8 +106,8 @@ const Sidebar = ({ userType, islogged}) => {
           </li>
           {islogged && (<li>
             <NavLink
-              onClick={handleLogout}
-              to={"/login"}
+              onClick={logout}
+              // to={"/login"}
               className="flex items-center px-4 py-3 text-gray-900 rounded-lg dark:text-white hover:transition-all hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg

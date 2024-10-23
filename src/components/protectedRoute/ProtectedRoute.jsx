@@ -4,16 +4,16 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../modal/Modal"; 
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { userProfile, userRole } = useAuthContext();
+  const { userProfile, decodedToken } = useAuthContext();
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    if (!userProfile.token || !allowedRoles.includes(userRole?.decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"])) {
+    if (!userProfile.token || !allowedRoles.includes(userProfile.role)) {
       setShowModal(true); 
     }
-  }, [userProfile, userRole, allowedRoles]);
+  }, [userProfile]);
 
   const handleLoginRedirect = () => {
     setShowModal(false);

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const { handleLogin } = useAuthContext();
+  const { handleLogin, userProfile } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -32,29 +32,30 @@ const LoginForm = () => {
 
       const data = await res.text();
       handleLogin(email, data);
-      navigate("/");
-      console.log("login")
+      // getRedirectPath("Admin")
+      navigate("/empresa/home");
+      // navigate("/");
       // setEmail("");
       // setPassword("");
     }
     catch (error) {
       console.error(error);
     }
-    console.log(email)
   };
+  
 
-
-  // const getRedirectPath = (role) => {
-  //   switch (role) {
-  //     case "Admin":
-  //       return "/empresa/crear-viaje";
-  //     case "Cliente":
-  //       return "/";
-  //     case "Sys_Admin":
-  //       return "/sysadmin/dashboard";
-  //     default:
-  //       return "/";
-  //   }
+  const getRedirectPath = (role) => {
+    switch (role) {
+      case "Admin":
+        navigate("/empresa/home");
+      case "Client":
+        navigate("/");
+      case "SuperAdmin":
+        navigate("/sysadmin/dashboard");
+      default:
+        navigate("/");
+    }
+  }
   
   return (
     <div className="flex justify-center items-center pt-32">

@@ -3,10 +3,12 @@ import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import AdminLayout from "../../layout/AdminLayout";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../components/context/AuthProvider";
 
 const AdminCreateShip = ({ editmode = false }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { userProfile } = useAuthContext();
 
   const [capacity, setCapacity] = useState("");
   const [typeShip, setTypeship] = useState("");
@@ -16,7 +18,8 @@ const AdminCreateShip = ({ editmode = false }) => {
 
   useEffect(() => {
     if (editmode && location.state && location.state.ship) {
-      const { capacity, typeShip, captain, shipPlate, idShip } = location.state.ship;
+      const { capacity, typeShip, captain, shipPlate, idShip } =
+        location.state.ship;
       setCapacity(capacity);
       setTypeship(typeShip);
       setCaptain(captain);
@@ -27,38 +30,45 @@ const AdminCreateShip = ({ editmode = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const shipData = { capacity, typeShip, captain, shipPlate };
+    const shipData = { capacity, typeShip, captain };
     try
     {
       if(editmode){
-        const res = await fetch(`https://localhost:7183/Ship/updateShip/${idShip}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(shipData)
-        })
+        const res = await fetch(
+          `https://localhost:7183/Ship/updateShip/${idShip}`,
+          {
+            method: "PUT",
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${userProfile.token}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(shipData),
+          }
+        );
 
         if (res.ok) {
           console.log("Barco actualizado");
-          navigate("/empresa/lista-barcos");
+          navigate("/empresa/barcos");
         } else {
-          console.error("Error al actualizar el barco");
+          console.error("Error al actualizar el barco", res);
         }
       }else{
-        const res = await fetch(`https://localhost:7183/Ship/createShip`, {
+        const res = await fetch(`https://localhost:7183/Ship/addShip`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${userProfile.token}`,
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify(shipData)
-        })
+          body: JSON.stringify(shipData),
+        });
 
         if (res.ok) {
           console.log("Barco creado");
-          navigate("/empresa/lista-barcos");
+          navigate("/empresa/barcos");
         } else {
-          console.error("Error al actualizar el barco");
+          console.error("Error al crear el barco");
         }
       }
     }catch(error){
@@ -72,7 +82,7 @@ const AdminCreateShip = ({ editmode = false }) => {
     setCaptain("");
     setShipPlate("");
     setIdShip(null);
-    navigate("/empresa/lista-barcos");
+    navigate("/empresa/barcos");
   }
 
   return (
@@ -81,9 +91,9 @@ const AdminCreateShip = ({ editmode = false }) => {
         <h1 className="text-black text-3xl font-semibold">{editmode ? "Editar barco" : "Crear barco"}</h1>
         <form action="" className="flex flex-col gap-4 max-w-[1024px]" onSubmit={handleSubmit}>
           <Input value={captain} setInputValue={setCaptain}>Nombre y apellido del capitán</Input>
-          <Input value={shipPlate} setInputValue={setShipPlate}>Patente del barco</Input>
+          {/* <Input value={shipPlate} setInputValue={setShipPlate}>Patente del barco</Input> */}
           <Input type="number" value={capacity} setInputValue={setCapacity}>Capacidad del barco</Input>
-          <Input type="number" value={typeShip} setInputValue={setTypeship}>Tipo de barco</Input>
+          <Input value={typeShip} setInputValue={setTypeship}>Tipo de barco</Input>
           <div className="mt-4">
             <Button
               className={"px-4 py-2 rounded-lg"}

@@ -2,7 +2,7 @@ import { RxCross2 } from "react-icons/rx";
 import Button from "../../components/button/Button";
 import SortPill from "../../components/sortPill/SortPill";
 
-const SortSection = ({ title, sortOptions = [], filterActivate, resetFilters }) => {
+const SortSection = ({ title, sortOptions = [], filterActivate, resetFilters, children }) => {
   const options = sortOptions.map(({ label, actionSort }, index) => (
     <SortPill key={index} actionSort={actionSort}>
       {label}
@@ -11,7 +11,7 @@ const SortSection = ({ title, sortOptions = [], filterActivate, resetFilters }) 
 
   return (
     <section className="sticky top-28 z-40 bg-white flex justify-start border-b-2 w-full pl-20 pt-10 items-center gap-2">
-      <div className="mb-8 flex items-center gap-x-6 z-40">
+      <div className="mb-8 flex items-center gap-x-6 z-40 w-full">
         <h2 className="text-black text-lg font-semibold uppercase">
           {title}
         </h2>
@@ -24,6 +24,7 @@ const SortSection = ({ title, sortOptions = [], filterActivate, resetFilters }) 
             <RxCross2 /> Eliminar Filtro
           </Button>
         )}
+     {children}
       </div>
     </section>
   );

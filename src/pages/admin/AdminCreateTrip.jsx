@@ -12,35 +12,12 @@ const AdminCreateTrip = () => {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
-  const [arrivalDate, setArrivalDate] = useState("");
+  const [arriveDate, setArriveDate] = useState("");
   const [price, setPrice] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [currentTripId, setCurrentTripId] = useState(null);
 
   const {userProfile} = useAuthContext();
-
-
-  useEffect(() => {
-    fetch("https://localhost:7183/Trip/getCompanyTrips", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${userProfile.token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error en la solicitud: " + response.statusText);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setTrips(data);
-      })
-      .catch((error) => console.error("Error:", error));
-  }, []);
-
 
   useEffect(() => {
      fetch("https://localhost:7183/Ship/getShips", {
@@ -57,15 +34,34 @@ const AdminCreateTrip = () => {
          return response.json();
        })
        .then((data) => {
-        console.log(data);
         setTypeShip(data);
        })
        .catch((error) => console.error("Error:", error)); 
   }, []);
 
+  useEffect(() => {
+    fetch("https://localhost:7183/Trip/getCompanyTrips", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${userProfile.token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud: " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setTrips(data);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
+
   const renderTypeShips = typeShip.map((ship) => (
-    <option key={ship.shipId} value={ship.shipId}>
-      {ship.typeShip}
+    <option key={ship.id} value={ship.id}>
+      {ship.typeShip} - {ship.shipPlate}
     </option>
   ));
 
@@ -74,11 +70,11 @@ const AdminCreateTrip = () => {
     e.preventDefault();
     const newTrip = {
       origin,
-      destiny: destination,
-      price,
+      destination,
+      price: parseFloat(price),
       departureDate,
-      arriveDate: arrivalDate,
-      shipId: selectedShipId
+      arriveDate,
+      ...(editMode ? {} : { shipId: selectedShipId }),
     };
   try
     {
@@ -103,7 +99,7 @@ const AdminCreateTrip = () => {
           console.error("Error al crear viaje", res);
         }
       }else{
-        const res = await fetch(`https://localhost:7183/Ship/updateTrip`, {
+        const res = await fetch(`https://localhost:7183/Trip/updateTrip/${currentTripId}`, {
           method: "PUT",
           headers: {
             Accept: "application/json",
@@ -114,7 +110,8 @@ const AdminCreateTrip = () => {
         });
 
         if (res.ok) {
-          trips.map((trip) => (trip.id === currentTripId ? newTrip : trip));
+          const updatedTrips = trips.map((trip) => (trip.id === currentTripId ? newTrip : trip));
+          setTrips(updatedTrips);
           console.log("Viaje actualizado");
         } else {
           console.error("Error al actualizar el viaje");
@@ -123,14 +120,6 @@ const AdminCreateTrip = () => {
     }catch(error){
       console.error(error);
     } 
-  
-    // if (editMode) {
-    //   setTrips(
-    //     trips.map((trip) => (trip.id === currentTripId ? newTrip : trip))
-    //   );
-    // } else {
-    //   setTrips([...trips, newTrip]);
-    // }
 
     resetForm();
   };
@@ -139,29 +128,50 @@ const AdminCreateTrip = () => {
     setOrigin("");
     setDestination("");
     setDepartureDate("");
-    setArrivalDate("");
+    setArriveDate("");
     setSelectedShipId("");
     setPrice("");
     setCurrentTripId(null);
     setEditMode(false);
   };
 
-  const removeTrip = (item) => {
+  const removeTrip = async (item) => {
     if (!editMode) {
-      const filteredTrips = trips.filter((trips) => trips.id != item.id);
-      setTrips(filteredTrips);
+        try {
+          const response = await fetch(
+            `https://localhost:7183/Trip/deleteTrip/${item.id}`,
+            {
+              method: "DELETE",
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${userProfile.token}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.statusText);
+          }
+
+          const filteredTrips = trips.filter((trips) => trips.id != item.id);
+          setTrips(filteredTrips);
+ 
+        } catch (error) {
+          console.error("Error:", error);
+        }
     }
   };
 
   const editTrip = (item) => {
     setOrigin(item.origin);
     setDestination(item.destination);
-    setDepartureDate(item.departureDate);
-    setArrivalDate(item.arriveDate);
+    setDepartureDate(item.departureDate.split("T")[0]); 
+    setArriveDate(item.arriveDate.split("T")[0]); 
     setSelectedShipId(item.shipId);
     setCurrentTripId(item.id);
     setPrice(item.pricePerTon);
     setEditMode(true);
+    console.log("handle", currentTripId);
   };
 
   const actions = [
@@ -198,6 +208,7 @@ const AdminCreateTrip = () => {
               Seleccione un barco
             </label>
             <select
+            disabled={editMode}
               value={selectedShipId}
               onChange={(e) => setSelectedShipId(e.target.value)}
               id="ships"
@@ -227,9 +238,9 @@ const AdminCreateTrip = () => {
                 Fecha de salida
               </Input>
               <Input
-                value={arrivalDate}
+                value={arriveDate}
                 type="date"
-                setInputValue={setArrivalDate}
+                setInputValue={setArriveDate}
               >
                 Fecha de llegada
               </Input>

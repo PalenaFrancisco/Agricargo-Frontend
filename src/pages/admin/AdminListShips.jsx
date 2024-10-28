@@ -113,7 +113,8 @@ const AdminListShips = () => {
     ];
 
     const columns = [
-      { key: "typeShip", value: "Barco" },
+      { key: "shipPlate", value: "Barco" },
+      { key: "typeShip", value: "Tipo" },
       { key: "capacity", value: "Toneladas Maximas" },
       { key: "availabilityStatus", value: "Estado" },
     ];

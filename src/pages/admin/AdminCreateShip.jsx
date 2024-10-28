@@ -30,7 +30,7 @@ const AdminCreateShip = ({ editmode = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const shipData = { capacity, typeShip, captain };
+    const shipData = { capacity, typeShip, captain, shipPlate };
     try
     {
       if(editmode){
@@ -91,7 +91,7 @@ const AdminCreateShip = ({ editmode = false }) => {
         <h1 className="text-black text-3xl font-semibold">{editmode ? "Editar barco" : "Crear barco"}</h1>
         <form action="" className="flex flex-col gap-4 max-w-[1024px]" onSubmit={handleSubmit}>
           <Input value={captain} setInputValue={setCaptain}>Nombre y apellido del capitán</Input>
-          {/* <Input value={shipPlate} setInputValue={setShipPlate}>Patente del barco</Input> */}
+          <Input value={shipPlate} setInputValue={setShipPlate}>Patente del barco</Input>
           <Input type="number" value={capacity} setInputValue={setCapacity}>Capacidad del barco</Input>
           <Input value={typeShip} setInputValue={setTypeship}>Tipo de barco</Input>
           <div className="mt-4">

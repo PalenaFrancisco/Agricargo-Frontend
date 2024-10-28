@@ -10,7 +10,7 @@ const AdminHome = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-white p-4 shadow rounded">
                         <h2 className="text-xl font-semibold text-black">Statistics</h2>
-                        <p className="text-black">Overview of the system's key metrics.</p>
+                        <p className="text-black">Overview of the system&apos;s key metrics.</p>
                     </div>
 
                     <div className="bg-white p-4 shadow rounded">

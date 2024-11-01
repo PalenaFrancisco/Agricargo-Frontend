@@ -23,6 +23,8 @@ import ClientSearchs from "./pages/client/ClientSearchs";
 
 import { AuthProvider } from "./components/context/AuthProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import AdminListShips from "./pages/admin/AdminListShips";
+import AdminHome from "./pages/admin/AdminHome";
 
 
 
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
   {
     path: "/empresa/crear-viaje",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
         <AdminCreateTrip />
       </ProtectedRoute>
     ),
@@ -70,11 +72,43 @@ const router = createBrowserRouter([
   {
     path: "/empresa/crear-barco",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
         <AdminCreateShip />
       </ProtectedRoute>
     ),
   },
+  {
+    path: "/empresa/modificar-barco/:id",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+        <AdminCreateShip editmode={true}/>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/empresa/barcos",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin, SuperAdmin"]}>
+        <AdminListShips/>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/empresa/home",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+        <AdminHome/>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/empresa/viajes",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+        <AdminCreateTrip/>
+      </ProtectedRoute>
+    )
+  }
 ]);
 
 function App() {

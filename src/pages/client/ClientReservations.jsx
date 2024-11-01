@@ -2,7 +2,8 @@ import ClientLayout from "../../layout/ClientLayout";
 import ReusableTable from "../../components/tables/ReusableTable";
 import { useEffect, useState } from "react";
 import SortSection from "../../components/sortSection/SortSection";
-import { fetchData } from "../../utils/fetchData";
+// import { fetchData } from "../../utils/fetchData";
+import { useAuthContext } from "../../components/context/AuthProvider";
 
 const ClientReservations = () => {
 
@@ -12,15 +13,30 @@ const ClientReservations = () => {
   const [filteredTrips, setFilteredTrips] = useState(trips);
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
+  const {userProfile} = useAuthContext();
 
   useEffect(() => {
-    fetchData("/reservations.json")
-      .then((response) => {
-        setTrips(response);
-        setFilteredTrips(response);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+    fetch("https://localhost:7183/api/Reservation/clientReservations", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${userProfile.token}`
+      }
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud: " + response.statusText);
+      }
+      return response.json(); 
+    })
+    .then((data) => {
+      setTrips(data);          
+      setFilteredTrips(data);  
+      console.log(data);       
+    })
+    .catch((error) => console.error("Error:", error)); 
+}, []); 
+
 
   const sortTripsByPrice = () => {
     const sorted = [...trips].sort((a, b) => {

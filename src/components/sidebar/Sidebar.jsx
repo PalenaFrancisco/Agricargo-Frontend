@@ -1,12 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.svg";
 import { useAuthContext } from "../context/AuthProvider";
 
-const Sidebar = ({ userType }) => {
-  const { setUserProfile } = useAuthContext();
+
+const Sidebar = ({ userType, islogged}) => {
+  const { handleLogout } = useAuthContext();
+  const navigate = useNavigate();
 
   const menuOptions = {
-    cliente: {
+    client: {
       paths: [
         { name: "Inicio", path: "/" },
         { name: "Mis Reservas", path: "/mis-reservas" },
@@ -17,8 +19,9 @@ const Sidebar = ({ userType }) => {
         { name: "Logout", path: "/login" },
       ],
     },
-    empresa: {
+    company: {
       paths: [
+        { name: "Inicio", path: "/empresa/home" },
         { name: "Viajes", path: "/empresa/viajes" },
         { name: "Barcos", path: "/empresa/barcos" },
       ],
@@ -29,12 +32,17 @@ const Sidebar = ({ userType }) => {
     },
   };
 
-  const handleLogOut = () => {
-    setUserProfile({
-      username: "",
-      password: "",
-    });
-  };
+  // const handleLogOut = () => {
+  //   setUserProfile({
+  //     username: "",
+  //     password: "",
+  //   });
+  // };
+
+  const logout = () =>{
+    handleLogout();
+    navigate("/", { replace: true });
+  }
 
   const mappedMenuOptions = menuOptions[userType].paths.map(
     (menuOption, index) => (
@@ -96,10 +104,10 @@ const Sidebar = ({ userType }) => {
               <span className="ms-3">Ajustes</span>
             </NavLink>
           </li>
-          <li>
+          {islogged && (<li>
             <NavLink
-              onClick={handleLogOut}
-              to={"/login"}
+              onClick={logout}
+              // to={"/login"}
               className="flex items-center px-4 py-3 text-gray-900 rounded-lg dark:text-white hover:transition-all hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg
@@ -114,7 +122,7 @@ const Sidebar = ({ userType }) => {
               </svg>
               <span className="ms-3">Logout</span>
             </NavLink>
-          </li>
+          </li>)}
         </ul>
       </div>
     </aside>

@@ -1,18 +1,41 @@
-import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthProvider";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Modal from "../modal/Modal"; 
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-    const { userProfile, userRole } = useAuthContext();
-  
-    if (!userProfile.token) {
-      return <Navigate to="/login" />;
+  const { userProfile, decodedToken } = useAuthContext();
+  const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (!userProfile.token || !allowedRoles.includes(userProfile.role)) {
+      setShowModal(true); 
     }
-  
-    if (!allowedRoles.includes(userRole.decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"])) {
-      return <Navigate to="/login" />;
-    }
-  
-    return children;
+  }, [userProfile]);
+
+  const handleLoginRedirect = () => {
+    setShowModal(false);
+    navigate("/login");
   };
 
-  export default ProtectedRoute;
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate("/")
+  };
+
+  if (showModal) {
+    return (
+      <Modal
+        show={showModal}
+        onClose={handleCloseModal}
+        onLogin={handleLoginRedirect}
+      />
+    );
+  }
+
+  return children;
+};
+
+export default ProtectedRoute;

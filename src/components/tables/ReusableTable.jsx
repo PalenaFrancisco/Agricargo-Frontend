@@ -1,8 +1,8 @@
 const ReusableTable = ({ columns, data, actions, statusColumn }) => {
   const statusStyles = {
     Finalizado: "bg-red-100 text-red-800",
-    "En viaje": "bg-green-100 text-green-800",
-    "En preparación": "bg-yellow-100 text-yellow-800",
+    "En camino": "bg-green-100 text-green-800",
+    Pendiente: "bg-yellow-100 text-yellow-800",
     Disponible: "bg-green-100 text-green-800",
     Ocupado: "bg-red-100 text-red-800"
   };

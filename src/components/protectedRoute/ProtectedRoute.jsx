@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../modal/Modal"; 
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { userProfile, decodedToken } = useAuthContext();
+  const { userProfile } = useAuthContext();
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);

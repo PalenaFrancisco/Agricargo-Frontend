@@ -30,6 +30,17 @@ const Sidebar = ({ userType, islogged}) => {
         { name: "Logout", path: "/login" },
       ],
     },
+    superAdmin: {
+      paths: [
+        { name: "", path: "" },
+        { name: "", path: "" },
+        { name: "", path: "" },
+      ],
+      other: [
+        { name: "", path: "" },
+        { name: "", path: "" },
+      ],
+    },
   };
 
   // const handleLogOut = () => {

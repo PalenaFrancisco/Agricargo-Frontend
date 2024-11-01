@@ -116,7 +116,7 @@ const AdminListShips = () => {
       { key: "shipPlate", value: "Barco" },
       { key: "typeShip", value: "Tipo" },
       { key: "capacity", value: "Toneladas Maximas" },
-      { key: "availabilityStatus", value: "Estado" },
+      { key: "status", value: "Estado" },
     ];
 
     const sortOptions = [
@@ -138,7 +138,7 @@ const AdminListShips = () => {
             columns={columns}
             data={filteredShips}
             actions={actions}
-            statusColumn={"availabilityStatus"}
+            statusColumn={"status"}
           />
         </div>
       </AdminLayout>

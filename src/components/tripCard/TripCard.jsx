@@ -1,14 +1,81 @@
 import { useState } from 'react'
 import { BsArrowDown } from "react-icons/bs";
 import Button from '../button/Button';
+import { useAuthContext } from '../context/AuthProvider';
 
 
-const TripCard = ({ pricePerTon, capacity, departureDate, origin, destination, arriveDate, isFav = false}) => {
+const TripCard = ({ id, pricePerTon, capacity, departureDate, origin, destination, arriveDate, isFav = false}) => {
+
+    const { userProfile } = useAuthContext();
+
+    const [idFetch, setIdFetch] = useState(id);
+
     const [isLiked, setIsLiked] = useState(isFav);
 
     const handleLikeClick = () => {
-        setIsLiked(!isLiked);
+      setIsLiked(!isLiked);
+      if (!isLiked){
+        addReservation();
+      } else {
+        deleteReservation();
+      }
     };
+
+    const addReservation = async () => {
+       try {
+         const response = await fetch(
+           "https://localhost:7183/api/Favorite/addFavorite",
+           {
+             method: "POST",
+             headers: {
+               Accept: "application/json",
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${userProfile.token}`,
+             },
+             body: idFetch,
+           }
+         );
+         
+         if (!response.ok) {
+           throw new Error(`Error en la solicitud de agregado: ${response.statusText}`);
+          }
+          console.log("agregado")
+           const result = await response.json();
+          setIdFetch(result)
+
+       } catch (err) {
+         console.log(err);
+       } 
+
+         console.log(id);
+    }
+
+    const deleteReservation = async () => {
+      try {
+        const response = await fetch(
+          `https://localhost:7183/api/Favorite/deleteFavorite/${idFetch}`,
+          {
+            method: "DELETE",
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${userProfile.token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error en la solicitud de borrado: ${response.statusText}`);
+        }
+
+        console.log("BORRADO");
+         const result = await response.json();
+         setIdFetch(result);
+      } catch (err) {
+        console.log(err);
+      } 
+
+    
+    }
 
     return (
       <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md">

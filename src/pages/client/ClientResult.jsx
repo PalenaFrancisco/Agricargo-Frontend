@@ -3,7 +3,7 @@ import { useState } from "react";
 import SortSection from "../../components/sortSection/SortSection";
 
 
-const ClientResult = ({ data, resetData, setter, isFavorites = true }) => {
+const ClientResult = ({ data, resetData, setter, isFavorites = false }) => {
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
 

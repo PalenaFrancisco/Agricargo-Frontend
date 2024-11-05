@@ -1,63 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminLayout from '../../layout/AdminLayout';
-import ReusableTable from '../../components/tables/ReusableTable';
-import SortSection from '../../components/sortSection/SortSection';
-import { useAuthContext } from '../../components/context/AuthProvider';
-import Button from '../../components/button/Button';
+import AdminLayout from "../../layout/AdminLayout";
+import ReusableTable from "../../components/tables/ReusableTable";
+import SortSection from "../../components/sortSection/SortSection";
+import { useAuthContext } from "../../components/context/AuthProvider";
+import Button from "../../components/button/Button";
+import useFetchData from "../../hooks/useFetchData/UseFetchData";
 
 const AdminListShips = () => {
-    const [ships, setShips] = useState([]);
-    const [filteredShips, setFilteredShips] = useState(ships);
-    const [filterActivate, setFilterActivate] = useState(false);
-     const [isAscending, setIsAscending] = useState(true);
-    const {userProfile} = useAuthContext();
-    const navigate = useNavigate();
+  const { userProfile } = useAuthContext();
+  const { data: initialShips } = useFetchData(
+    "https://localhost:7183/Ship/getShips",
+    userProfile.token
+  );
 
-    const statusOrder = ["Disponible", "Ocupado"];
+  const [filteredShips, setFilteredShips] = useState(initialShips || []);
+  const [filterActivate, setFilterActivate] = useState(false);
+  const [isAscending, setIsAscending] = useState(true);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch("https://localhost:7183/Ship/getShips", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Authorization": `Bearer ${userProfile.token}`
-            }
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Error en la solicitud: " + response.statusText);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setShips(data);
-                setFilteredShips(data);
-                console.log(data);
-            })
-            .catch((error) => console.error("Error:", error));
-    }, []);
+  const statusOrder = ["Disponible", "Ocupado"];
 
-    const sortShipsByStatus = () => {
-        const sorted = [...ships].sort((a, b) => {
-            const statusA = statusOrder.indexOf(a.status);
-            const statusB = statusOrder.indexOf(b.status);
-            return isAscending ? statusA - statusB : statusB - statusA;
-        });
-        setFilteredShips(sorted);
-        setIsAscending(!isAscending);
-        setFilterActivate(true);
-    };
+  useEffect(() => {
+    setFilteredShips(initialShips);
+  }, [initialShips]);
 
-    const resetFilters = () => {
-        setFilteredShips(ships);
-        setFilterActivate(!filterActivate);
-    };
+  const sortShipsByStatus = () => {
+    const sorted = [...filteredShips].sort((a, b) => {
+      const statusA = statusOrder.indexOf(a.status);
+      const statusB = statusOrder.indexOf(b.status);
+      return isAscending ? statusA - statusB : statusB - statusA;
+    });
+    setFilteredShips(sorted);
+    setIsAscending(!isAscending);
+    setFilterActivate(true);
+  };
+
+  const resetFilters = () => {
+    setFilteredShips(initialShips);
+    setFilterActivate(false);
+  };
 
   const removeShip = async (item) => {
     try {
       const response = await fetch(
-        `https://localhost:7183/Ship/deleteShip/${item.shipId}`,
+        `https://localhost:7183/Ship/deleteShip/${item.id}`,
         {
           method: "DELETE",
           headers: {
@@ -71,78 +58,83 @@ const AdminListShips = () => {
         throw new Error("Error en la solicitud: " + response.statusText);
       }
 
-      const shipsFiltered = ships.filter((ship) => ship.shipId !== item.shipId);
-      setShips(shipsFiltered);
-      setFilteredShips(shipsFiltered);
-
+      // Actualiza filteredShips después de eliminar un barco
+      setFilteredShips((prevShips) =>
+      prevShips.filter((ship) => ship.id !== item.id)
+      );
     } catch (error) {
       console.error("Error:", error);
     }
+
+    console.log(item);
+
   };
 
-
-    const editShip = (item) => { 
-        navigate(`/empresa/modificar-barco/${item.shipId}`, {
-            state: {
-                ship: {
-                    capacity: item.capacity,
-                    typeShip: item.typeShip,
-                    captain: item.captain,
-                    shipPlate: item.shipPlate,
-                    idShip: item.shipId
-                }
-            }
-        })
-    };
-
-    const handleCreateShip = () => {
-        navigate("/empresa/crear-barco");
-    }
-
-    const actions = [
-        {
-            label: "Editar",
-            handler: editShip,
-            className: "bg-blue-500 hover:bg-blue-700",
+  const editShip = (item) => {
+    navigate(`/empresa/modificar-barco/${item.id}`, {
+      state: {
+        ship: {
+          capacity: item.capacity,
+          typeShip: item.typeShip,
+          captain: item.captain,
+          shipPlate: item.shipPlate,
+          idShip: item.id,
         },
-        {
-            label: "Eliminar",
-            handler: removeShip,
-            className: "bg-red-500 hover:bg-red-700"
-        },
-    ];
+      },
+    });
+  };
 
-    const columns = [
-      { key: "shipPlate", value: "Barco" },
-      { key: "typeShip", value: "Tipo" },
-      { key: "capacity", value: "Toneladas Maximas" },
-      { key: "status", value: "Estado" },
-    ];
+  const handleCreateShip = () => {
+    navigate("/empresa/crear-barco");
+  };
 
-    const sortOptions = [
-        { label: "Estado", actionSort: sortShipsByStatus }
-    ]
+  const actions = [
+    {
+      label: "Editar",
+      handler: editShip,
+      className: "bg-blue-500 hover:bg-blue-700",
+    },
+    {
+      label: "Eliminar",
+      handler: removeShip,
+      className: "bg-red-500 hover:bg-red-700",
+    },
+  ];
 
-    return (
-      <AdminLayout>
-        <SortSection
-          title={"Barcos:"}
-          sortOptions={sortOptions}
-          filterActivate={filterActivate}
-          resetFilters={resetFilters}
+  const columns = [
+    { key: "shipPlate", value: "Barco" },
+    { key: "typeShip", value: "Tipo" },
+    { key: "capacity", value: "Toneladas Maximas" },
+    { key: "status", value: "Estado" },
+  ];
+
+  const sortOptions = [{ label: "Estado", actionSort: sortShipsByStatus }];
+
+  return (
+    <AdminLayout>
+      <SortSection
+        title={"Barcos:"}
+        sortOptions={sortOptions}
+        filterActivate={filterActivate}
+        resetFilters={resetFilters}
+      >
+        <Button
+          className={"w-fit px-5 rounded-lg"}
+          actionClick={handleCreateShip}
         >
-          <Button className={"w-fit px-5 rounded-lg"} actionClick={handleCreateShip}>Crear barco</Button>
-        </SortSection>
-        <div className="px-20 w-full py-6">
-          <ReusableTable
-            columns={columns}
-            data={filteredShips}
-            actions={actions}
-            statusColumn={"status"}
-          />
-        </div>
-      </AdminLayout>
-    );
+          Crear barco
+        </Button>
+      </SortSection>
+      <div className="px-20 w-full py-6">
+        <ReusableTable
+          columns={columns}
+          data={filteredShips}
+          actions={actions}
+          statusColumn={"status"}
+        />
+      </div>
+    </AdminLayout>
+  );
 };
 
 export default AdminListShips;

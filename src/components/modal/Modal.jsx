@@ -1,6 +1,5 @@
-import React from 'react';
 
-const Modal = ({ show, onClose, onLogin }) => {
+const Modal = ({ show = false, onClose, onLogin }) => {
   if (!show) return null;
 
   return (

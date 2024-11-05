@@ -6,12 +6,12 @@ import { useAuthContext } from "../components/context/AuthProvider";
 const SuperAdminLayout = ({ children }) => {
   const { userProfile } = useAuthContext();
 
-  const isLogged = !!userProfile.token;
+  const isLogged = userProfile.token ?? null;
 
   return (
     <>
       <div className="w-full">
-        <Sidebar userType={"superAdmin"}/>
+        <Sidebar userType={"superAdmin"} options={false}/>
         <Navbar islogged={isLogged} />
         <Main>{children}</Main>
       </div>

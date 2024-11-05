@@ -6,7 +6,7 @@ import { useAuthContext } from "../components/context/AuthProvider";
 const AdminLayout = ({ children }) => {
   const { userProfile } = useAuthContext();
 
-  const isLogged = !!userProfile.token;
+  const isLogged = userProfile.token ?? null;
 
   return (
     <>

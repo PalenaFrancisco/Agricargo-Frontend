@@ -30,7 +30,8 @@ const AdminCreateShip = ({ editmode = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const shipData = { capacity, typeShip, captain, shipPlate };
+   const shipData = {typeShip, capacity: parseFloat(capacity), captain, shipPlate};
+   
     try
     {
       if(editmode){
@@ -74,6 +75,8 @@ const AdminCreateShip = ({ editmode = false }) => {
     }catch(error){
       console.error(error);
     } 
+
+    console.log(shipData);
   };
 
   const handleCancel = () => {

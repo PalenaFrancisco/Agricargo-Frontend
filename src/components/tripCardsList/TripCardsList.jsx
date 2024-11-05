@@ -5,15 +5,15 @@ import TripCard from "../tripCard/TripCard";
 // import { useState } from "react";
 
 const TripCardsList = ({ trips = [], fav }) => {
-  const cardsMapped = trips.map((trip, index) => (
+  const cardsMapped = trips.map((trip) => (
     <TripCard
-      key={index}
-      price={trip.price}
+      key={trip.id}
+      pricePerTon={trip.pricePerTon}
       destination={trip.destination}
       origin={trip.origin}
-      shipingTime={trip.shippingTime}
-      nextShiping={trip.nextShipping}
-      bussinesName={trip.businessName}
+      departureDate={trip.departureDate}
+      arriveDate={trip.arriveDate}
+      capacity={trip.capacity}
       isFav={fav}
     />
   ));

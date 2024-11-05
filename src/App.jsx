@@ -25,6 +25,7 @@ import { AuthProvider } from "./components/context/AuthProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import AdminListShips from "./pages/admin/AdminListShips";
 import AdminHome from "./pages/admin/AdminHome";
+import SuperAdminList from "./pages/superAdmin/SuperAdminList";
 
 
 
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
   {
     path: "/empresa/crear-viaje",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+      <ProtectedRoute allowedRoles={["Admin"]}>
         <AdminCreateTrip />
       </ProtectedRoute>
     ),
@@ -72,7 +73,7 @@ const router = createBrowserRouter([
   {
     path: "/empresa/crear-barco",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+      <ProtectedRoute allowedRoles={["Admin"]}>
         <AdminCreateShip />
       </ProtectedRoute>
     ),
@@ -80,7 +81,7 @@ const router = createBrowserRouter([
   {
     path: "/empresa/modificar-barco/:id",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+      <ProtectedRoute allowedRoles={["Admin"]}>
         <AdminCreateShip editmode={true}/>
       </ProtectedRoute>
     ),
@@ -88,7 +89,7 @@ const router = createBrowserRouter([
   {
     path: "/empresa/barcos",
     element: (
-      <ProtectedRoute allowedRoles={["Admin, SuperAdmin"]}>
+      <ProtectedRoute allowedRoles={["Admin"]}>
         <AdminListShips/>
       </ProtectedRoute>
     )
@@ -96,7 +97,7 @@ const router = createBrowserRouter([
   {
     path: "/empresa/home",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+      <ProtectedRoute allowedRoles={["Admin"]}>
         <AdminHome/>
       </ProtectedRoute>
     )
@@ -104,8 +105,16 @@ const router = createBrowserRouter([
   {
     path: "/empresa/viajes",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+      <ProtectedRoute allowedRoles={["Admin"]}>
         <AdminCreateTrip/>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/sysadmin",
+    element: (
+      <ProtectedRoute allowedRoles={["SuperAdmin"]}>
+        <SuperAdminList />
       </ProtectedRoute>
     )
   }

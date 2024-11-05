@@ -24,6 +24,22 @@ export const AuthProvider = ({ children }) => {
     //     }
     // }, []);
 
+    useEffect(() => {
+
+        if (userProfile.token){
+            const role = jwtDecode(localStorage.getItem("token"))?.[
+              "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+            ];
+
+            setUserProfile((prevProfile) => ({
+                ...prevProfile,
+                role
+            }));
+        }
+
+    }, [])
+    
+
     const handleLogin = (email, token) => {
         const TokenInfo = jwtDecode(token);
         const role = TokenInfo?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || "";
@@ -37,8 +53,8 @@ export const AuthProvider = ({ children }) => {
     };
 
     const handleLogout = () => {
-        setUserProfile(initialState);
         localStorage.removeItem("token");
+        setUserProfile(initialState);
         //navigate("/", { replace: true });
     };
 

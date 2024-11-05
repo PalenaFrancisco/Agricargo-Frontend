@@ -4,10 +4,22 @@ import Input from "../../components/input/Input";
 import ReusableTable from "../../components/tables/ReusableTable";
 import AdminLayout from "../../layout/AdminLayout";
 import { useAuthContext } from "../../components/context/AuthProvider";
+import useFetchData from "../../hooks/useFetchData/UseFetchData";
 
 const AdminCreateTrip = () => {
-  const [trips, setTrips] = useState([]);
-  const [typeShip, setTypeShip] = useState([]);
+
+  const { userProfile } = useAuthContext();
+  const {
+      data: typeShip
+    } = useFetchData("https://localhost:7183/Ship/getShips", userProfile.token);
+  const {
+      data: initialTrips
+    } = useFetchData(
+      "https://localhost:7183/Trip/getCompanyTrips",
+      userProfile.token
+    );
+  const [trips, setTrips] = useState(initialTrips || []);
+  // const [typeShip, setTypeShip] = useState([]);
   const [selectedShipId, setSelectedShipId] = useState(""); 
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
@@ -17,47 +29,51 @@ const AdminCreateTrip = () => {
   const [editMode, setEditMode] = useState(false);
   const [currentTripId, setCurrentTripId] = useState(null);
 
-  const {userProfile} = useAuthContext();
+   useEffect(() => {
+     setTrips(initialTrips);
+   }, [initialTrips]);
 
-  useEffect(() => {
-     fetch("https://localhost:7183/Ship/getShips", {
-       method: "GET",
-       headers: {
-         Accept: "application/json",
-         Authorization: `Bearer ${userProfile.token}`,
-       },
-     })
-       .then((response) => {
-         if (!response.ok) {
-           throw new Error("Error en la solicitud: " + response.statusText);
-         }
-         return response.json();
-       })
-       .then((data) => {
-        setTypeShip(data);
-       })
-       .catch((error) => console.error("Error:", error)); 
-  }, []);
 
-  useEffect(() => {
-    fetch("https://localhost:7183/Trip/getCompanyTrips", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${userProfile.token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error en la solicitud: " + response.statusText);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setTrips(data);
-      })
-      .catch((error) => console.error("Error:", error));
-  }, []);
+
+  // useEffect(() => {
+  //    fetch("https://localhost:7183/Ship/getShips", {
+  //      method: "GET",
+  //      headers: {
+  //        Accept: "application/json",
+  //        Authorization: `Bearer ${userProfile.token}`,
+  //      },
+  //    })
+  //      .then((response) => {
+  //        if (!response.ok) {
+  //          throw new Error("Error en la solicitud: " + response.statusText);
+  //        }
+  //        return response.json();
+  //      })
+  //      .then((data) => {
+  //       setTypeShip(data);
+  //      })
+  //      .catch((error) => console.error("Error:", error)); 
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch("https://localhost:7183/Trip/getCompanyTrips", {
+  //     method: "GET",
+  //     headers: {
+  //       Accept: "application/json",
+  //       Authorization: `Bearer ${userProfile.token}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Error en la solicitud: " + response.statusText);
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setTrips(data);
+  //     })
+  //     .catch((error) => console.error("Error:", error));
+  // }, []);
 
   const renderTypeShips = typeShip.map((ship) => (
     <option key={ship.id} value={ship.id}>
@@ -171,7 +187,6 @@ const AdminCreateTrip = () => {
     setCurrentTripId(item.id);
     setPrice(item.pricePerTon);
     setEditMode(true);
-    console.log("handle", currentTripId);
   };
 
   const actions = [

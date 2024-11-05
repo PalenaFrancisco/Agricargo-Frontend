@@ -6,7 +6,7 @@ import { useAuthContext } from "../components/context/AuthProvider";
 const ClientLayout = ({ children, search, className}) => {
   const { userProfile } = useAuthContext();
 
-  const isLogged = !!userProfile.token;
+  const isLogged = userProfile.token ?? null;
 
   return (
     <div className="w-full">

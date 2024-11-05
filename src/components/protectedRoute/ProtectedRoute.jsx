@@ -4,26 +4,32 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../modal/Modal"; 
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { userProfile, decodedToken } = useAuthContext();
+  const { userProfile } = useAuthContext();
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    if (!userProfile.token || !allowedRoles.includes(userProfile.role)) {
-      setShowModal(true); 
-    }
-  }, [userProfile]);
-
-  const handleLoginRedirect = () => {
-    setShowModal(false);
-    navigate("/login");
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    navigate("/")
-  };
+    // const role = jwtDecode(localStorage.getItem("token"))?.[
+    //   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+    // ];
+      if (
+        !userProfile.token ||
+        !allowedRoles.includes(userProfile.role)
+      ) {
+        setShowModal(true);
+      } 
+      }, []);
+      
+      const handleLoginRedirect = () => {
+        setShowModal(false);
+        navigate("/login");
+      };
+      
+      const handleCloseModal = () => {
+        setShowModal(false);
+        navigate("/")
+      };
 
   if (showModal) {
     return (
@@ -34,6 +40,8 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
       />
     );
   }
+
+
 
   return children;
 };

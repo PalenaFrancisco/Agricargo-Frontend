@@ -16,9 +16,9 @@ const ClientReservations = () => {
 
   const statusOrder = ["En viaje", "En preparación", "Finalizado"];
 
-  const [initialReservations, setInitialReservations] = useState([]);
-  const [trips, setTrips] = useState([]);
-  const [filteredTrips, setFilteredTrips] = useState(trips);
+  // const [initialReservations, setInitialReservations] = useState([]);
+  // const [trips, setTrips] = useState([]);
+  // const [filteredTrips, setFilteredTrips] = useState(trips);
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
 
@@ -44,15 +44,13 @@ const ClientReservations = () => {
 //     .catch((error) => console.error("Error:", error)); 
 // }, []); 
 
-
-const setData = () => {
-  if (initialReservations.length == 0){
-    setInitialReservations(reservations);
-  }
-}
+// const setData = () => {
+//   if (initialReservations.length == 0){
+//     setInitialReservations(reservations);
+//   }
+// }
 
   const sortTripsByPrice = () => {
-    setData();
     const sorted = [...reservations].sort((a, b) => {
       const priceA = parseFloat(a.price);
       const priceB = parseFloat(b.price);
@@ -65,7 +63,6 @@ const setData = () => {
   };
 
   const sortTripsByDate = () => {
-    setData();
     const sorted = [...reservations].sort((a, b) => {
       return isAscending
         ? new Date(a.date) - new Date(b.date)
@@ -78,7 +75,6 @@ const setData = () => {
   };
 
   const sortTripsByStatus = () => {
-    setData();
     const sorted = [...reservations].sort((a, b) => {
       const statusA = statusOrder.indexOf(a.status);
       const statusB = statusOrder.indexOf(b.status);

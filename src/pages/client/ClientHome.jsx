@@ -11,9 +11,6 @@ const ClientHome = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultFiltered, setSearchResultFiltered] = useState([]);
 
-
-  console.log(userProfile.role)
-
   const handleSearch = async (inputValues) => {
     try {
       const query = new URLSearchParams(inputValues).toString();

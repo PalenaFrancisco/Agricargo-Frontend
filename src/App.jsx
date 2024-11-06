@@ -22,12 +22,9 @@ import AdminCreateTrip from "./pages/admin/AdminCreateTrip";
 import ClientFavorites from "./pages/client/ClientFavorites";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import AdminListShips from "./pages/admin/AdminListShips";
-import AdminHome from "./pages/admin/AdminHome";
 import SuperAdminList from "./pages/superAdmin/SuperAdminList";
 import AdminCreateForm from "./components/AdminCreateForm/AdminCreateForm";
-import AdminListShips from "./pages/admin/AdminListShips";
 import AdminHome from "./pages/admin/AdminHome";
-import SuperAdminList from "./pages/superAdmin/SuperAdminList";
 import ClientTripDetail from "./pages/client/ClientTripDetail";
 
 const router = createBrowserRouter([

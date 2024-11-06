@@ -3,7 +3,7 @@ import Main from "../components/main/Main";
 import Navbar from "../components/navbar/Navbar";
 import { useAuthContext } from "../components/context/AuthProvider";
 
-const AdminLayout = ({ children }) => {
+const SuperAdminLayout = ({ children }) => {
   const { userProfile } = useAuthContext();
 
   const isLogged = userProfile.token ?? null;
@@ -11,7 +11,7 @@ const AdminLayout = ({ children }) => {
   return (
     <>
       <div className="w-full">
-        <Sidebar userType={'company'} />
+        <Sidebar userType={"superAdmin"} options={false}/>
         <Navbar islogged={isLogged} />
         <Main>{children}</Main>
       </div>
@@ -19,4 +19,4 @@ const AdminLayout = ({ children }) => {
   );
 };
 
-export default AdminLayout;
+export default SuperAdminLayout;

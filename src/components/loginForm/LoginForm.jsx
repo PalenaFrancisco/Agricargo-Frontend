@@ -3,12 +3,11 @@ import { FcGoogle } from "react-icons/fc";
 import Button from "../button/Button";
 import Input from "../input/Input";
 import { useAuthContext } from "../context/AuthProvider";
-import { useState } from "react";
-// import usersData from "../../../public/user.json";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const { handleLogin } = useAuthContext();
+  const { handleLogin, userProfile } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -17,45 +16,48 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://localhost:7183/api/Auth/login",
-          {
-              method: "POST",
-              headers: {
-                  "content-type": "application/json"
-              },
-              body: JSON.stringify({ email, password })
-          });
+      const res = await fetch("https://localhost:7183/api/Auth/login", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       if (!res.ok) {
-          throw res;
+        throw res;
       }
 
       const data = await res.text();
-      handleLogin(email, data);
-      navigate("/");
-      console.log("login")
-      // setEmail("");
-      // setPassword("");
+      await handleLogin(email, data); // Asegura que handleLogin termine antes de seguir
+
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.error("Error en el inicio de sesión:", error);
     }
-    catch (error) {
-      console.error(error);
-    }
-    console.log(email)
   };
 
+  const getRedirectPath = (role) => {
+    switch (role) {
+      case "Admin":
+        return "/empresa/home";
+      case "Client":
+        return "/";
+      case "SuperAdmin":
+        return "/sysadmin";
+      default:
+        return "/";
+    }
+  };
 
-  // const getRedirectPath = (role) => {
-  //   switch (role) {
-  //     case "Admin":
-  //       return "/empresa/crear-viaje";
-  //     case "Cliente":
-  //       return "/";
-  //     case "Sys_Admin":
-  //       return "/sysadmin/dashboard";
-  //     default:
-  //       return "/";
-  //   }
-  
+  useEffect(() => {
+    if (userProfile && userProfile.role) {
+      const redirectPath = getRedirectPath(userProfile.role);
+      navigate(redirectPath);
+    }
+  }, [userProfile, navigate]); // Redirige cuando userProfile cambie
+
   return (
     <div className="flex justify-center items-center pt-32">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-sm w-full">

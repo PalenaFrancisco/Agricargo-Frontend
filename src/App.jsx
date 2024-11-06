@@ -23,6 +23,10 @@ import ClientSearchs from "./pages/client/ClientSearchs";
 
 import { AuthProvider } from "./components/context/AuthProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import AdminListShips from "./pages/admin/AdminListShips";
+import AdminHome from "./pages/admin/AdminHome";
+import SuperAdminList from "./pages/superAdmin/SuperAdminList";
+import AdminCreateForm from "./components/AdminCreateForm/AdminCreateForm";
 
 
 
@@ -62,7 +66,7 @@ const router = createBrowserRouter([
   {
     path: "/empresa/crear-viaje",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+      <ProtectedRoute allowedRoles={["Admin"]}>
         <AdminCreateTrip />
       </ProtectedRoute>
     ),
@@ -70,11 +74,59 @@ const router = createBrowserRouter([
   {
     path: "/empresa/crear-barco",
     element: (
-      <ProtectedRoute allowedRoles={["Admin", "Sys_Admin"]}>
+      <ProtectedRoute allowedRoles={["Admin"]}>
         <AdminCreateShip />
       </ProtectedRoute>
     ),
   },
+  {
+    path: "/empresa/modificar-barco/:id",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <AdminCreateShip editmode={true}/>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/empresa/barcos",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <AdminListShips/>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/empresa/home",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <AdminHome/>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/empresa/viajes",
+    element: (
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <AdminCreateTrip/>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/sysadmin",
+    element: (
+      <ProtectedRoute allowedRoles={["SuperAdmin"]}>
+        <SuperAdminList />
+      </ProtectedRoute>
+    )
+    },
+    {
+        path: "/sysadmin/createUser",
+        element: (
+            <ProtectedRoute allowedRoles={["SuperAdmin"]}>
+                <AdminCreateForm />
+            </ProtectedRoute>
+        )
+    }
 ]);
 
 function App() {

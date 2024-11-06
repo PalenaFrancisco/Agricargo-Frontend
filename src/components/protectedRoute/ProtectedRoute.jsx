@@ -1,18 +1,49 @@
-import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthProvider";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Modal from "../modal/Modal"; 
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-    const { userProfile, userRole } = useAuthContext();
-  
-    if (!userProfile.token) {
-      return <Navigate to="/login" />;
-    }
-  
-    if (!allowedRoles.includes(userRole.decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"])) {
-      return <Navigate to="/login" />;
-    }
-  
-    return children;
-  };
+  const { userProfile } = useAuthContext();
+  const navigate = useNavigate();
 
-  export default ProtectedRoute;
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    // const role = jwtDecode(localStorage.getItem("token"))?.[
+    //   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+    // ];
+      if (
+        !userProfile.token ||
+        !allowedRoles.includes(userProfile.role)
+      ) {
+        setShowModal(true);
+      } 
+      }, []);
+      
+      const handleLoginRedirect = () => {
+        setShowModal(false);
+        navigate("/login");
+      };
+      
+      const handleCloseModal = () => {
+        setShowModal(false);
+        navigate("/")
+      };
+
+  if (showModal) {
+    return (
+      <Modal
+        show={showModal}
+        onClose={handleCloseModal}
+        onLogin={handleLoginRedirect}
+      />
+    );
+  }
+
+
+
+  return children;
+};
+
+export default ProtectedRoute;

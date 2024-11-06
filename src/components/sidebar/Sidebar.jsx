@@ -1,43 +1,44 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.svg";
 import { useAuthContext } from "../context/AuthProvider";
 
-const Sidebar = ({ userType }) => {
-  const { setUserProfile } = useAuthContext();
+
+const Sidebar = ({ userType, islogged, options = true}) => {
+  const { handleLogout } = useAuthContext();
+  const navigate = useNavigate();
 
   const menuOptions = {
-    cliente: {
+    client: {
       paths: [
         { name: "Inicio", path: "/" },
         { name: "Mis Reservas", path: "/mis-reservas" },
         { name: "Mis Favoritos", path: "/mis-favoritos" },
-      ],
-      other: [
-        { name: "Ajustes", path: "/ajustes" },
-        { name: "Logout", path: "/login" },
-      ],
+      ]
     },
-    empresa: {
+    company: {
       paths: [
+        { name: "Inicio", path: "/empresa/home" },
         { name: "Viajes", path: "/empresa/viajes" },
         { name: "Barcos", path: "/empresa/barcos" },
-      ],
-      other: [
-        { name: "Ajustes", path: "/empresa/ajustes" },
-        { name: "Logout", path: "/login" },
-      ],
-    },
+      ]
+    }
   };
 
-  const handleLogOut = () => {
-    setUserProfile({
-      username: "",
-      password: "",
-    });
-  };
+  // const handleLogOut = () => {
+  //   setUserProfile({
+  //     username: "",
+  //     password: "",
+  //   });
+  // };
 
-  const mappedMenuOptions = menuOptions[userType].paths.map(
-    (menuOption, index) => (
+  const logout = () =>{
+    handleLogout();
+    navigate("/", { replace: true });
+  }
+
+  const mappedMenuOptions =
+    options &&
+    menuOptions[userType].paths.map((menuOption, index) => (
       <li key={index}>
         <NavLink
           to={menuOption.path}
@@ -63,8 +64,7 @@ const Sidebar = ({ userType }) => {
           <span className="ms-3">{menuOption.name}</span>
         </NavLink>
       </li>
-    )
-  );
+    ));
 
   return (
     <aside
@@ -72,9 +72,12 @@ const Sidebar = ({ userType }) => {
       aria-label="Sidebar"
     >
       <img src={Logo} alt="Logo de Agricargo" className="pt-8" />
-      <div className="h-3/4 pt-20 overflow-y-auto bg-white dark:bg-gray-800">
-        <ul className="space-y-2 font-medium">{mappedMenuOptions}</ul>
-      </div>
+      {
+        mappedMenuOptions &&
+        <div className="h-3/4 pt-20 overflow-y-auto bg-white dark:bg-gray-800">
+          <ul className="space-y-2 font-medium">{mappedMenuOptions}</ul>
+        </div>
+      }
 
       <div className="flex items-center justify-center h-1/4 w-full pb-4 overflow-y-auto bg-white dark:bg-gray-800 border-t border-gray-200">
         <ul className="space-y-2 font-medium">
@@ -96,10 +99,10 @@ const Sidebar = ({ userType }) => {
               <span className="ms-3">Ajustes</span>
             </NavLink>
           </li>
-          <li>
+          {islogged && (<li>
             <NavLink
-              onClick={handleLogOut}
-              to={"/login"}
+              onClick={logout}
+              // to={"/login"}
               className="flex items-center px-4 py-3 text-gray-900 rounded-lg dark:text-white hover:transition-all hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg
@@ -114,7 +117,7 @@ const Sidebar = ({ userType }) => {
               </svg>
               <span className="ms-3">Logout</span>
             </NavLink>
-          </li>
+          </li>)}
         </ul>
       </div>
     </aside>

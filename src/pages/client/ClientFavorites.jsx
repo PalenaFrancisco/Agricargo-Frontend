@@ -1,27 +1,25 @@
-import { useEffect, useState } from "react";
 import ClientResult from "./ClientResult";
-import { fetchData } from "../../utils/fetchData";
 import ClientLayout from "../../layout/ClientLayout";
+import { useAuthContext } from "../../components/context/AuthProvider";
+import useFetchData from "../../hooks/useFetchData/UseFetchData";
 
 const ClientFavorites = () => {
-  const [trips, setTrips] = useState([]);
-  const [filteredTrips, setFilteredTrips] = useState([]);
+  const { userProfile } = useAuthContext();
+   const { data: favorites, setData: setFavorites } = useFetchData(
+     "https://localhost:7183/api/Favorite/getFavorites",
+     userProfile.token
+   );
 
-  useEffect(() => {
-    fetchData("/favTrips.json")
-      .then((response) => {
-        setTrips(response);
-        setFilteredTrips(response);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+
   return (
     <ClientLayout>
-      <ClientResult
-        data={filteredTrips}
-        resetData={trips}
-        setter={setFilteredTrips}
-      />
+      {favorites.length > 0 ? (
+        <ClientResult
+          data={favorites}
+          setter={setFavorites}
+          isFavorites={true}
+        />
+      ): <p className="text-black">No hay favoritos</p>}
     </ClientLayout>
   );
 };

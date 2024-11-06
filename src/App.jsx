@@ -12,6 +12,7 @@ import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
+import { AuthProvider } from "./components/context/AuthProvider";
 import ClientReservations from "./pages/client/ClientReservations";
 import ClientHome from "./pages/client/ClientHome";
 import Login from "./pages/Login Register/Login";
@@ -19,16 +20,15 @@ import Register from "./pages/Login Register/Register";
 import AdminCreateShip from "./pages/admin/AdminCreateShip";
 import AdminCreateTrip from "./pages/admin/AdminCreateTrip";
 import ClientFavorites from "./pages/client/ClientFavorites";
-import ClientSearchs from "./pages/client/ClientSearchs";
-
-import { AuthProvider } from "./components/context/AuthProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import AdminListShips from "./pages/admin/AdminListShips";
 import AdminHome from "./pages/admin/AdminHome";
 import SuperAdminList from "./pages/superAdmin/SuperAdminList";
 import AdminCreateForm from "./components/AdminCreateForm/AdminCreateForm";
-
-
+import AdminListShips from "./pages/admin/AdminListShips";
+import AdminHome from "./pages/admin/AdminHome";
+import SuperAdminList from "./pages/superAdmin/SuperAdminList";
+import ClientTripDetail from "./pages/client/ClientTripDetail";
 
 const router = createBrowserRouter([
   {
@@ -44,8 +44,12 @@ const router = createBrowserRouter([
     element: <ClientHome />,
   },
   {
-    path: "/resultados",
-    element: <ClientSearchs />,
+    path: "/resultado/:id",
+    element: (
+      <ProtectedRoute allowedRoles={["Client"]}>
+        <ClientTripDetail />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/mis-reservas",

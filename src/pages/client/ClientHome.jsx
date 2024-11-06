@@ -7,11 +7,9 @@ import { useAuthContext } from "../../components/context/AuthProvider";
 const ClientHome = () => {
 
   const { userProfile } = useAuthContext();
+  const [message, setMessage] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultFiltered, setSearchResultFiltered] = useState([]);
-
-
-  console.log(userProfile.role)
 
   const handleSearch = async (inputValues) => {
     try {
@@ -33,6 +31,7 @@ const ClientHome = () => {
         const data = await response.json();
         setSearchResult(data.trips);
         setSearchResultFiltered(data.trips); 
+        setMessage(data.message);
     } catch (error) {
       console.error("Error de conexión:", error);
     }
@@ -47,12 +46,14 @@ const ClientHome = () => {
           <SearchForm isSearchMode={true} searchSetter={handleSearch} />
         </section>
         {searchResult.length > 0 && (
-          <ClientResult
-            data={searchResultFiltered}
-            resetData={searchResult}
-            setter={setSearchResultFiltered}
-            isFavorites={false}
-          />
+          <>
+            <p className="text-black mt-20">{message}</p>
+            <ClientResult
+              data={searchResultFiltered}
+              resetData={searchResult}
+              setter={setSearchResultFiltered}
+            />
+          </>
         )}
       </ClientLayout>
     </>

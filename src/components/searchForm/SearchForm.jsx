@@ -2,13 +2,10 @@ import Input from "../input/Input";
 import Button from "../button/Button";
 import { IoSearch } from "react-icons/io5";
 import { useState } from "react";
-// import { useDataContext } from "../context/DataProvider";
-// import { fetchData } from "../../utils/fetchData";
-// import { useNavigate } from "react-router-dom";
+
 
 const SearchForm = ({ isSearchMode = true, searchSetter }) => {
-  // const { inputValues, setInputValues, setResults } = useDataContext();
-  // const navigate = useNavigate();
+
   const [inputValues, setInputValues] = useState({
     origin: "",
     destination: "",
@@ -29,20 +26,6 @@ const SearchForm = ({ isSearchMode = true, searchSetter }) => {
 
     searchSetter(inputValues);
 
-
-    // fetchData("/trips.json")
-    //   .then((result) => {
-    //     const filteredResult = result.filter(
-    //       (result) =>
-    //         result.origin === inputValues.origin &&
-    //         result.destination === inputValues.destination &&
-    //         result.quantity === inputValues.quantity
-    //     );
-    //     setResults(filteredResult);
-    //     console.log(filteredResult);
-    //     navigate("/cliente/resultados");
-    //   })
-    //   .catch((error) => console.log(error));
   };
 
   return (

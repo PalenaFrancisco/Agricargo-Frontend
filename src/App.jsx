@@ -23,9 +23,10 @@ import ClientFavorites from "./pages/client/ClientFavorites";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import AdminListShips from "./pages/admin/AdminListShips";
 import SuperAdminList from "./pages/superAdmin/SuperAdminList";
-import AdminCreateForm from "./components/AdminCreateForm/AdminCreateForm";
+import AdminCreateForm from "./components/admincreateform/AdminCreateForm";
 import AdminHome from "./pages/admin/AdminHome";
 import ClientTripDetail from "./pages/client/ClientTripDetail";
+import ClientTripPayment from "./pages/client/ClientTripPayment";
 
 const router = createBrowserRouter([
   {
@@ -126,6 +127,14 @@ const router = createBrowserRouter([
             <ProtectedRoute allowedRoles={["SuperAdmin"]}>
                 <AdminCreateForm />
             </ProtectedRoute>
+        )
+    },
+    {
+        path: "/resultado/:id/pago",
+        element: (
+          <ProtectedRoute allowedRoles={["Client"]}>
+              <ClientTripPayment />
+          </ProtectedRoute>
         )
     }
 ]);

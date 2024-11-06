@@ -4,7 +4,7 @@ import Navbar from "../components/navbar/Navbar";
 import { useAuthContext } from "../components/context/AuthProvider";
 import { useState } from "react";
 
-const ClientLayout = ({ children, search, className}) => {
+const ClientLayout = ({ children, search, className, buttonBack}) => {
   const { userProfile } = useAuthContext();
 
   const [isLogged, setIsLogged] = useState(userProfile.token ?? null);
@@ -12,7 +12,7 @@ const ClientLayout = ({ children, search, className}) => {
   return (
     <div className="w-full">
       <Sidebar userType={"client"} islogged={isLogged} setUserLogout={setIsLogged}/>
-      <Navbar searchInNav={search} islogged={isLogged} />
+      <Navbar searchInNav={search} islogged={isLogged} backButton={buttonBack}/>
       <Main classN={className}>{children}</Main>
     </div>
   );

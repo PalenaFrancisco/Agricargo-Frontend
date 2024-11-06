@@ -51,7 +51,7 @@ const {
   };
 
   return (
-    <ClientLayout>
+    <ClientLayout buttonBack={true}>
       <div className="w-full max-w-2xl py-8 px-20 m-8 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 className="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">
           Detalles del viaje

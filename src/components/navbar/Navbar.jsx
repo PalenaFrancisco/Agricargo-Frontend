@@ -1,13 +1,13 @@
 // import SearchForm from "../searchForm/SearchForm";
 import Button from "../button/Button";
-import { Link, replace } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = ({searchInNav, islogged, backButton}) => {
 
   const searchingCLass = searchInNav ? "w-4/5 flex justify-between" : "";
   const navigate = useNavigate();
-  console.log(backButton)
+
   return (
     <nav className="w-full h-28 fixed top-0 left-0 z-30 flex justify-between items-center pr-20 bg-white border-b border-gray-200">
       {backButton && <Button className={"rounded-lg py-2 px-4 ml-[280px]"} bgColor="bg-gray-500" actionClick={() => navigate(-1, {replace: true})}>Volver</Button>}
@@ -28,7 +28,7 @@ const Navbar = ({searchInNav, islogged, backButton}) => {
             </svg>
           </li>
           <li>
-              {islogged ? 
+              {islogged != null ? 
                 <div className="relative size-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                   <svg
                     className="absolute size-10 text-gray-400 -left-1"

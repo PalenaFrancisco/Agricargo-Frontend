@@ -27,6 +27,7 @@ import AdminCreateForm from "./components/admincreateform/AdminCreateForm";
 import AdminHome from "./pages/admin/AdminHome";
 import ClientTripDetail from "./pages/client/ClientTripDetail";
 import ClientTripPayment from "./pages/client/ClientTripPayment";
+import NotFound from "./components/notFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -136,6 +137,10 @@ const router = createBrowserRouter([
               <ClientTripPayment />
           </ProtectedRoute>
         )
+    },
+    {
+        path: "*",
+        element: <NotFound />
     }
 ]);
 

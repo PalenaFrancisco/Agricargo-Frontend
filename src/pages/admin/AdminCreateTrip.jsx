@@ -137,6 +137,8 @@ const AdminCreateTrip = () => {
       console.error(error);
     } 
 
+    console.log(newTrip);
+
     resetForm();
   };
 

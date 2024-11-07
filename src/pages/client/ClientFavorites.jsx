@@ -17,7 +17,7 @@ const ClientFavorites = () => {
         <ClientResult
           data={favorites}
           setter={setFavorites}
-          isFavorites={true}
+        
         />
       ): <p className="text-black">No hay favoritos</p>}
     </ClientLayout>

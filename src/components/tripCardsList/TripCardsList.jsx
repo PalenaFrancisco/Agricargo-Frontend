@@ -10,16 +10,16 @@ const TripCardsList = ({ trips = [], fav }) => {
 
     return (
       <TripCard
-        key={data.id}
-        id={fav ? dataId : trip.id}
-        pricePerTon={data.pricePerTon}
-        destination={data.destination}
-        origin={data.origin}
-        departureDate={data.departureDate}
-        arriveDate={data.arriveDate}
-        capacity={data.capacity}
-        ship={data.ship}
-        favId={data.favId}
+        key={trip.id}
+        id={trip.id}
+        pricePerTon={trip.pricePerTon}
+        destination={trip.destination}
+        origin={trip.origin}
+        departureDate={trip.departureDate}
+        arriveDate={trip.arriveDate}
+        capacity={trip.capacity}
+        ship={trip.ship}
+        favId={trip.favId}
         isFav={fav}
       />
     );

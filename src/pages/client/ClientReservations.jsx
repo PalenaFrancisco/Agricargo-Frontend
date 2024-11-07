@@ -1,6 +1,6 @@
 import ClientLayout from "../../layout/ClientLayout";
 import ReusableTable from "../../components/tables/ReusableTable";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SortSection from "../../components/sortSection/SortSection";
 // import { fetchData } from "../../utils/fetchData";
 import { useAuthContext } from "../../components/context/AuthProvider";

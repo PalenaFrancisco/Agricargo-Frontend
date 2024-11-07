@@ -14,14 +14,12 @@ const TripCard = ({
   destination,
   arriveDate,
   ship,
-  favId = null,
+  favId,
   isFav = false
 }) => {
   const { userProfile } = useAuthContext();
 
-  const [idFetch, setIdFetch] = useState(favId);
-
-  const [isLiked, setIsLiked] = useState(isFav);
+  const [isLiked, setIsLiked] = useState(favId);
 
   const navigate = useNavigate();
 
@@ -55,7 +53,7 @@ const TripCard = ({
         );
       }
       const result = await response.json();
-      setIdFetch(result);
+
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +79,7 @@ const TripCard = ({
         );
       }
       const result = await response.json();
-      setIdFetch(result);
+
     } catch (err) {
       console.log(err);
     }

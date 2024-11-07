@@ -78,23 +78,23 @@ const AdminCreateTrip = () => {
           body: JSON.stringify(newTrip),
         });
 
+        const updatedTrips = trips.map((trip) => {
+          if (trip.id === currentTripId) {
+            return {
+              ...trip,
+              origin: newTrip.origin,
+              destination: newTrip.destination,
+              pricePerTon: newTrip.pricePerTon,
+              departureDate: newTrip.departureDate,
+              arriveDate: newTrip.arriveDate,
+            };
+          }
+          return trip;
+        });
+        console.log(updatedTrips)
         if (res.ok) {
-         const updatedTrips = trips.map((trip) => {
-           if (trip.id === currentTripId) {
-             return {
-               ...trip,
-               origin: newTrip.origin,
-               destination: newTrip.destination,
-               pricePerTon: newTrip.pricePerTon,
-               departureDate: newTrip.departureDate,
-               arriveDate: newTrip.arriveDate,
-             };
-           }
-           return trip;
-         });
 
           setTrips(updatedTrips);
-          console.log(updatedTrips)
           console.log("Viaje actualizado");
         } else {
           console.error("Error al actualizar el viaje");

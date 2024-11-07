@@ -8,7 +8,7 @@ const ClientTripDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [grainAmount, setGrainAmount] = useState(null);
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
 
 
   useEffect(() => {

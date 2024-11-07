@@ -8,7 +8,7 @@ import useFetchData from "../../hooks/useFetchData/UseFetchData"
 const AdminHome = () => {
 
    const { userProfile } = useAuthContext();
-    const { data: initialReservations } = useFetchData(
+    const { data: reservations } = useFetchData(
       "https://localhost:7183/api/Reservation/companyReservations",
       userProfile.token
     );
@@ -40,6 +40,8 @@ const AdminHome = () => {
         {key: "date", value: "Fecha de reserva"},
         {key: "price", value: "Precio"},
         {key: "grainQuantity", value: "Cantidad de granos"},
+        {key: "departureDate", value: "Fecha de salida"},
+        {key: "arriveDate", value: "Fecha de llegada"},
         {key: "status", value: "Estado"}
     ]
 
@@ -47,10 +49,10 @@ const AdminHome = () => {
       <AdminLayout>
         <div className="px-20 w-full py-6">
           <h1 className="text-black text-3xl font-semibold mb-10">Reservas</h1>
-          {!initialReservations ? (
+          {reservations.length > 0 ? (
             <ReusableTable
               columns={columns}
-              data={initialReservations}
+              data={reservations}
               statusColumn={"status"}
             />
           ) : (

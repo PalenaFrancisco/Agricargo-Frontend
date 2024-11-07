@@ -16,7 +16,7 @@ const ClientReservations = () => {
 
   const statusOrder = ["En viaje", "En preparación", "Finalizado"];
 
-  // const [initialReservations, setInitialReservations] = useState([]);
+  const [initialReservations, setInitialReservations] = useState([]);
   // const [trips, setTrips] = useState([]);
   // const [filteredTrips, setFilteredTrips] = useState(trips);
   const [isAscending, setIsAscending] = useState(true);
@@ -50,37 +50,46 @@ const ClientReservations = () => {
 //   }
 // }
 
+const setData = () => {
+  if (initialReservations.length == 0){
+    setInitialReservations(reservations)
+  }
+}
+
   const sortTripsByPrice = () => {
+    setData()
     const sorted = [...reservations].sort((a, b) => {
       const priceA = parseFloat(a.price);
       const priceB = parseFloat(b.price);
       return isAscending ? priceA - priceB : priceB - priceA;
     });
-    setFilteredTrips(sorted);
+    // setFilteredTrips(sorted);
     setReservations(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
   };
 
   const sortTripsByDate = () => {
+    setData();
     const sorted = [...reservations].sort((a, b) => {
       return isAscending
         ? new Date(a.date) - new Date(b.date)
         : new Date(b.date) - new Date(a.date);
     });
-    setFilteredTrips(sorted);
+    // setFilteredTrips(sorted);
     setReservations(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
   };
 
   const sortTripsByStatus = () => {
+    setData();
     const sorted = [...reservations].sort((a, b) => {
       const statusA = statusOrder.indexOf(a.status);
       const statusB = statusOrder.indexOf(b.status);
       return isAscending ? statusA - statusB : statusB - statusA;
     });
-    setFilteredTrips(sorted);
+    // setFilteredTrips(sorted);
     setReservations(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
@@ -102,7 +111,9 @@ const ClientReservations = () => {
       { key: "trip", value: "Viaje" },
       { key: "date", value: "Fecha" },
       { key: "price", value: "Precio" },
-      { key: "status", value: "Estado" },
+      { key: "departureDate", value: "Fecha de salida" },
+      { key: "arriveDate", value: "Fecha de llegada" },
+      { key: "status", value: "Estado" }
     ];
 
   return (

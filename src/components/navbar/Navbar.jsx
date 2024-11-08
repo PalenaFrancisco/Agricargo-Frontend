@@ -10,7 +10,7 @@ const Navbar = ({searchInNav, islogged, backButton}) => {
 
   return (
     <nav className="w-full h-28 fixed top-0 left-0 z-30 flex justify-end items-center pr-20 bg-white border-b border-gray-200">
-      {backButton && <Button className={"rounded-lg py-2 px-4 ml-[280px]"} bgColor="bg-gray-500" actionClick={() => navigate(-1, {replace: true})}>Volver</Button>}
+      {backButton && <Button className={"rounded-lg py-2 px-4 mr-[1000px]"} bgColor="bg-gray-500" actionClick={() => navigate(-1, {replace: true})}>Volver</Button>}
       <div className={searchingCLass}>
         {/* {searchInNav && <SearchForm isSearchMode={false} />} */}
         

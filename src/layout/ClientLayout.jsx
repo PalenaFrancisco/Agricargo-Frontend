@@ -1,13 +1,12 @@
 import Sidebar from "../components/sidebar/Sidebar";
 import Main from "../components/main/Main";
 import Navbar from "../components/navbar/Navbar";
-import { useAuthContext } from "../components/context/AuthProvider";
-import { useState } from "react";
+import IsLoggedHook from "../hooks/isLoggedHook/IsLoggedHook";
+// import { useAuthContext } from "../components/context/AuthProvider";
+// import { useEffect, useState } from "react";
 
 const ClientLayout = ({ children, search, className, buttonBack}) => {
-  const { userProfile } = useAuthContext();
-
-  const [isLogged, setIsLogged] = useState(userProfile.token ?? null);
+  const {isLogged, setIsLogged} = IsLoggedHook();
 
   return (
     <div className="w-full">

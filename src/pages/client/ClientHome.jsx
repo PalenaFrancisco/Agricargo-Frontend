@@ -35,14 +35,17 @@ const ClientHome = () => {
       }
         const data = await response.json();
 
-        const result = data.trips.map((trip) => {
-          const favorite = favorites.find((fav) => fav.id === trip.id);
-          if (favorite) {
-            trip.favId = favorite.id;
-          }
-          return trip; 
-        });
-        console.log(result);
+        const result =
+          favorites.length > 0
+            ? data.trips.map((trip) => {
+                const favorite = favorites.find((fav) => fav.id === trip.id);
+                if (favorite) {
+                  trip.favId = favorite.favId;
+                }
+                return trip;
+              })
+            : data.trips;
+        console.log(result, "favs en la busqueda");
         setSearchResult(result);
         setSearchResultFiltered(result); 
         setMessage(data.message);

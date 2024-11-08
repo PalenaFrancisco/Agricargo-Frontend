@@ -5,6 +5,7 @@ import ReusableTable from "../../components/tables/ReusableTable";
 import AdminLayout from "../../layout/AdminLayout";
 import { useAuthContext } from "../../components/context/AuthProvider";
 import useFetchData from "../../hooks/useFetchData/UseFetchData";
+import ModalFetch from "../../components/modalFetch/modalFetch";
 
 const AdminCreateTrip = () => {
 
@@ -28,6 +29,9 @@ const AdminCreateTrip = () => {
   const [editMode, setEditMode] = useState(false);
   const [currentTripId, setCurrentTripId] = useState(null);
 
+  const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   const renderTypeShips = typeShip.map((ship) => (
     <option key={ship.id} value={ship.id}>
       {ship.typeShip} - {ship.shipPlate}
@@ -45,64 +49,74 @@ const AdminCreateTrip = () => {
       arriveDate,
       ...(editMode ? {} : { shipId: selectedShipId }),
     };
-  try
-    {
-      if(!editMode){
-        const res = await fetch(
-          `https://localhost:7183/Trip/addTrip`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${userProfile.token}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newTrip),
-          }
-        );
 
-        if (res.ok) {
-          setTrips([...trips, newTrip]);
-          console.log("Viaje creado");
+    if (!editMode) {
+      try {
+            const res = await fetch(`https://localhost:7183/Trip/addTrip`, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${userProfile.token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(newTrip),
+            });
+
+            if (res.ok) {
+              setTrips([...trips, newTrip]);
+              console.log("Viaje creado", newTrip);
+            } else {
+                throw new Error(
+                  "Error en la solicitud: " + (await res.json())
+                );    
+            }
+      } catch (error) {
+        setMessage(error.message);
+        setShowModal(true);
+        console.error(error);
+      } 
         } else {
-          console.error("Error al crear viaje", res);
-        }
-      }else{
-        const res = await fetch(`https://localhost:7183/Trip/updateTrip/${currentTripId}`, {
+    try {
+      const res = await fetch(
+        `https://localhost:7183/Trip/updateTrip/${currentTripId}`,
+        {
           method: "PUT",
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${userProfile.token}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(newTrip),
-        });
-
-        const updatedTrips = trips.map((trip) => {
-          if (trip.id === currentTripId) {
-            return {
-              ...trip,
-              origin: newTrip.origin,
-              destination: newTrip.destination,
-              pricePerTon: newTrip.pricePerTon,
-              departureDate: newTrip.departureDate,
-              arriveDate: newTrip.arriveDate,
-            };
-          }
-          return trip;
-        });
-        console.log(updatedTrips)
-        if (res.ok) {
-
-          setTrips(updatedTrips);
-          console.log("Viaje actualizado");
-        } else {
-          console.error("Error al actualizar el viaje");
         }
+      );
+
+      const updatedTrips = trips.map((trip) => {
+        if (trip.id === currentTripId) {
+          return {
+            ...trip,
+            origin: newTrip.origin,
+            destination: newTrip.destination,
+            pricePerTon: newTrip.pricePerTon,
+            departureDate: newTrip.departureDate,
+            arriveDate: newTrip.arriveDate,
+          };
+        }
+        return trip;
+      });
+
+      if (res.ok) {
+        setTrips(updatedTrips);
+        console.log("Viaje actualizado");
+      } else {
+        throw new Error("Error en la solicitud: " + (await res.json()));
       }
-    }catch(error){
+    } catch (error) {
+      setMessage(error.message);
+      setShowModal(true);
       console.error(error);
     } 
+    }
+  
 
     resetForm();
   };
@@ -133,13 +147,15 @@ const AdminCreateTrip = () => {
           );
 
           if (!response.ok) {
-            throw new Error("Error en la solicitud: " + response.statusText);
+            throw new Error("Error en la solicitud: " + await response.json());
           }
 
           const filteredTrips = trips.filter((trips) => trips.id != item.id);
           setTrips(filteredTrips);
  
         } catch (error) {
+           setMessage(error.message);
+           setShowModal(true);
           console.error("Error:", error);
         }
     }
@@ -154,7 +170,6 @@ const AdminCreateTrip = () => {
     setCurrentTripId(item.id);
     setPrice(item.pricePerTon);
     setEditMode(true);
-    console.log(item.pricePerTon)
   };
 
   const actions = [
@@ -179,6 +194,7 @@ const AdminCreateTrip = () => {
 
   return (
     <AdminLayout>
+      {showModal && <ModalFetch message={message} onClose={() => setShowModal(false)}/>}
       <section className="w-full px-20 flex flex-col gap-6 pt-10">
         <h1 className="text-black text-3xl font-semibold">Crear viaje</h1>
 

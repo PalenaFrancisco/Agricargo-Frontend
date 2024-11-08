@@ -3,9 +3,9 @@ import TripCard from "../tripCard/TripCard";
 
 const TripCardsList = ({ trips = [], fav }) => {
   const cardsMapped = trips.map((trip) => {
-    const data = trip.trip ? trip.trip : trip;
+    // const data = trip.trip ? trip.trip : trip;
 
-    const dataId = fav ? trip.id : data.id;
+    // const dataId = fav ? trip.id : data.id;
     
 
     return (

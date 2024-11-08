@@ -4,7 +4,6 @@ import Button from '../button/Button';
 import { useAuthContext } from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
-
 const TripCard = ({
   id,
   pricePerTon,

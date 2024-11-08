@@ -6,6 +6,7 @@ import SortSection from "../../components/sortSection/SortSection";
 import { useAuthContext } from "../../components/context/AuthProvider";
 import Button from "../../components/button/Button";
 import useFetchData from "../../hooks/useFetchData/UseFetchData";
+import ModalFetch from "../../components/modalFetch/modalFetch";
 
 const AdminListShips = () => {
   const { userProfile } = useAuthContext();
@@ -18,6 +19,9 @@ const AdminListShips = () => {
   const [filterActivate, setFilterActivate] = useState(false);
   const [isAscending, setIsAscending] = useState(true);
   const navigate = useNavigate();
+
+    const [message, setMessage] = useState("");
+    const [showModal, setShowModal] = useState(false);
 
   const statusOrder = ["Disponible", "Ocupado"];
 
@@ -55,7 +59,7 @@ const AdminListShips = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Error en la solicitud: " + response.statusText);
+        throw new Error("Error en la solicitud: " + (await response.json()));
       }
 
       // Actualiza filteredShips después de eliminar un barco
@@ -63,11 +67,12 @@ const AdminListShips = () => {
       prevShips.filter((ship) => ship.id !== item.id)
       );
     } catch (error) {
-      console.error("Error:", error);
+        setMessage(error.message);
+        setShowModal(true);
+        console.error("Error:", error.message);
     }
 
-    console.log(item);
-
+    console.log(item.id)
   };
 
   const editShip = (item) => {
@@ -112,6 +117,9 @@ const AdminListShips = () => {
 
   return (
     <AdminLayout>
+      {showModal && (
+        <ModalFetch message={message} onClose={() => setShowModal(false)} />
+      )}
       <SortSection
         title={"Barcos:"}
         sortOptions={sortOptions}

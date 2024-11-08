@@ -54,6 +54,8 @@ const TripCard = ({
       }
       const result = await response.json();
 
+      console.log(result);
+
     } catch (err) {
       console.log(err);
     }

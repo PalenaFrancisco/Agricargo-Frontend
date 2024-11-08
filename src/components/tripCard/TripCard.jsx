@@ -26,13 +26,13 @@ const TripCard = ({
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
     if (!isLiked) {
-      addReservation();
+      addFavorite();
     } else {
-      deleteReservation();
+      deleteFavorite();
     }
   };
 
-  const addReservation = async () => {
+  const addFavorite= async () => {
     try {
       const response = await fetch(
         "https://localhost:7183/api/Favorite/addFavorite",
@@ -60,7 +60,7 @@ const TripCard = ({
 
   };
   
-  const deleteReservation = async () => {
+  const deleteFavorite = async () => {
     try {
       const response = await fetch(
         `https://localhost:7183/api/Favorite/deleteFavorite/${favId}`,
@@ -79,6 +79,8 @@ const TripCard = ({
         );
       }
       const result = await response.json();
+
+      console.log(result);
 
     } catch (err) {
       console.log(err);

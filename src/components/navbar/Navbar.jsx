@@ -28,7 +28,7 @@ const Navbar = ({searchInNav, islogged, backButton}) => {
             </svg>
           </li>
           <li>
-              {islogged != null ? 
+              {islogged ? 
                 <div className="relative size-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                   <svg
                     className="absolute size-10 text-gray-400 -left-1"

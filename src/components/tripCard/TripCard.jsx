@@ -14,10 +14,11 @@ const TripCard = ({
   destination,
   arriveDate,
   ship,
-  favId,
-  isFav = false
+  favId
 }) => {
   const { userProfile } = useAuthContext();
+
+  const [favoriteId, setFavoriteId] = useState(favId);
 
   const [isLiked, setIsLiked] = useState(favId);
 
@@ -43,29 +44,28 @@ const TripCard = ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${userProfile.token}`,
           },
-          body: id,
+          body: id
         }
       );
-
+      
       if (!response.ok) {
         throw new Error(
           `Error en la solicitud de agregado: ${response.statusText}`
         );
       }
       const result = await response.json();
-
-      console.log(result);
-
+      setFavoriteId(result)
+      
     } catch (err) {
       console.log(err);
     }
-
+    
   };
   
   const deleteFavorite = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7183/api/Favorite/deleteFavorite/${favId}`,
+        `https://localhost:7183/api/Favorite/deleteFavorite/${favoriteId}`,
         {
           method: "DELETE",
           headers: {
@@ -74,15 +74,12 @@ const TripCard = ({
           },
         }
       );
-
+      
       if (!response.ok) {
         throw new Error(
           `Error en la solicitud de borrado: ${response.statusText}`
         );
       }
-      const result = await response.json();
-
-      console.log(result);
 
     } catch (err) {
       console.log(err);

@@ -22,7 +22,6 @@ const useFetchData = (url, token, method = "GET") => {
 
         const result = await response.json();
         setData(result);
-        console.log(result);
       } catch (err) {
         setError(err.message);
       } finally {

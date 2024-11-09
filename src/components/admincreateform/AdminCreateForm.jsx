@@ -94,7 +94,7 @@ const AdminCreateForm = () => {
         {showModal && (
           <ModalFetch message={message} onClose={() => setShowModal(false)} />
         )}
-        <div className="w-[700px] bg-white shadow-lg rounded-lg p-6 space-y-4 mt-10 dark:bg-gray-800 ">
+        <div className="md:w-[700px] bg-white shadow-lg rounded-lg p-6 space-y-4 mt-10 dark:bg-gray-800 ">
           <form onSubmit={handleSubmit}>
             <Input
               inputclass={`w-full rounded-md mb-2 mt-2`}

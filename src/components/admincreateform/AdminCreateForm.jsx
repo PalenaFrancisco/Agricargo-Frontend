@@ -29,13 +29,12 @@ const AdminCreateForm = () => {
         setPhoneNumber("");
         setCompanyName("");
         setRole("Admin");
-        setPassword("");
         setErrors({}); // Limpiar errores
     };
 
     const cancelCreateAction = () => {
         cleanInputs();
-        navigate(-1); 
+        navigate(-1, {replace:true});
     };
 
     const validateFields = () => {

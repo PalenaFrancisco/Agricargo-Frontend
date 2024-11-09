@@ -12,7 +12,7 @@ const AdminCreateForm = () => {
     const [lastName, setLastName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [companyName, setCompanyName] = useState("");
-    const [password, setPassword] = useState("");
+    // const [password, setPassword] = useState("");
     const [role, setRole] = useState("Admin");
 
     const [message, setMessage] = useState("");

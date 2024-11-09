@@ -4,6 +4,7 @@ import { useAuthContext } from "../context/AuthProvider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SuperAdminLayout from '../../layout/SuperAdminLayout';
+import ModalFetch from "../modalFetch/modalFetch";
 
 const AdminCreateForm = () => {
     const [name, setName] = useState("");
@@ -13,6 +14,10 @@ const AdminCreateForm = () => {
     const [companyName, setCompanyName] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("Admin");
+
+    const [message, setMessage] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const [errors, setErrors] = useState({}); // Estado para errores
 
     const navigate = useNavigate();
     const { userProfile } = useAuthContext();
@@ -24,23 +29,32 @@ const AdminCreateForm = () => {
         setPhoneNumber("");
         setCompanyName("");
         setRole("Admin");
-        setPassword(""); 
+        setPassword("");
+        setErrors({}); // Limpiar errores
     };
 
-    
-    const passwordGenerated = () => {
-         
-        setPassword(lastName + name); 
-    };
-
-    
     const cancelCreateAction = () => {
         cleanInputs();
         navigate(-1); 
     };
 
+    const validateFields = () => {
+        const newErrors = {};
+
+        if (!name) newErrors.name = "Nombre es requerido";
+        if (!lastName) newErrors.lastName = "Apellido es requerido";
+        if (!email) newErrors.email = "Email es requerido";
+        if (role === "Admin" && !companyName) newErrors.companyName = "Nombre de compañía es requerido para Admin";
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validateFields()) return;
 
         try {
             const res = await fetch("https://localhost:7183/api/Auth/register", {
@@ -50,7 +64,7 @@ const AdminCreateForm = () => {
                     Authorization: `Bearer ${userProfile.token}`,
                 },
                 body: JSON.stringify({
-                    name: name + " " + lastName,  
+                    name: name + " " + lastName,
                     email,
                     password: lastName + name,
                     role,
@@ -59,53 +73,63 @@ const AdminCreateForm = () => {
             });
 
             if (!res.ok) {
-                throw res;
+                const errorResponse = await res.json();
+                const errorMessages = Object.entries(errorResponse.errors)
+                    .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+                    .join(" | ");
+                
+                throw new Error(errorMessages);
             }
 
-            
             cleanInputs();
-
-            
             navigate("/sysadmin");
         } catch (error) {
+            setMessage(error.message);
+            setShowModal(true);
             console.error("Error al Registrar:", error);
         }
     };
 
     return (
         <SuperAdminLayout>
+            {showModal && <ModalFetch message={message} onClose={() => setShowModal(false)} />}
             <div className="w-[700px] bg-white shadow-lg rounded-lg p-6 space-y-4 mt-10">
                 <form onSubmit={handleSubmit}>
                     <Input
-                        inputclass={"w-full rounded-md mb-3"}
+                        inputclass={`w-full rounded-md mb-2 mt-2`}
                         setInputValue={(value) => setName(value)}
+                        inputstyle={errors.name ? 'border-red-500' : ''}
                     >
                         Nombre
                     </Input>
+                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
                     <Input
-                        inputclass={"w-full rounded-md mb-3"}
+                        inputclass={`w-full rounded-md mb-2 mt-2`}
                         setInputValue={(value) => setLastName(value)}
+                        inputstyle={errors.lastName ? 'border-red-500' : ''}
                     >
                         Apellido
                     </Input>
+                    {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
 
                     <Input
-                        inputclass={"w-full rounded-md mb-3"}
+                        inputclass={`w-full rounded-md mb-2 mt-2`}
                         setInputValue={(value) => setEmail(value)}
+                        inputstyle={errors.email ? 'border-red-500' : ''}
                     >
                         Email
                     </Input>
+                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
                     <Input
-                        inputclass={"w-full rounded-md mb-3"}
+                        inputclass="w-full rounded-md mb-2 mt-2"
                         setInputValue={(value) => setPhoneNumber(value)}
                     >
-                        Telefono (opcional)
+                        Teléfono (opcional)
                     </Input>
 
-                   
-                    <div className="mb-4">
+                    <div className="mb-3">
                         <label htmlFor="role" className="block text-sm font-medium text-gray-700">
                             Tipo de Rol
                         </label>
@@ -121,12 +145,16 @@ const AdminCreateForm = () => {
                     </div>
 
                     {role === "Admin" && (
-                        <Input
-                            inputclass={"w-full rounded-md mb-3"}
-                            setInputValue={(value) => setCompanyName(value)}
-                        >
-                            Nombre Compania
-                        </Input>
+                        <>
+                            <Input
+                                inputclass={`w-full rounded-md mb-3`}
+                                setInputValue={(value) => setCompanyName(value)}
+                                inputstyle={errors.companyName ? 'border-red-500' : ''}
+                            >
+                                Nombre Compañía
+                            </Input>
+                            {errors.companyName && <p className="text-red-500 text-sm">{errors.companyName}</p>}
+                        </>
                     )}
 
                     <div className="flex justify-end space-x-4 mt-4">

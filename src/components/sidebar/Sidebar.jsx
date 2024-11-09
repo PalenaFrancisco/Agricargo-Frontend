@@ -72,7 +72,7 @@ const Sidebar = ({ userType, islogged, setUserLogout, options = true }) => {
         </div>
       )}
 
-      <div className="flex items-center justify-center h-1/4 w-full pb-4 overflow-y-auto bg-white dark:bg-gray-800 border-t border-gray-200">
+      <div className="flex items-center justify-center h-1/4 w-full pb-4 overflow-y-auto bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
         <ul className="space-y-2 font-medium">
           <li>
             <NavLink

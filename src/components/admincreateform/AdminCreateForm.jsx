@@ -91,92 +91,105 @@ const AdminCreateForm = () => {
     };
 
     return (
-        <SuperAdminLayout>
-            {showModal && <ModalFetch message={message} onClose={() => setShowModal(false)} />}
-            <div className="w-[700px] bg-white shadow-lg rounded-lg p-6 space-y-4 mt-10">
-                <form onSubmit={handleSubmit}>
-                    <Input
-                        inputclass={`w-full rounded-md mb-2 mt-2`}
-                        setInputValue={(value) => setName(value)}
-                        inputstyle={errors.name ? 'border-red-500' : ''}
-                    >
-                        Nombre
-                    </Input>
-                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+      <SuperAdminLayout>
+        {showModal && (
+          <ModalFetch message={message} onClose={() => setShowModal(false)} />
+        )}
+        <div className="w-[700px] bg-white shadow-lg rounded-lg p-6 space-y-4 mt-10 dark:bg-gray-800 ">
+          <form onSubmit={handleSubmit}>
+            <Input
+              inputclass={`w-full rounded-md mb-2 mt-2`}
+              setInputValue={(value) => setName(value)}
+              inputstyle={errors.name ? "border-red-500" : ""}
+            >
+              Nombre
+            </Input>
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name}</p>
+            )}
 
-                    <Input
-                        inputclass={`w-full rounded-md mb-2 mt-2`}
-                        setInputValue={(value) => setLastName(value)}
-                        inputstyle={errors.lastName ? 'border-red-500' : ''}
-                    >
-                        Apellido
-                    </Input>
-                    {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+            <Input
+              inputclass={`w-full rounded-md mb-2 mt-2`}
+              setInputValue={(value) => setLastName(value)}
+              inputstyle={errors.lastName ? "border-red-500" : ""}
+            >
+              Apellido
+            </Input>
+            {errors.lastName && (
+              <p className="text-red-500 text-sm">{errors.lastName}</p>
+            )}
 
-                    <Input
-                        inputclass={`w-full rounded-md mb-2 mt-2`}
-                        setInputValue={(value) => setEmail(value)}
-                        inputstyle={errors.email ? 'border-red-500' : ''}
-                    >
-                        Email
-                    </Input>
-                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            <Input
+              inputclass={`w-full rounded-md mb-2 mt-2`}
+              setInputValue={(value) => setEmail(value)}
+              inputstyle={errors.email ? "border-red-500" : ""}
+            >
+              Email
+            </Input>
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
 
-                    <Input
-                        inputclass="w-full rounded-md mb-2 mt-2"
-                        setInputValue={(value) => setPhoneNumber(value)}
-                    >
-                        Teléfono (opcional)
-                    </Input>
+            <Input
+              inputclass="w-full rounded-md mb-2 mt-2"
+              setInputValue={(value) => setPhoneNumber(value)}
+            >
+              Teléfono (opcional)
+            </Input>
 
-                    <div className="mb-3">
-                        <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-                            Tipo de Rol
-                        </label>
-                        <select
-                            id="role"
-                            className="w-full rounded-md text-black p-3 border-2 border-gray-200"
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                        >
-                            <option value="Admin">Admin</option>
-                            <option value="SuperAdmin">Super Admin</option>
-                        </select>
-                    </div>
-
-                    {role === "Admin" && (
-                        <>
-                            <Input
-                                inputclass={`w-full rounded-md mb-3`}
-                                setInputValue={(value) => setCompanyName(value)}
-                                inputstyle={errors.companyName ? 'border-red-500' : ''}
-                            >
-                                Nombre Compañía
-                            </Input>
-                            {errors.companyName && <p className="text-red-500 text-sm">{errors.companyName}</p>}
-                        </>
-                    )}
-
-                    <div className="flex justify-end space-x-4 mt-4">
-                        <Button
-                            className={"text-white px-6 py-2 rounded-md"}
-                            bgColor="bg-red-600"
-                            hoverColor="red-400"
-                            actionClick={cancelCreateAction}
-                        >
-                            Cancelar
-                        </Button>
-
-                        <Button
-                            className={"text-white px-6 py-2 rounded-md"}
-                            typeButton="submit"
-                        >
-                            Crear
-                        </Button>
-                    </div>
-                </form>
+            <div className="mb-3">
+              <label
+                htmlFor="role"
+                className="block text-sm font-medium text-gray-700 dark:text-white"
+              >
+                Tipo de Rol
+              </label>
+              <select
+                id="role"
+                className="w-full rounded-md text-black p-3 border-2 border-gray-200"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                <option value="Admin">Admin</option>
+                <option value="SuperAdmin">Super Admin</option>
+              </select>
             </div>
-        </SuperAdminLayout>
+
+            {role === "Admin" && (
+              <>
+                <Input
+                  inputclass={`w-full rounded-md mb-3`}
+                  setInputValue={(value) => setCompanyName(value)}
+                  inputstyle={errors.companyName ? "border-red-500" : ""}
+                >
+                  Nombre Compañía
+                </Input>
+                {errors.companyName && (
+                  <p className="text-red-500 text-sm">{errors.companyName}</p>
+                )}
+              </>
+            )}
+
+            <div className="flex justify-end space-x-4 mt-4">
+              <Button
+                className={"text-white px-6 py-2 rounded-md"}
+                bgColor="bg-red-600"
+                hoverColor="red-400"
+                actionClick={cancelCreateAction}
+              >
+                Cancelar
+              </Button>
+
+              <Button
+                className={"text-white px-6 py-2 rounded-md"}
+                typeButton="submit"
+              >
+                Crear
+              </Button>
+            </div>
+          </form>
+        </div>
+      </SuperAdminLayout>
     );
 };
 

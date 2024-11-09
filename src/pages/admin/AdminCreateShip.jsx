@@ -91,12 +91,26 @@ const AdminCreateShip = ({ editmode = false }) => {
   return (
     <AdminLayout>
       <section className="w-full px-20 flex flex-col gap-6 pt-10">
-        <h1 className="text-black text-3xl font-semibold">{editmode ? "Editar barco" : "Crear barco"}</h1>
-        <form action="" className="flex flex-col gap-4 max-w-[1024px]" onSubmit={handleSubmit}>
-          <Input value={captain} setInputValue={setCaptain}>Nombre y apellido del capitán</Input>
-          <Input value={shipPlate} setInputValue={setShipPlate}>Patente del barco</Input>
-          <Input type="number" value={capacity} setInputValue={setCapacity}>Capacidad del barco</Input>
-          <Input value={typeShip} setInputValue={setTypeship}>Tipo de barco</Input>
+        <h1 className="text-black text-3xl font-semibold dark:text-white">
+          {editmode ? "Editar barco" : "Crear barco"}
+        </h1>
+        <form
+          action=""
+          className="flex flex-col gap-4 max-w-[1024px]"
+          onSubmit={handleSubmit}
+        >
+          <Input value={captain} setInputValue={setCaptain}>
+            Nombre y apellido del capitán
+          </Input>
+          <Input value={shipPlate} setInputValue={setShipPlate}>
+            Patente del barco
+          </Input>
+          <Input type="number" value={capacity} setInputValue={setCapacity}>
+            Capacidad del barco
+          </Input>
+          <Input value={typeShip} setInputValue={setTypeship}>
+            Tipo de barco
+          </Input>
           <div className="mt-4">
             <Button
               className={"px-4 py-2 rounded-lg"}

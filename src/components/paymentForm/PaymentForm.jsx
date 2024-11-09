@@ -103,61 +103,73 @@ const PaymentForm = ({ data }) => {
     }, [showModal]);
 
     return (
-        <section className="flex justify-between gap-4">
-            {showModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg">
-                        <h2 className="text-lg font-semibold text-black">Compra realizada con éxito</h2>
-                    </div>
-                </div>
-            )}
-            <div className="w-[500px] bg-white shadow-xl rounded-lg p-6 space-y-4 mt-[200px]">
-                <h2 className="text-black underline">Ingrese los datos de la tarjeta:</h2>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-                    <CardInput onCardChange={handleCardChange} CNumber={cardNumber} />  {/* Se pasa el valor del número de tarjeta */}
-                    <Input setInputValue={(value) => setName(value)}>Nombre</Input>
-                    <section className="flex justify-between">
-                        <Input type="month" setInputValue={(value) => setExpireData(value)} inputclass={"w-[250px]"}>MM/YY</Input>
-                        <Input type="number" setInputValue={(value) => setCvv(value)}>CVV</Input>
-                    </section>
-                    <LoadingButton isLoading={isLoading} type="submit">
-                        Realizar compra
-                    </LoadingButton>
-                </form>
-
+      <section className="flex justify-between gap-4 ">
+        {showModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 dark:bg-gray-800 dark:border-gray-700">
+            <div className="bg-white p-6 rounded-lg">
+              <h2 className="text-lg font-semibold text-black">
+                Compra realizada con éxito
+              </h2>
             </div>
-            <div className="w-[500px] bg-white shadow-xl rounded-lg p-6 space-y-4 mt-[200px]">
-                <h2 className="font-title text-black text-lg font-bold text-center mb-4 border-b pb-2">
-                    Resumen
-                </h2>
-                <div className="space-y-4 text-neutral-950">
-                    <div className="flex justify-between">
-                        <span>Origen:</span>
-                        <span>{origin}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span>Destino:</span>
-                        <span>{destination}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span>Tiempo de entrega:</span>
-                        <span>{calculateDays()} dias</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span>Fecha de salida:</span>
-                        <span>{formatDate(departureDate)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span>Fecha de llegada:</span>
-                        <span>{formatDate(arriveDate)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span>Precio final:</span>
-                        <span>{calculatePrice()}</span>
-                    </div>
-                </div>
+          </div>
+        )}
+        <div className="w-[500px] bg-white shadow-xl rounded-lg p-6 space-y-4 mt-[200px] dark:bg-gray-800 dark:border-gray-700">
+          <h2 className="text-black underline dark:text-white">
+            Ingrese los datos de la tarjeta:
+          </h2>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <CardInput onCardChange={handleCardChange} CNumber={cardNumber} />{" "}
+            {/* Se pasa el valor del número de tarjeta */}
+            <Input setInputValue={(value) => setName(value)}>Nombre</Input>
+            <section className="flex justify-between">
+              <Input
+                type="month"
+                setInputValue={(value) => setExpireData(value)}
+                inputclass={"w-[250px]"}
+              >
+                MM/YY
+              </Input>
+              <Input type="number" setInputValue={(value) => setCvv(value)}>
+                CVV
+              </Input>
+            </section>
+            <LoadingButton isLoading={isLoading} type="submit">
+              Realizar compra
+            </LoadingButton>
+          </form>
+        </div>
+        <div className="w-[500px] bg-white shadow-xl rounded-lg p-6 space-y-4 mt-[200px] dark:bg-gray-800 dark:border-gray-700">
+          <h2 className="font-title text-black text-lg font-bold text-center mb-4 border-b pb-2 dark:text-white">
+            Resumen
+          </h2>
+          <div className="space-y-4 text-neutral-950 dark:text-white">
+            <div className="flex justify-between">
+              <span>Origen:</span>
+              <span>{origin}</span>
             </div>
-        </section>
+            <div className="flex justify-between">
+              <span>Destino:</span>
+              <span>{destination}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Tiempo de entrega:</span>
+              <span>{calculateDays()} dias</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Fecha de salida:</span>
+              <span>{formatDate(departureDate)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Fecha de llegada:</span>
+              <span>{formatDate(arriveDate)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Precio final:</span>
+              <span>$ {calculatePrice()}</span>
+            </div>
+          </div>
+        </div>
+      </section>
     );
 };
 

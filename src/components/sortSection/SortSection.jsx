@@ -10,9 +10,9 @@ const SortSection = ({ title, sortOptions = [], filterActivate, resetFilters, ch
   ));
 
   return (
-    <section className="sticky top-28 z-40 bg-white flex justify-start border-b-2 w-full pl-20 pt-10 items-center gap-2">
+    <section className="sticky top-28 z-40 bg-white flex justify-start border-b-2 w-full pl-20 pt-10 items-center gap-2 dark:text-white dark:bg-gray-800 dark:border-gray-700">
       <div className="mb-8 flex items-center gap-x-6 z-40 w-full">
-        <h2 className="text-black text-lg font-semibold uppercase">
+        <h2 className="text-black text-lg font-semibold uppercase dark:text-white">
           {title}
         </h2>
         {options}
@@ -24,7 +24,7 @@ const SortSection = ({ title, sortOptions = [], filterActivate, resetFilters, ch
             <RxCross2 /> Eliminar Filtro
           </Button>
         )}
-     {children}
+        {children}
       </div>
     </section>
   );

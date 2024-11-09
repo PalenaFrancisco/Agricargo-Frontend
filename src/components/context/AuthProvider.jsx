@@ -7,22 +7,11 @@ const AuthContext = createContext();
 const initialState = {
     email: "",
     token: localStorage.getItem("token") ?? "",
-    role: "", // Añadimos el rol al estado inicial
+    role: "", 
 };
 
 export const AuthProvider = ({ children }) => {
     const [userProfile, setUserProfile] = useState(initialState);
-    // const decodedToken = jwtDecode(userProfile.token) ?? ""; // Decodifica el token
-
-    // useEffect(() => {
-    //     if (userProfile.token) {
-    //         const role = decodedToken?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || "";
-    //         setUserProfile((prevProfile) => ({
-    //             ...prevProfile,
-    //             role,
-    //         }));
-    //     }
-    // }, []);
 
     useEffect(() => {
 

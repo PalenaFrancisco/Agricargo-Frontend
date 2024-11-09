@@ -19,9 +19,13 @@ const ClientTripPayment = () => {
 
   if (!trip) {
     return (
-      <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg p-6">
-        <h5 className="text-xl font-semibold text-gray-800 mb-2">Información no encontrada</h5>
-        <p className="text-gray-600">No se encontraron los datos del viaje.</p>
+      <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg p-6 dark:bg-gray-800 dark:border-gray-700">
+        <h5 className="text-xl font-semibold text-gray-800 mb-2 dark:text-white">
+          Información no encontrada
+        </h5>
+        <p className="text-gray-600 dark:text-white">
+          No se encontraron los datos del viaje.
+        </p>
       </div>
     );
   }

@@ -59,12 +59,14 @@ const ClientHome = () => {
     <>
       <ClientLayout className={"h-dvh"}>
         <section className="flex flex-col gap-6 pt-10">
-          <h1 className="text-black text-3xl font-semibold">Buscar viajes</h1>
+          <h1 className="text-black text-3xl font-semibold dark:text-white">
+            Buscar viajes
+          </h1>
           <SearchForm isSearchMode={true} searchSetter={handleSearch} />
         </section>
         {searchResult.length > 0 && (
           <>
-            <p className="text-black mt-20">{message}</p>
+            <p className="text-black mt-20 dark:text-white">{message}</p>
             <ClientResult
               data={searchResultFiltered}
               resetData={searchResult}

@@ -103,20 +103,22 @@ const TripCard = ({
   };
 
   return (
-    <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md">
-      <div className="flex justify-between flex-grow space-x-8">
+    <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700">
+      <div className="flex justify-between flex-grow space-x-8 dark:text-white">
         {/* Origin and destination */}
         <div className="flex flex-col items-center whitespace-nowrap">
-          <p className="text-gray-900 font-bold">{origin}</p>
+          <p className="text-gray-900 font-bold dark:text-white">{origin}</p>
           <span className="text-gray-400 flex justify-center text-3xl py-2">
             <BsArrowDown />
           </span>
-          <p className="text-gray-900 font-bold">{destination}</p>
+          <p className="text-gray-900 font-bold dark:text-white">
+            {destination}
+          </p>
         </div>
 
         {/* Bussines Details */}
         <div className="flex flex-col justify-around items-center w-full p-1">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             {capacity} toneladas
           </h3>
           <p className="text-ls text-gray-400">
@@ -139,18 +141,20 @@ const TripCard = ({
       <div className="flex items-center justify-center">
         <section>
           <div className="text-center pb-3 pl-6">
-            <h2 className="text-2xl font-bold text-gray-500">${pricePerTon}</h2>
+            <h2 className="text-2xl font-bold text-gray-500 dark:text-white">
+              ${pricePerTon}
+            </h2>
           </div>
           <section className="flex items-center gap-x-2">
             <button
               type="button"
               onClick={handleLikeClick}
               className={`rounded-full text-sm p-2 text-center inline-flex items-center ${
-                isLiked ? "text-white" : "text-black"
+                isLiked ? "text-white" : "text-black dark:text-white"
               }`}
             >
               <svg
-                fill={isLiked ? "red" : "none"} // Cambia el color de relleno cuando se hace clic
+                fill={isLiked ? "red" : "white"} // Cambia el color de relleno cuando se hace clic
                 height="30px"
                 width="30px"
                 version="1.1"
@@ -159,8 +163,11 @@ const TripCard = ({
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="-51.21 -51.21 614.55 614.55"
                 xmlSpace="preserve"
-                stroke={isLiked ? "red" : "black"} // Cambia el borde a rojo cuando se hace clic
-                strokeWidth="0.00512131"
+                stroke={isLiked ? "red" : "currentColor"}
+                className={`${
+                  isLiked ? "stroke-red-500" : "stroke-black dark:stroke-white"
+                } transition-colors duration-300`}
+                strokeWidth="10"
               >
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g

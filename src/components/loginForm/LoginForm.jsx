@@ -82,7 +82,7 @@ const LoginForm = () => {
   }, [userProfile, navigate]);
 
   return (
-    <div className="flex justify-center items-center pt-20">
+    <div className="flex justify-center items-center pt-20 dark:bg-gray-800 dark:border-gray-700">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-sm w-full">
         <h2 className="text-2xl font-bold text-center text-gray-900">
           Iniciar Sesión
@@ -105,7 +105,9 @@ const LoginForm = () => {
               Tu email
             </Input>
           </div>
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email}</p>
+          )}
 
           <div className="flex items-center gap-2">
             <FaLock className="text-gray-400" />
@@ -118,10 +120,12 @@ const LoginForm = () => {
               Contraseña
             </Input>
           </div>
-          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password}</p>
+          )}
 
           <Button
-            className="w-full py-2 rounded-lg font-semibold " 
+            className="w-full py-2 rounded-lg font-semibold "
             typeButton="submit"
             disabled={isLoading} // Desactivar el botón mientras cargando
           >

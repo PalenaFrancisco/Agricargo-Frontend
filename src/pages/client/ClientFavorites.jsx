@@ -14,12 +14,10 @@ const ClientFavorites = () => {
   return (
     <ClientLayout>
       {favorites.length > 0 ? (
-        <ClientResult
-          data={favorites}
-          setter={setFavorites}
-        
-        />
-      ): <p className="text-black">No hay favoritos</p>}
+        <ClientResult data={favorites} setter={setFavorites} />
+      ) : (
+        <p className="text-black dark:text-white pt-10">No hay favoritos</p>
+      )}
     </ClientLayout>
   );
 };

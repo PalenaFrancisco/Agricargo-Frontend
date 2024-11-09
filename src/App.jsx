@@ -28,6 +28,7 @@ import AdminHome from "./pages/admin/AdminHome";
 import ClientTripDetail from "./pages/client/ClientTripDetail";
 import ClientTripPayment from "./pages/client/ClientTripPayment";
 import NotFound from "./components/notFound/NotFound";
+import { DarkModeProvider } from "./components/context/DarkModeProvider";
 
 const router = createBrowserRouter([
   {
@@ -147,9 +148,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
+      <DarkModeProvider>
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
+      </DarkModeProvider>
     </>
   );
 }

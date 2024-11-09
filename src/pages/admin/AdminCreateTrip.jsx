@@ -194,9 +194,13 @@ const AdminCreateTrip = () => {
 
   return (
     <AdminLayout>
-      {showModal && <ModalFetch message={message} onClose={() => setShowModal(false)}/>}
+      {showModal && (
+        <ModalFetch message={message} onClose={() => setShowModal(false)} />
+      )}
       <section className="w-full px-20 flex flex-col gap-6 pt-10">
-        <h1 className="text-black text-3xl font-semibold">Crear viaje</h1>
+        <h1 className="text-black text-3xl font-semibold dark:text-white">
+          Crear viaje
+        </h1>
 
         <form className=" flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="max-w-sm mb-10">
@@ -207,7 +211,7 @@ const AdminCreateTrip = () => {
               Seleccione un barco
             </label>
             <select
-            disabled={editMode}
+              disabled={editMode}
               value={selectedShipId}
               onChange={(e) => setSelectedShipId(e.target.value)}
               id="ships"

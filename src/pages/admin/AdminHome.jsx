@@ -12,28 +12,7 @@ const AdminHome = () => {
       "https://localhost:7183/api/Reservation/companyReservations",
       userProfile.token
     );
-    // const [reservations, setReservations] = useState(initialReservations || [])
-    // useEffect(() => {
-    //     fetch("https://localhost:7183/api/Reservation/companyReservations", {
-    //       method: "GET",
-    //       headers: {
-    //         Accept: "application/json",
-    //         Authorization: `Bearer ${userProfile.token}`,
-    //       },
-    //     })
-    //       .then((response) => {
-    //         if (!response.ok) {
-    //           throw new Error("Error en la solicitud: " + response.statusText);
-    //         }
-    //         return response.json();
-    //       })
-    //       .then((data) => {
-    //         setReservations(data);
-    //         console.log(data);
-    //       })
-    //       .catch((error) => console.error("Error:", error)); 
-    // }, [])
-
+  
 
     const columns = [
         {key: "trip", value: "Viaje"},
@@ -48,7 +27,9 @@ const AdminHome = () => {
     return (
       <AdminLayout>
         <div className="px-20 w-full py-6">
-          <h1 className="text-black text-3xl font-semibold mb-10">Reservas</h1>
+          <h1 className="text-black text-3xl font-semibold mb-10 dark:text-white">
+            Reservas
+          </h1>
           {reservations.length > 0 ? (
             <ReusableTable
               columns={columns}

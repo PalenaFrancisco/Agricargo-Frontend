@@ -103,7 +103,7 @@ const PaymentForm = ({ data }) => {
     }, [showModal]);
 
     return (
-      <section className="flex justify-between gap-4 ">
+      <section className="flex flex-col lg:flex-row lg:justify-between gap-4 ">
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 dark:bg-gray-800 dark:border-gray-700">
             <div className="bg-white p-6 rounded-lg">
@@ -113,7 +113,7 @@ const PaymentForm = ({ data }) => {
             </div>
           </div>
         )}
-        <div className="w-[500px] bg-white shadow-xl rounded-lg p-6 space-y-4 mt-[200px] dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-max-[500px] bg-white shadow-xl rounded-lg p-6 space-y-4 mt-[200px] dark:bg-gray-800 dark:border-gray-700">
           <h2 className="text-black underline dark:text-white">
             Ingrese los datos de la tarjeta:
           </h2>
@@ -138,7 +138,7 @@ const PaymentForm = ({ data }) => {
             </LoadingButton>
           </form>
         </div>
-        <div className="w-[500px] bg-white shadow-xl rounded-lg p-6 space-y-4 mt-[200px] dark:bg-gray-800 dark:border-gray-700">
+        <div className="lg:w-[500px] bg-white shadow-xl rounded-lg p-6 space-y-4 lg:mt-[200px] dark:bg-gray-800 dark:border-gray-700">
           <h2 className="font-title text-black text-lg font-bold text-center mb-4 border-b pb-2 dark:text-white">
             Resumen
           </h2>

@@ -57,7 +57,7 @@ const ClientHome = () => {
 
   return (
     <>
-      <ClientLayout className={"h-dvh"}>
+      <ClientLayout className={""}>
         <section className="flex flex-col gap-6 pt-10">
           <h1 className="text-black text-3xl font-semibold dark:text-white">
             Buscar viajes

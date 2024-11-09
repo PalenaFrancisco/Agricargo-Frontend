@@ -90,7 +90,7 @@ const AdminCreateShip = ({ editmode = false }) => {
 
   return (
     <AdminLayout>
-      <section className="w-full px-20 flex flex-col gap-6 pt-10">
+      <section className="w-full px-8 md:px-20 flex flex-col gap-6 pt-10">
         <h1 className="text-black text-3xl font-semibold dark:text-white">
           {editmode ? "Editar barco" : "Crear barco"}
         </h1>
@@ -111,7 +111,7 @@ const AdminCreateShip = ({ editmode = false }) => {
           <Input value={typeShip} setInputValue={setTypeship}>
             Tipo de barco
           </Input>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-wrap gap-x-2 gap-y-4">
             <Button
               className={"px-4 py-2 rounded-lg"}
               bgColor={"bg-red-500"}

@@ -68,7 +68,7 @@ const SearchForm = ({ isSearchMode = true, searchSetter }) => {
 
   return (
     <>
-      <form className="flex items-center gap-4 sm:flex-row flex-col" onSubmit={handleSubmit}>
+      <form className="flex items-center gap-4 md:flex-row flex-col" onSubmit={handleSubmit}>
         <Input
           ref={originRef}
           setInputValue={(value) => handleInputChange("origin", value)}

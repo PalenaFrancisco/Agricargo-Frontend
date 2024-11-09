@@ -197,7 +197,7 @@ const AdminCreateTrip = () => {
       {showModal && (
         <ModalFetch message={message} onClose={() => setShowModal(false)} />
       )}
-      <section className="w-full px-20 flex flex-col gap-6 pt-10">
+      <section className="w-full px-8 md:px-20 flex flex-col gap-6 pt-10">
         <h1 className="text-black text-3xl font-semibold dark:text-white">
           Crear viaje
         </h1>
@@ -224,9 +224,9 @@ const AdminCreateTrip = () => {
             </select>
           </div>
           <div className="flex flex-col gap-2">
-            <h2 className="text-black">Datos del viaje</h2>
+            <h2 className="text-black dark:text-white">Datos del viaje</h2>
 
-            <div className="w-full flex gap-x-4">
+            <div className="w-full flex flex-col lg:flex-row gap-4">
               <Input value={origin} setInputValue={setOrigin}>
                 Origen
               </Input>

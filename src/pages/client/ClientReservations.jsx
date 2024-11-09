@@ -17,38 +17,8 @@ const ClientReservations = () => {
   const statusOrder = ["En viaje", "En preparación", "Finalizado"];
 
   const [initialReservations, setInitialReservations] = useState([]);
-  // const [trips, setTrips] = useState([]);
-  // const [filteredTrips, setFilteredTrips] = useState(trips);
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
-
-//   useEffect(() => {
-//     fetch("https://localhost:7183/api/Reservation/clientReservations", {
-//       method: "GET",
-//       headers: {
-//         "Accept": "application/json",
-//         "Authorization": `Bearer ${userProfile.token}`
-//       }
-//     })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error("Error en la solicitud: " + response.statusText);
-//       }
-//       return response.json(); 
-//     })
-//     .then((data) => {
-//       setTrips(data);          
-//       setFilteredTrips(data);  
-//       console.log(data);       
-//     })
-//     .catch((error) => console.error("Error:", error)); 
-// }, []); 
-
-// const setData = () => {
-//   if (initialReservations.length == 0){
-//     setInitialReservations(reservations);
-//   }
-// }
 
 const setData = () => {
   if (initialReservations.length == 0){
@@ -126,7 +96,7 @@ const setData = () => {
             filterActivate={filterActivate}
             resetFilters={resetFilters}
           />
-          <div className="px-20 w-full py-6">
+          <div className="md:px-20 px-8 w-full py-6">
             <ReusableTable
               columns={columns}
               data={reservations}

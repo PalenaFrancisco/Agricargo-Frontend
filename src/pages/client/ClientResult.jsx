@@ -46,7 +46,7 @@ const ClientResult = ({ data, setter, isFavorites = false }) => {
         filterActivate={filterActivate}
         resetFilters={resetFilters}
       />
-      <div className="px-20 w-full py-6">
+      <div className="sm:px-20 px-4 w-full py-6">
         <TripCardsList trips={data} fav={isFavorites ? true : false}/>
       </div>
     </>

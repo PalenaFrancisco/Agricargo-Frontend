@@ -103,10 +103,10 @@ const TripCard = ({
   };
 
   return (
-    <div className="flex justify-between items-center border border-gray-200 rounded-lg p-6 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700">
-      <div className="flex justify-between flex-grow space-x-8 dark:text-white">
+    <div className="flex justify-between items-center flex-col lg:flex-row gap-2 border border-gray-200 rounded-lg p-6 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700">
+      <div className="flex justify-between flex-grow space-x-8 dark:text-white flex-col sm:flex-row">
         {/* Origin and destination */}
-        <div className="flex flex-col items-center whitespace-nowrap">
+        <div className="flex flex-col  items-center whitespace-nowrap">
           <p className="text-gray-900 font-bold dark:text-white">{origin}</p>
           <span className="text-gray-400 flex justify-center text-3xl py-2">
             <BsArrowDown />
@@ -117,7 +117,7 @@ const TripCard = ({
         </div>
 
         {/* Bussines Details */}
-        <div className="flex flex-col justify-around items-center w-full p-1">
+        <div className="flex flex-col justify-around sm:items-center items-start w-full p-1">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             {capacity} toneladas
           </h3>

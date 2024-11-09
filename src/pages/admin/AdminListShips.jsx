@@ -133,7 +133,7 @@ const AdminListShips = () => {
           Crear barco
         </Button>
       </SortSection>
-      <div className="px-20 w-full py-6">
+      <div className="px-8 md:px-20 w-full py-6">
         <ReusableTable
           columns={columns}
           data={filteredShips}

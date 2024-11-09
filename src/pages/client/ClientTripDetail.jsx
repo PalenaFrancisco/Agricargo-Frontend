@@ -118,7 +118,7 @@ const {
           </li>
         </ul>
         <div className="mb-10">
-          <h3 className="text-gray-950">
+          <h3 className="text-gray-950 dark:text-white">
             Confirme la cantidad que quiere llevar (en toneladas)
           </h3>
           <Input type="number" value={grainAmount} setInputValue={setGrainAmount} />

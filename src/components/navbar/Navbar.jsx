@@ -43,7 +43,7 @@ const Navbar = ({searchInNav, islogged, backButton}) => {
               className="flex items-center justify-between w-16 h-8 px-1 bg-gray-300 dark:bg-gray-700 rounded-full focus:outline-none transition-colors duration-300"
             >
               <div
-                className={`w-6 h-6 bg-white dark:bg-yellow-500 rounded-full transform transition-transform duration-300 ${
+                className={`flex w-6 h-6 bg-white dark:bg-yellow-500 rounded-full transform transition-transform duration-300 ${
                   darkMode ? "translate-x-8" : "translate-x-0"
                 }`}
               >

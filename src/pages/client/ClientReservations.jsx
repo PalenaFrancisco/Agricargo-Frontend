@@ -77,7 +77,7 @@ const setData = () => {
     { label: "Estado", actionSort: sortTripsByStatus },
   ];
 
-    const columns = [
+  const columns = [
       { key: "trip", value: "Viaje" },
       { key: "date", value: "Fecha" },
       { key: "price", value: "Precio" },
@@ -86,27 +86,30 @@ const setData = () => {
       { key: "status", value: "Estado" }
     ];
 
+  const content =
+    reservations.length > 0 ? (
+      <>
+        <SortSection
+          title={"Reservas:"}
+          sortOptions={sortOptions}
+          filterActivate={filterActivate}
+          resetFilters={resetFilters}
+        />
+        <div className="md:px-20 px-8 w-full py-6">
+          <ReusableTable
+            columns={columns}
+            data={reservations}
+            statusColumn={"status"}
+          />
+        </div>
+      </>
+    ) : (
+      <p className="text-black">No hay reservas</p>
+    );
+
   return (
     <ClientLayout>
-      {reservations.length > 0 ? (
-        <>
-          <SortSection
-            title={"Reservas:"}
-            sortOptions={sortOptions}
-            filterActivate={filterActivate}
-            resetFilters={resetFilters}
-          />
-          <div className="md:px-20 px-8 w-full py-6">
-            <ReusableTable
-              columns={columns}
-              data={reservations}
-              statusColumn={"status"}
-            />
-          </div>
-        </>
-      ) : (
-        <p className="text-black">No hay reservas</p>
-      )}
+      {content}
     </ClientLayout>
   );
 };

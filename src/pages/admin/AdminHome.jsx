@@ -24,21 +24,24 @@ const AdminHome = () => {
         {key: "status", value: "Estado"}
     ]
 
+    const content =
+      reservations.length > 0 ? (
+        <ReusableTable
+          columns={columns}
+          data={reservations}
+          statusColumn={"status"}
+        />
+      ) : (
+        <p className="text-black">No hay reservas</p>
+      );
+
     return (
       <AdminLayout>
         <div className="px-20 w-full py-6">
           <h1 className="text-black text-3xl font-semibold mb-10 dark:text-white">
             Reservas
           </h1>
-          {reservations.length > 0 ? (
-            <ReusableTable
-              columns={columns}
-              data={reservations}
-              statusColumn={"status"}
-            />
-          ) : (
-            <p className="text-black">No hay reservas</p>
-          )}
+          {content}
         </div>
       </AdminLayout>
     );

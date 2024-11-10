@@ -55,8 +55,19 @@ const ClientHome = () => {
   };
 
 
-  return (
+  const content = searchResult.length > 0 && (
     <>
+      <p className="text-black mt-20 dark:text-white">{message}</p>
+      <ClientResult
+        data={searchResultFiltered}
+        resetData={searchResult}
+        setter={setSearchResultFiltered}
+      />
+    </>
+  );
+
+
+  return (
       <ClientLayout className={""}>
         <section className="flex flex-col gap-6 pt-10">
           <h1 className="text-black text-3xl font-semibold dark:text-white">
@@ -64,18 +75,8 @@ const ClientHome = () => {
           </h1>
           <SearchForm isSearchMode={true} searchSetter={handleSearch} />
         </section>
-        {searchResult.length > 0 && (
-          <>
-            <p className="text-black mt-20 dark:text-white">{message}</p>
-            <ClientResult
-              data={searchResultFiltered}
-              resetData={searchResult}
-              setter={setSearchResultFiltered}
-            />
-          </>
-        )}
+        {content}
       </ClientLayout>
-    </>
   );
 };
 

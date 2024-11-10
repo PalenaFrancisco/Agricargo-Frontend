@@ -32,7 +32,11 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
       
       const handleCloseModal = () => {
         setShowModal(false);
-        navigate("/")
+          if (!userProfile.token) {
+            navigate("/")
+          } else {
+            navigate(-1);
+          }
       };
 
   if (showModal) {

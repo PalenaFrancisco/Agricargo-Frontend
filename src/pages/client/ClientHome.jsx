@@ -11,12 +11,14 @@ const ClientHome = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultFiltered, setSearchResultFiltered] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); 
   const { data: favorites = [] } = useFetchData( 
     "https://localhost:7183/api/Favorite/getFavorites",
     userProfile.token
   );
 
   const handleSearch = async (inputValues) => {
+    setIsLoading(true);
     try {
       const query = new URLSearchParams(inputValues).toString();
       const response = await fetch(
@@ -49,10 +51,19 @@ const ClientHome = () => {
       setHasSearched(true);
     } catch (error) {
       console.error("Error de conexión:", error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
   };
 
-  const content = searchResult?.length > 0 ? ( 
+  const content = isLoading ? ( 
+    <div className="flex justify-center items-center gap-4 mt-10">
+      <p className="text-black dark:text-white">Buscando viajes...</p>
+      <div className="w-10 h-10 border-4 border-t-transparent border-gray-500 rounded-full animate-spin"></div>
+    </div>
+  ) : searchResult?.length > 0 ? ( 
     <>
       <p className="text-black mt-20 dark:text-white">{message}</p>
       <ClientResult

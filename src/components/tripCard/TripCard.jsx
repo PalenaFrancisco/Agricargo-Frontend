@@ -3,6 +3,10 @@ import { BsArrowDown } from "react-icons/bs";
 import Button from '../button/Button';
 import { useAuthContext } from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import IsLoggedHook from '../../hooks/isLoggedHook/IsLoggedHook';
+import useFetchData from "../../hooks/useFetchData/UseFetchData";
+import ModalFetch from '../modalFetch/modalFetch';
+
 
 const TripCard = ({
   id,
@@ -15,7 +19,9 @@ const TripCard = ({
   ship,
   favId
 }) => {
+  const { isLogged, setIsLogged } = IsLoggedHook();
   const { userProfile } = useAuthContext();
+  const [showModal, setShowModal] = useState(false)
 
   const [favoriteId, setFavoriteId] = useState(favId);
 
@@ -24,12 +30,17 @@ const TripCard = ({
   const navigate = useNavigate();
 
   const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-    if (!isLiked) {
-      addFavorite();
-    } else {
-      deleteFavorite();
+    if(isLogged){
+      setIsLiked(!isLiked);
+      if (!isLiked) {
+        addFavorite();
+      } else {
+        deleteFavorite();
+      }
+    }else{
+      setShowModal(true)
     }
+
   };
 
   const addFavorite= async () => {
@@ -103,6 +114,11 @@ const TripCard = ({
   };
 
   return (
+    <>
+    
+    {showModal && (
+      <ModalFetch message={"Debe iniciar sesion"} onClose={() => setShowModal(false)} />
+    )}
     <div className="flex justify-between items-center flex-col lg:flex-row gap-2 border border-gray-200 rounded-lg p-6 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-between flex-grow space-x-8 dark:text-white flex-col sm:flex-row">
         {/* Origin and destination */}
@@ -193,6 +209,7 @@ const TripCard = ({
         </section>
       </div>
     </div>
+    </>
   );
 };
 

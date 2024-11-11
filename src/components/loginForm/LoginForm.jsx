@@ -43,6 +43,7 @@ const LoginForm = () => {
 
       if (!res.ok) {
         setLoginError("El email o la contraseña no son correctos");
+        setIsLoading(false);
         return;
       }
 

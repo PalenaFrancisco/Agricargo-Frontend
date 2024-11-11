@@ -6,15 +6,15 @@ import { useAuthContext } from "../../components/context/AuthProvider";
 import useFetchData from "../../hooks/useFetchData/UseFetchData";
 
 const ClientHome = () => {
-
   const { userProfile } = useAuthContext();
   const [message, setMessage] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultFiltered, setSearchResultFiltered] = useState([]);
- const { data: favorites } = useFetchData(
-   "https://localhost:7183/api/Favorite/getFavorites",
-   userProfile.token
- );
+  const [hasSearched, setHasSearched] = useState(false);
+  const { data: favorites = [] } = useFetchData( 
+    "https://localhost:7183/api/Favorite/getFavorites",
+    userProfile.token
+  );
 
   const handleSearch = async (inputValues) => {
     try {
@@ -33,29 +33,26 @@ const ClientHome = () => {
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.statusText}`);
       }
-        const data = await response.json();
+      const data = await response.json();
 
-        const result =
-          favorites.length > 0
-            ? data.trips.map((trip) => {
-                const favorite = favorites.find((fav) => fav.id === trip.id);
-                if (favorite) {
-                  trip.favId = favorite.favId;
-                }
-                return trip;
-              })
-            : data.trips;
-        console.log(result, "favs en la busqueda");
-        setSearchResult(result);
-        setSearchResultFiltered(result); 
-        setMessage(data.message);
+      const result = (data.trips || []).map((trip) => { 
+        const favorite = favorites?.find((fav) => fav.id === trip.id); 
+        if (favorite) {
+          trip.favId = favorite.favId;
+        }
+        return trip;
+      });
+
+      setSearchResult(result);
+      setSearchResultFiltered(result);
+      setMessage(data.message);
+      setHasSearched(true);
     } catch (error) {
       console.error("Error de conexión:", error);
     }
   };
 
-
-  const content = searchResult.length > 0 && (
+  const content = searchResult?.length > 0 ? ( 
     <>
       <p className="text-black mt-20 dark:text-white">{message}</p>
       <ClientResult
@@ -64,19 +61,20 @@ const ClientHome = () => {
         setter={setSearchResultFiltered}
       />
     </>
-  );
-
+  ) : hasSearched ? (
+    <p className="text-black dark:text-white mt-10">No se encontraron viajes</p>
+  ) : null;
 
   return (
-      <ClientLayout className={""}>
-        <section className="flex flex-col gap-6 pt-10">
-          <h1 className="text-black text-3xl font-semibold dark:text-white">
-            Buscar viajes
-          </h1>
-          <SearchForm isSearchMode={true} searchSetter={handleSearch} />
-        </section>
-        {content}
-      </ClientLayout>
+    <ClientLayout className={""}>
+      <section className="flex flex-col gap-6 pt-10">
+        <h1 className="text-black text-3xl font-semibold dark:text-white">
+          Buscar viajes
+        </h1>
+        <SearchForm isSearchMode={true} searchSetter={handleSearch} />
+      </section>
+      {content}
+    </ClientLayout>
   );
 };
 

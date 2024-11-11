@@ -1,6 +1,6 @@
 import ClientLayout from "../../layout/ClientLayout";
 import ReusableTable from "../../components/tables/ReusableTable";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SortSection from "../../components/sortSection/SortSection";
 // import { fetchData } from "../../utils/fetchData";
 import { useAuthContext } from "../../components/context/AuthProvider";
@@ -17,48 +17,23 @@ const ClientReservations = () => {
   const statusOrder = ["En viaje", "En preparación", "Finalizado"];
 
   const [initialReservations, setInitialReservations] = useState([]);
-  const [trips, setTrips] = useState([]);
-  const [filteredTrips, setFilteredTrips] = useState(trips);
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
 
-//   useEffect(() => {
-//     fetch("https://localhost:7183/api/Reservation/clientReservations", {
-//       method: "GET",
-//       headers: {
-//         "Accept": "application/json",
-//         "Authorization": `Bearer ${userProfile.token}`
-//       }
-//     })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error("Error en la solicitud: " + response.statusText);
-//       }
-//       return response.json(); 
-//     })
-//     .then((data) => {
-//       setTrips(data);          
-//       setFilteredTrips(data);  
-//       console.log(data);       
-//     })
-//     .catch((error) => console.error("Error:", error)); 
-// }, []); 
-
-
 const setData = () => {
   if (initialReservations.length == 0){
-    setInitialReservations(reservations);
+    setInitialReservations(reservations)
   }
 }
 
   const sortTripsByPrice = () => {
-    setData();
+    setData()
     const sorted = [...reservations].sort((a, b) => {
       const priceA = parseFloat(a.price);
       const priceB = parseFloat(b.price);
       return isAscending ? priceA - priceB : priceB - priceA;
     });
-    setFilteredTrips(sorted);
+    // setFilteredTrips(sorted);
     setReservations(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
@@ -71,7 +46,7 @@ const setData = () => {
         ? new Date(a.date) - new Date(b.date)
         : new Date(b.date) - new Date(a.date);
     });
-    setFilteredTrips(sorted);
+    // setFilteredTrips(sorted);
     setReservations(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
@@ -84,7 +59,7 @@ const setData = () => {
       const statusB = statusOrder.indexOf(b.status);
       return isAscending ? statusA - statusB : statusB - statusA;
     });
-    setFilteredTrips(sorted);
+    // setFilteredTrips(sorted);
     setReservations(sorted);
     setIsAscending(!isAscending);
     setFilterActivate(true);
@@ -102,34 +77,39 @@ const setData = () => {
     { label: "Estado", actionSort: sortTripsByStatus },
   ];
 
-    const columns = [
+  const columns = [
       { key: "trip", value: "Viaje" },
       { key: "date", value: "Fecha" },
       { key: "price", value: "Precio" },
-      { key: "status", value: "Estado" },
+      { key: "departureDate", value: "Fecha de salida" },
+      { key: "arriveDate", value: "Fecha de llegada" },
+      { key: "status", value: "Estado" }
     ];
+
+  const content =
+    reservations.length > 0 ? (
+      <>
+        <SortSection
+          title={"Reservas:"}
+          sortOptions={sortOptions}
+          filterActivate={filterActivate}
+          resetFilters={resetFilters}
+        />
+        <div className="md:px-20 px-8 w-full py-6">
+          <ReusableTable
+            columns={columns}
+            data={reservations}
+            statusColumn={"status"}
+          />
+        </div>
+      </>
+    ) : (
+      <p className="text-black">No hay reservas</p>
+    );
 
   return (
     <ClientLayout>
-      {reservations.length > 0 ? (
-        <>
-          <SortSection
-            title={"Reservas:"}
-            sortOptions={sortOptions}
-            filterActivate={filterActivate}
-            resetFilters={resetFilters}
-          />
-          <div className="px-20 w-full py-6">
-            <ReusableTable
-              columns={columns}
-              data={reservations}
-              statusColumn={"status"}
-            />
-          </div>
-        </>
-      ) : (
-        <p className="text-black">No hay reservas</p>
-      )}
+      {content}
     </ClientLayout>
   );
 };

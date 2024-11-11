@@ -2,6 +2,7 @@ import { useAuthContext } from "../context/AuthProvider";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "../modal/Modal"; 
+import { jwtDecode } from "jwt-decode";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { userProfile } = useAuthContext();
@@ -10,12 +11,15 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // const role = jwtDecode(localStorage.getItem("token"))?.[
-    //   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-    // ];
+    let role;
+    if(localStorage.getItem("token")){
+       role = jwtDecode(localStorage.getItem("token"))?.[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ];
+    }
       if (
         !userProfile.token ||
-        !allowedRoles.includes(userProfile.role)
+        !allowedRoles.includes(role)
       ) {
         setShowModal(true);
       } 
@@ -28,7 +32,11 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
       
       const handleCloseModal = () => {
         setShowModal(false);
-        navigate("/")
+          if (!userProfile.token) {
+            navigate("/")
+          } else {
+            navigate(-1);
+          }
       };
 
   if (showModal) {

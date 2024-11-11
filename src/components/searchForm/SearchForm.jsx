@@ -1,19 +1,61 @@
 import Input from "../input/Input";
 import Button from "../button/Button";
 import { IoSearch } from "react-icons/io5";
-import { useState } from "react";
-// import { useDataContext } from "../context/DataProvider";
-// import { fetchData } from "../../utils/fetchData";
-// import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 
 const SearchForm = ({ isSearchMode = true, searchSetter }) => {
-  // const { inputValues, setInputValues, setResults } = useDataContext();
-  // const navigate = useNavigate();
+  const [errorSearch, setErrorSearch] = useState("");
   const [inputValues, setInputValues] = useState({
     origin: "",
     destination: "",
     quantity: "",
   });
+  const [errors, setErrors] = useState({
+    origin: false,
+    destination: false,
+    quantity: false,
+  });
+
+  // Refs for input fields
+  const originRef = useRef();
+  const destinationRef = useRef();
+  const quantityRef = useRef();
+
+  // Validate individual fields
+  const validateField = (field, value) => {
+    let error = false;
+
+    if (field === "origin" || field === "destination") {
+      error = /\d/.test(value); // Error if there are numbers
+    } else if (field === "quantity") {
+      error = value <= 0 || isNaN(value); // Error if not positive or not numeric
+    }
+
+    setErrors((prevErrors) => ({ ...prevErrors, [field]: error }));
+  };
+
+  const handleInputChange = (field, value) => {
+    setInputValues((prevValues) => ({ ...prevValues, [field]: value }));
+    validateField(field, value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if all fields are empty
+    if (!inputValues.origin && !inputValues.destination && !inputValues.quantity) {
+      setErrorSearch("Debe ingresar los parámetros de búsqueda");
+      return;
+    }
+
+    // Verify no field has an error
+    const hasErrors = Object.values(errors).some((error) => error);
+
+    if (!hasErrors) {
+      searchSetter(inputValues);
+      setErrorSearch(""); // Clear previous errors
+    }
+  };
 
   const buttonText = isSearchMode ? (
     "Buscar"
@@ -22,57 +64,39 @@ const SearchForm = ({ isSearchMode = true, searchSetter }) => {
   );
   const buttonClasses = isSearchMode
     ? "px-5 py-2.5 rounded-lg"
-    : "rounded-full size-12 flex justify-center item-center";
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    searchSetter(inputValues);
-
-
-    // fetchData("/trips.json")
-    //   .then((result) => {
-    //     const filteredResult = result.filter(
-    //       (result) =>
-    //         result.origin === inputValues.origin &&
-    //         result.destination === inputValues.destination &&
-    //         result.quantity === inputValues.quantity
-    //     );
-    //     setResults(filteredResult);
-    //     console.log(filteredResult);
-    //     navigate("/cliente/resultados");
-    //   })
-    //   .catch((error) => console.log(error));
-  };
+    : "rounded-full size-12 flex justify-center items-center";
 
   return (
-    <form className="flex items-center gap-4">
-      <Input
-        setInputValue={(value) =>
-          setInputValues({ ...inputValues, origin: value })
-        }
-      >
-        Origen
-      </Input>
-      <Input
-        setInputValue={(value) =>
-          setInputValues({ ...inputValues, destination: value })
-        }
-      >
-        Destino
-      </Input>
-      <Input
-        type="number"
-        setInputValue={(value) =>
-          setInputValues({ ...inputValues, quantity: value })
-        }
-      >
-        Cantidad
-      </Input>
-      <Button className={buttonClasses} actionClick={handleSubmit}>
-        {buttonText}
-      </Button>
-    </form>
+    <>
+      <form className="flex items-center gap-4 md:flex-row flex-col" onSubmit={handleSubmit}>
+        <Input
+          ref={originRef}
+          setInputValue={(value) => handleInputChange("origin", value)}
+          inputstyle={errors.origin || errorSearch ? "border-red-500" : ""}
+        >
+          Origen
+        </Input>
+        <Input
+          ref={destinationRef}
+          setInputValue={(value) => handleInputChange("destination", value)}
+          inputstyle={errors.destination || errorSearch ? "border-red-500" : ""}
+        >
+          Destino
+        </Input>
+        <Input
+          ref={quantityRef}
+          type="number"
+          setInputValue={(value) => handleInputChange("quantity", value)}
+          inputstyle={errors.quantity || errorSearch ? "border-red-500" : ""}
+        >
+          Cantidad
+        </Input>
+        <Button className={buttonClasses} actionClick={handleSubmit}>
+          {buttonText}
+        </Button>
+      </form>
+      {errorSearch && <p className="text-red-500">{errorSearch}</p>}
+    </>
   );
 };
 

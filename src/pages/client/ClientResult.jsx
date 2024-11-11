@@ -2,14 +2,16 @@ import TripCardsList from "../../components/tripCardsList/TripCardsList";
 import { useState } from "react";
 import SortSection from "../../components/sortSection/SortSection";
 
-
-const ClientResult = ({ data, resetData, setter, isFavorites = false }) => {
+const ClientResult = ({ data, setter, isFavorites = false }) => {
+  const [initialData, setInitialData] = useState(data)
   const [isAscending, setIsAscending] = useState(true);
   const [filterActivate, setFilterActivate] = useState(false);
 
   const sortTripsByPrice = () => {
     const sorted = [...data].sort((a, b) => {
-      return isAscending ? a.price - b.price : b.price - a.price;
+      return isAscending
+        ? a.pricePerTon - b.pricePerTon
+        : b.pricePerTon - a.pricePerTon;
     });
     setter(sorted);
     setIsAscending(!isAscending);
@@ -18,8 +20,8 @@ const ClientResult = ({ data, resetData, setter, isFavorites = false }) => {
   const sortTripsByDate = () => {
     const sorted = [...data].sort((a, b) => {
       return isAscending
-        ? new Date(a.nextShipping) - new Date(b.nextShipping)
-        : new Date(b.nextShipping) - new Date(a.nextShipping);
+        ? new Date(a.departureDate) - new Date(b.departureDate)
+        : new Date(b.departureDate) - new Date(a.departureDate);
     });
     setter(sorted);
     setIsAscending(!isAscending);
@@ -27,7 +29,7 @@ const ClientResult = ({ data, resetData, setter, isFavorites = false }) => {
   };
 
   const resetFilters = () => {
-    setter(resetData);
+    setter(initialData);
     setFilterActivate(!filterActivate);
   };
 
@@ -44,7 +46,7 @@ const ClientResult = ({ data, resetData, setter, isFavorites = false }) => {
         filterActivate={filterActivate}
         resetFilters={resetFilters}
       />
-      <div className="px-20 w-full py-6">
+      <div className="sm:px-20 px-4 w-full py-6">
         <TripCardsList trips={data} fav={isFavorites ? true : false}/>
       </div>
     </>

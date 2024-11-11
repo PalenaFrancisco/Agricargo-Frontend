@@ -3,6 +3,7 @@ import SearchForm from "../../components/searchForm/SearchForm";
 import { useState } from "react";
 import ClientResult from "./ClientResult";
 import { useAuthContext } from "../../components/context/AuthProvider";
+import useFetchData from "../../hooks/useFetchData/UseFetchData";
 
 const ClientHome = () => {
 
@@ -10,9 +11,10 @@ const ClientHome = () => {
   const [message, setMessage] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultFiltered, setSearchResultFiltered] = useState([]);
-
-
-  console.log(userProfile.role)
+ const { data: favorites } = useFetchData(
+   "https://localhost:7183/api/Favorite/getFavorites",
+   userProfile.token
+ );
 
   const handleSearch = async (inputValues) => {
     try {
@@ -32,8 +34,20 @@ const ClientHome = () => {
         throw new Error(`Error en la solicitud: ${response.statusText}`);
       }
         const data = await response.json();
-        setSearchResult(data.trips);
-        setSearchResultFiltered(data.trips); 
+
+        const result =
+          favorites.length > 0
+            ? data.trips.map((trip) => {
+                const favorite = favorites.find((fav) => fav.id === trip.id);
+                if (favorite) {
+                  trip.favId = favorite.favId;
+                }
+                return trip;
+              })
+            : data.trips;
+        console.log(result, "favs en la busqueda");
+        setSearchResult(result);
+        setSearchResultFiltered(result); 
         setMessage(data.message);
     } catch (error) {
       console.error("Error de conexión:", error);
@@ -41,25 +55,28 @@ const ClientHome = () => {
   };
 
 
-  return (
+  const content = searchResult.length > 0 && (
     <>
-      <ClientLayout className={"h-dvh"}>
+      <p className="text-black mt-20 dark:text-white">{message}</p>
+      <ClientResult
+        data={searchResultFiltered}
+        resetData={searchResult}
+        setter={setSearchResultFiltered}
+      />
+    </>
+  );
+
+
+  return (
+      <ClientLayout className={""}>
         <section className="flex flex-col gap-6 pt-10">
-          <h1 className="text-black text-3xl font-semibold">Buscar viajes</h1>
+          <h1 className="text-black text-3xl font-semibold dark:text-white">
+            Buscar viajes
+          </h1>
           <SearchForm isSearchMode={true} searchSetter={handleSearch} />
         </section>
-        {searchResult.length > 0 && (
-          <>
-            <p className="text-black mt-20">{message}</p>
-            <ClientResult
-              data={searchResultFiltered}
-              resetData={searchResult}
-              setter={setSearchResultFiltered}
-            />
-          </>
-        )}
+        {content}
       </ClientLayout>
-    </>
   );
 };
 

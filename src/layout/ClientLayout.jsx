@@ -1,20 +1,17 @@
-import Sidebar from "../components/sidebar/Sidebar";
-import Main from "../components/main/Main";
-import Navbar from "../components/navbar/Navbar";
-import { useAuthContext } from "../components/context/AuthProvider";
+import AppLayout from "./AppLayout";
 
-const ClientLayout = ({ children, search, className}) => {
-  const { userProfile } = useAuthContext();
-
-  const isLogged = userProfile.token ?? null;
-
+const ClientLayout = ({ children, search, className, buttonBack }) => {
   return (
-    <div className="w-full">
-      <Sidebar userType={"client"} islogged={isLogged} />
-      <Navbar searchInNav={search} islogged={isLogged} />
-      <Main classN={className}>{children}</Main>
-    </div>
+    <AppLayout
+      userType="client"
+      search={search}
+      className={className}
+      buttonBack={buttonBack}
+    >
+      {children}
+    </AppLayout>
   );
 };
 
 export default ClientLayout;
+
